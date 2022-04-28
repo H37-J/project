@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0" />
+
+<head>
+    <link href="./css/test.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="/html//js/test.js"></script>
+
+    <script>
+    </script>
+
+<body>
+    <div id="ajaxValue">
+
+    </div>
+
+
+
+
+    <script>
+        //기본설정
+        const API_URL = 'http://localhost:8080';
+        const C_ID = 'test';
+        const C_SECRET = 'testSecret';
+        const ACCOUNTID = 'hjk';
+        const PASSWORD = '123';
+        const Authorization = btoa(`${C_ID}:${C_SECRET}`);
+        const USER_LIST_URL = '/api/user/userList';
+
+        const data = {
+            "username": "hjk",
+            "password": "123",
+            "grant_type": "password"
+        }
+
+        window.onload = function () {
+
+            wise();
+        }
+
+
+
+        async function getUsers() {
+            var Header = new Headers();
+            Header.append("Content-Type", "application/x-www-form-urlencoded");
+
+            var urlencoded = new URLSearchParams();
+            urlencoded.append("user_login", "20190769");
+            urlencoded.append("user_pass", "K20190769@@@###1");
+
+            var options = {
+                method: 'GET',
+            };
+            const url = 'http://158.247.203.177:8080/getUser?user_login=20190769&user_pass=c0hkV3pjQjZmaFZ5QlJrY2NQcFRiUVVChhaDZETjVhbUhMTHF3a2F0ejVWTT0=';
+            const user = await fetch(`${url}`, options).then(res => console.log(res.text()));
+
+        }
+
+        async function wi() {
+            var options = {
+                method: 'GET',
+
+            };
+            const url = 'https://211.56.6.134:8443/search/search_naver.jsp?query=%EB%8D%B0%EC%9D%B4%ED%84%B0&display=10';
+            const user = await fetch(`${url}`, options).then(res => console.log(res.text()));
+
+        }
+
+        function wise() {
+            const url = 'https://211.56.6.134:8443/search/search_naver.jsp';
+            $.getJSON(url, { query: '데이터', display: 10 }, function (data) {
+                console.log(JSON.stringify(data));
+            }).fail(function (error, er) {
+                console.log(error);
+            });
+        }
+
+        //토큰
+        async function getToken() {
+            var Header = new Headers();
+            Header.append("Authorization", `Basic ${Authorization}`);
+            Header.append("Content-Type", "application/x-www-form-urlencoded");
+
+            var urlencoded = new URLSearchParams();
+            urlencoded.append("username", "hjk");
+            urlencoded.append("password", "123");
+            urlencoded.append("grant_type", "password");
+
+            var options = {
+                method: 'POST',
+                headers: Header,
+                body: urlencoded,
+            };
+
+            const token = await fetch(`${API_URL}/oauth/token`, options)
+                .then(res => res.json());
+
+            return token;
+        }
+
+        //로그인
+        function getLogin() {
+            var Header = new Headers();
+            Header.append("Content-Type", "application/json");
+
+            let account = {};
+            account.accountId = 'hjk';
+            account.password = '123';
+            const user = fetch(`${API_URL}/api/user/login`, {
+                method: "POST",
+                headers: Header,
+                body: JSON.stringify(account),
+            }).then((res) => res.json());
+
+            user.then((value) => {
+                console.log(value);
+                getMyCart();
+            })
+        }
+
+
+        function getUser() {
+            getToken().then((value) => {
+                const userList = fetch(`${API_URL}${USER_LIST_URL}`, {
+                    method: 'GET'
+                }).then(res => res.text())
+                    .then(res => console.log(res));
+            });
+
+        }
+
+        //모든상품 조회
+        async function getProductData() {
+            const data = await fetch(
+                `${API_URL}/api/product/getAllPage?page=14`, {
+                method: 'GET',
+            }
+            ).then(res => res.text())
+                .then(r => console.log(r));
+
+
+            document.getElementById('ajaxValue').textContent = data;
+        }
+
+
+
+            //text()== res.json()(객체화) + JSON.parse(res)(객체화)
+    </script>
+</body>
+
+</html>

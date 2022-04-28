@@ -1,0 +1,18 @@
+//
+// All Styles
+//
+
+// Variables
+@import "Desktop/SpringProject2 (1) (1)/web/WEB-INF/resources/assets/admin-template/include/scss/settings/variables";
+
+// Unify
+@import "Desktop/업무/Unify-v2.6.3/html/assets/include/scss/unify";
+
+// Core Components
+@import "Desktop/SpringProject2 (1) (1)/web/WEB-INF/resources/assets/admin-template/include/scss/core/style";
+
+// Admin Components
+@import "unify-admin-components";
+
+// Admin Globals
+@import "unify-admin-globals";

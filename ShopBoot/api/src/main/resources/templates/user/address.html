@@ -1,0 +1,234 @@
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org" lang="en">-->
+<!--<th:block th:include="template/head" />-->
+<!--<script th:inline="javascript">-->
+
+<!--    //주소추가-->
+<!--    function addAddress() {-->
+<!--        let address = {};-->
+<!--        address.user = [[${ session.User }]];-->
+<!--        address.address_name = $("#address_name").val();-->
+<!--        address.address_main = $("#address_main").val();-->
+<!--        address.address_sub = $("#address_sub").val();-->
+
+<!--        var header = $("meta[name='_csrf_header']").attr("content");-->
+<!--        var token = $("meta[name='_csrf']").attr("content");-->
+
+<!--        $.ajax({-->
+<!--            "method": "POST",-->
+<!--            "url": "/api/address/save",-->
+<!--            contentType: 'application/json',-->
+<!--            "data": JSON.stringify(address),-->
+<!--            beforeSend: function (xhr) {-->
+<!--                xhr.setRequestHeader(header, token);-->
+<!--            },-->
+<!--        }).done(function (response) {-->
+<!--            if (typeof response.message != 'undefined') {-->
+<!--                alert(response.message);-->
+<!--            } else {-->
+<!--                alert('주소를 추가 하였습니다');-->
+<!--                location.href = location.href;-->
+<!--            }-->
+<!--        })-->
+<!--    }-->
+
+<!--    //기본 주소설정 변경-->
+<!--    function updateAddressSet(_this) {-->
+<!--        let check_false;-->
+<!--        let index = _this.getAttribute('index');-->
+<!--        var header = $("meta[name='_csrf_header']").attr("content");-->
+<!--        var token = $("meta[name='_csrf']").attr("content");-->
+
+<!--        index == 0 ? check_false = 1 : check_false = 0;-->
+<!--        fetch(`/api/user/updateAddressSet?id=${index}`, {-->
+<!--            "method": "POST",-->
+<!--            headers: {-->
+<!--                "X-XSRF-TOKEN": token,-->
+<!--            },-->
+<!--        }).then(res => console.log(res))-->
+<!--            .then($(`#address_set_${check_false}`).prop('checked', false))-->
+<!--            .then(alertSetAddress());-->
+<!--    }-->
+
+<!--    $(document).ready(function () {-->
+<!--        let check = [[${ session.User.address_set }]];-->
+<!--        $(`#address_set_${check}`).prop('checked', true);-->
+<!--    })-->
+<!--</script>-->
+
+<!--<body>-->
+<!--    <main>-->
+<!--        <th:block th:include="template/header" />-->
+<!--        &lt;!&ndash; Profile Settings &ndash;&gt;-->
+<!--        <th:block th:include="template/profileside" />-->
+
+<!--        &lt;!&ndash; Addresses &ndash;&gt;-->
+<!--        <div class="col-lg-9 g-mb-50">-->
+<!--            <div class="row">-->
+
+<!--                <div th:each="a,index:${address}" class="col-md-6 g-mb-30">-->
+<!--                    &lt;!&ndash; Addresses &ndash;&gt;-->
+<!--                    <div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30">-->
+<!--                        <div class="g-mb-50">-->
+<!--                            <h3 th:text="${a.address_name}" class="h5 mb-3"></h3>-->
+<!--                            &lt;!&ndash; <span class="d-block g-color-gray-dark-v3 g-font-weight-600 mb-2">James Collins</span> &ndash;&gt;-->
+<!--                            &lt;!&ndash; Address &ndash;&gt;-->
+<!--                            <address class="media">-->
+<!--                                <div class="d-flex mr-3">-->
+<!--                                    <span class="u-icon-v1 g-color-gray-dark-v4"><i-->
+<!--                                            class="icon-real-estate-027 u-line-icon-pro"></i></span>-->
+<!--                                </div>-->
+
+<!--                                <div class="media-body g-color-text">-->
+<!--                                    <span th:text="${a.address_main}">-->
+<!--                                        2091 Parkson-->
+<!--                                    </span>-->
+<!--                                    <br>-->
+<!--                                    <span th:text="${a.address_sub}">-->
+<!--                                        2091 Parkson-->
+<!--                                    </span>-->
+<!--                                    <br>-->
+<!--                                </div>-->
+<!--                            </address>-->
+<!--                            &lt;!&ndash; End Address &ndash;&gt;-->
+
+<!--                            &lt;!&ndash; Phone &ndash;&gt;-->
+<!--                            <div class="media">-->
+<!--                                <div class="d-flex mr-3">-->
+<!--                                    <span class="u-icon-v1 g-color-gray-dark-v4"><i-->
+<!--                                            class="icon-electronics-005 u-line-icon-pro"></i></span>-->
+<!--                                </div>-->
+<!--                                <div style="margin-top: 5px;" th:text="${session.User.phone}"-->
+<!--                                    class="media-body g-color-text">-->
+<!--                                    +(01) 401-542-2900-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            &lt;!&ndash; End Phone &ndash;&gt;-->
+<!--                        </div>-->
+
+<!--                        &lt;!&ndash; Edit/Delete &ndash;&gt;-->
+<!--                        <ul class="d-flex align-items-center list-inline mb-0">-->
+<!--                            <li class="list-inline-item">-->
+<!--                                <a class="u-icon-v1 g-font-size-16 g-text-underline&#45;&#45;none&#45;&#45;hover" href="#" title="Edit"-->
+<!--                                    data-toggle="tooltip" data-placement="top">-->
+<!--                                    <i class="icon-finance-023 u-line-icon-pro"></i>-->
+<!--                                </a>-->
+<!--                            </li>-->
+<!--                            <li class="list-inline-item g-width-1 g-height-16 g-bg-gray-light-v2 g-pr-1 ml-2 mr-3"></li>-->
+<!--                            <li class="list-inline-item">-->
+<!--                                <a class="u-icon-v1 g-font-size-16 g-text-underline&#45;&#45;none&#45;&#45;hover" href="#"-->
+<!--                                    title="Delete" data-toggle="tooltip" data-placement="top">-->
+<!--                                    <i class="icon-hotel-restaurant-214 u-line-icon-pro"></i>-->
+<!--                                </a>-->
+<!--                            </li>-->
+<!--                            <li class="list-inline-item g-width-1 g-height-16 g-bg-gray-light-v2 g-pr-1 ml-2 mr-3"></li>-->
+<!--                            <li class="list-inline-item">-->
+<!--                                <label class="form-check-inline u-check d-block u-link-v5 g-color-text g-pl-30 mb-0">-->
+<!--                                    <input th:index="${index.index}" onchange="updateAddressSet(this)"-->
+<!--                                        th:id="'address_set_'+${index.index}"-->
+<!--                                        class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" type="checkbox">-->
+<!--                                    <span class="d-block u-check-icon-checkbox-v4 g-absolute-centered&#45;&#45;y g-left-0">-->
+<!--                                        <i class="fa" data-check-icon="&#xf00c"></i>-->
+<!--                                    </span>-->
+<!--                                    기본으로 설정-->
+<!--                                </label>-->
+<!--                            </li>-->
+<!--                        </ul>-->
+<!--                        &lt;!&ndash; End Edit/Delete &ndash;&gt;-->
+<!--                    </div>-->
+<!--                    &lt;!&ndash; End Addresses &ndash;&gt;-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            &lt;!&ndash; Contact Form &ndash;&gt;-->
+<!--            <th:block th:if="${address.size()<2}">-->
+<!--                <div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">-->
+<!--                    <h3 class="h5 mb-3">주소추가</h3>-->
+
+<!--                    <form>-->
+<!--                        <div class="row">-->
+<!--                            <div class="col-sm-6 form-group g-mb-20">-->
+<!--                                <label class="g-color-text g-font-size-13">주소이름</label>-->
+<!--                                <input id="address_name"-->
+<!--                                    class="form-control g-brd-gray-light-v4 g-brd-primary&#45;&#45;focus g-color-text rounded g-py-13 g-px-15"-->
+<!--                                    type="text" placeholder="Country">-->
+<!--                            </div>-->
+
+<!--                            <div class="col-sm-6 form-group g-mb-20">-->
+<!--                                <label class="g-color-text g-font-size-13">기본주소</label>-->
+<!--                                <input id="address_main"-->
+<!--                                    class="form-control g-brd-gray-light-v4 g-brd-primary&#45;&#45;focus g-color-text rounded g-py-13 g-px-15"-->
+<!--                                    type="text" placeholder="City">-->
+<!--                            </div>-->
+
+<!--                            <div class="col-sm-6 form-group g-mb-20">-->
+<!--                                <label class="g-color-text g-font-size-13">상세주소</label>-->
+<!--                                <input id="address_sub"-->
+<!--                                    class="form-control g-brd-gray-light-v4 g-brd-primary&#45;&#45;focus g-color-text rounded g-py-13 g-px-15"-->
+<!--                                    type="text" placeholder="Zip Code">-->
+<!--                            </div>-->
+
+
+<!--                        </div>-->
+<!--                    </form>-->
+<!--                </div>-->
+<!--                &lt;!&ndash; End Contact Form &ndash;&gt;-->
+
+<!--                <button onclick="addAddress()" class="btn u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25"-->
+<!--                    type="button">Add Address</button>-->
+<!--            </th:block>-->
+<!--            <th:block th:if="${address.size()==2}">-->
+<!--                <div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">-->
+<!--                    더 이상 추가 할 수 없습니다.-->
+<!--                </div>-->
+<!--            </th:block>-->
+<!--        </div>-->
+<!--        &lt;!&ndash; Addresses &ndash;&gt;-->
+<!--        </div>-->
+<!--        </div>-->
+
+
+
+<!--        <th:block th:include="template/footer" />-->
+
+<!--        <a class="js-go-to u-go-to-v2" href="#" data-type="fixed" data-position='{-->
+<!--           "bottom": 15,-->
+<!--           "right": 15-->
+<!--         }' data-offset-top="400" data-compensation="#js-header" data-show-effect="zoomIn">-->
+<!--            <i class="hs-icon hs-icon-arrow-top"></i>-->
+<!--        </a>-->
+<!--    </main>-->
+
+<!--    <div class="u-outer-spaces-helper"></div>-->
+
+<!--    <th:block th:include="template/script" />-->
+
+<!--    &lt;!&ndash; JS Plugins Init. &ndash;&gt;-->
+<!--    <script>-->
+<!--        $(document).on('ready', function () {-->
+<!--            // initialization of header-->
+<!--            $.HSCore.components.HSHeader.init($('#js-header'));-->
+<!--            $.HSCore.helpers.HSHamburgers.init('.hamburger');-->
+
+<!--            // initialization of HSMegaMenu component-->
+<!--            $('.js-mega-menu').HSMegaMenu({-->
+<!--                event: 'hover',-->
+<!--                pageContainer: $('.container'),-->
+<!--                breakpoint: 991-->
+<!--            });-->
+
+<!--            // initialization of HSDropdown component-->
+<!--            $.HSCore.components.HSDropdown.init($('[data-dropdown-target]'), {-->
+<!--                afterOpen: function () {-->
+<!--                    $(this).find('input[type="search"]').focus();-->
+<!--                }-->
+<!--            });-->
+
+<!--            // initialization of HSScrollBar component-->
+<!--            $.HSCore.components.HSScrollBar.init($('.js-scrollbar'));-->
+
+<!--            // initialization of go to-->
+<!--            $.HSCore.components.HSGoTo.init('.js-go-to');-->
+<!--        });-->
+<!--</scrip >-->
+<!--</body >-->
+<!--</html >-->

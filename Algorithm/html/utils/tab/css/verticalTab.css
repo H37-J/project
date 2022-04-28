@@ -1,0 +1,49 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  color: black;
+  background-color: f1f1f1;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.tab{
+    width: 10%;
+    height: 300px;
+    float: left;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+.tab button{
+    display: block;
+    width: 100%;
+    border: none;
+    outline: none;
+    background-color: #ccc;
+    text-align: left;
+    padding: 22px 14px;
+    font-size: 22px;
+    cursor:pointer;
+    background-color: inherit;
+}
+
+.tab button:hover{
+    background-color: #ddd;
+}
+
+.tab button.active{
+    background-color:#ddd;
+}
+
+.tab-content{
+    float:left;
+    width: 40%;
+    height: 300px;
+    border: 1px solid #ccc;
+    border-left: none;
+    padding:0px 12px;
+    display: none;
+}

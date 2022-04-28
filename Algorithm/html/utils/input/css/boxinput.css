@@ -1,0 +1,43 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  color: black;
+  background-color: f1f1f1;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+form input[type='text'] {
+  padding: 10px;
+  font-size: 17px;
+  border: 1px solid gray;
+  float: left;
+  width: 80%;
+  background: #f1f1f1;
+}
+
+form button {
+  float: left;
+  width: 20%;
+  padding: 10px;
+  background: #2196f3;
+  color: white;
+  font-size: 17px;
+  border: 1px solid gray;
+  border-left: none;
+  cursor: pointer;
+}
+
+form button:hover {
+  background: #0b7dda;
+}
+
+form::after {
+  content: '';
+  clear: both;
+  display: table;
+}
+
+

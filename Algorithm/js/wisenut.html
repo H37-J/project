@@ -1,0 +1,1458 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0" />
+
+<head>
+    <link rel="stylesheet" href="/bootstrap-5.0.2-dist/css/bootstrap.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
+
+    <style>
+        * {
+            padding: 0;
+            letter-spacing: -0.04em;
+            box-sizing: border-box;
+            word-break: keep-all;
+            font-weight: 400;
+            color: #333;
+        }
+
+        html {
+            -moz-text-size-adjust: none;
+        }
+
+        body {
+            text-align: left;
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+
+        button,
+        input {
+            overflow: visible;
+        }
+
+        button,
+        input,
+        select {
+            margin: 0;
+            font-family: inherit;
+            line-height: inherit;
+        }
+
+        button .active::before {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        p {
+            padding: 0;
+        }
+
+        .container {
+            display: flex;
+        }
+
+        .all {
+            margin-right: 10%;
+            width: 80%;
+        }
+
+        .all2 {
+            width: 20%;
+            position: fixed;
+        }
+
+        .trand-container {
+            border-radius: 16px;
+            background-color: rgba(255, 255, 255, 0.5);
+            color: white;
+            border: 1px solid #ddd;
+            width: 300px;
+            margin-left: 40px;
+            height: 370px;
+            position: fixed;
+            right: 30px;
+        }
+
+        .trand-content {
+            width: 275px;
+            margin: 20px 0 0 20px;
+            position: relative;
+            height: 300px;
+            clear: both;
+            padding-bottom: 25px;
+        }
+
+        .trand-content ul {
+            overflow: hidden;
+            list-style-type: none;
+        }
+
+        .trand-content li {
+            margin: 0;
+            padding: 0;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .trand-content a {
+            margin: 0;
+            padding: 0;
+            text-decoration: none;
+
+        }
+
+
+
+        .trandlist-container ul {
+            margin: 0;
+            padding: 0;
+        }
+
+        .pop-num {
+            width: 13px;
+            height: 13px;
+            margin-right: 9px;
+            border: 1px solid #e0e0e0;
+            font-size: 11px;
+            color: #666666;
+            text-align: center;
+            line-height: 13px;
+            margin-left: 0px;
+            display: inline-block;
+        }
+
+        .pop-text {
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .arrow {
+            margin-left: 5px;
+            font-size: 11px;
+            color: #666;
+            text-align: left;
+            display: block;
+            overflow: hidden;
+            float: right;
+            width: 40px;
+        }
+
+        .trand-content a {
+            width: 32%;
+            padding-bottom: 5px;
+            padding-top: 5px;
+            float: left;
+            background-color: #fff;
+            border: 1px solid #dfdfdf;
+            color: #333;
+            font-family: "맑은고딕", "Malgun Gothic", "나눔고딕", "NanumGothic", "돋움", Dotum, Helvetica, Sans-serif;
+            font-size: 12px;
+            text-align: center;
+        }
+
+        .trandlist-container {
+            width: 100%;
+            line-height: 23px;
+        }
+
+        .trandlist-container ul {
+            list-style-type: none;
+        }
+
+
+        .naverEngine {
+            padding: 50px 20px 100px;
+        }
+
+        .header {}
+
+        .title {
+            font-size: 36px;
+            color: #000;
+            font-weight: 900;
+            text-align: center;
+            line-height: 1;
+            margin: 0 0 30px;
+        }
+
+        .result_txt {
+            font-size: 16px;
+            color: #333;
+            line-height: 1;
+            text-align: center;
+        }
+
+        .searchWord {
+            color: #db0e0e;
+        }
+
+        .searchCount {
+            color: #db0e0e;
+        }
+
+
+        .searchDiv {
+            display: flex;
+
+        }
+
+        .search {
+            border: 2px solid #333935 !important;
+            border-left: 0 !important;
+            flex: 1 !important;
+            padding: 0 40px !important;
+            font-size: 20px !important;
+            color: #333 !important;
+            letter-spacing: -0.04em !important;
+            text-align: left !important;
+            height: 80px !important;
+        }
+
+        .searchFiled {
+            height: 80px;
+            border: 2px solid #383933;
+            width: 250px;
+            font-size: 18px;
+            appearance: none;
+            word-wrap: normal;
+            text-transform: none;
+            margin: 0;
+            font-family: inherit;
+            line-height: inherit;
+            font-weight: 400;
+            color: #333;
+            background: url(./img/subProgramList_06.png) no-repeat right 25px center #fff;
+        }
+
+        .searchFiled option {
+            font-family: 'NotoSansKR';
+            font-weight: 400;
+            margin: 0;
+            padding: 0;
+            line-height: 1.4;
+            color: #333;
+        }
+
+        .searchbutton {
+            border-style: none;
+            width: 150px;
+            height: 80px;
+            background: #383933;
+            font-size: 20px;
+            color: #fff;
+            font-weight: 600;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 0;
+            text-transform: none;
+            overflow: visible;
+            margin: 0;
+            font-family: inherit;
+            line-height: inherit;
+            border-radius: 0;
+        }
+
+        .searchbutton::before {
+            content: '';
+            display: block;
+            width: 25px;
+            height: 25px;
+            background: url('./img/totalSearch_03.png') no-repeat 0 0;
+            margin: 0 10px 0 0;
+        }
+
+        .detail {
+            position: relative;
+            margin-left: 5px;
+        }
+
+        .detail_button {
+            padding: 0;
+            border-style: none;
+            width: 150px;
+            height: 80px;
+            border: 1px solid #a7a7a7;
+            font-size: 20px;
+            font-weight: 600;
+            color: #383933;
+            margin-left: 5px;
+        }
+
+        .detail-back {
+            display: none;
+            background: rgba(0, 0, 0, 0.3);
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        .detail_search {
+            opacity: 1;
+            visibility: hidden;
+            position: absolute;
+            right: 0;
+            top: calc(100% - 1px);
+            width: 400px;
+            padding: 20px 20px 45px;
+            display: flex;
+            flex-direction: column;
+            background: #fff;
+            border: 1px solid #a7a7a7;
+            transition: all .5s;
+            z-index: 1;
+
+        }
+
+        .detail_search .close {
+            display: block;
+            width: 24px;
+            height: 24px;
+            background: url('img/totalSearchClose_03.png') no-repeat 0 0;
+            text-indent: -9999px;
+            overflow: hidden;
+            margin: 0 0 15px auto;
+        }
+
+        .detail_list {
+            padding: 0 10px;
+            list-style: none;
+            opacity: 1;
+        }
+
+        .detail_list li {
+            display: flex;
+            align-items: center;
+        }
+
+        .detail_list li label {
+            width: 70px;
+            font-size: 14px;
+            color: #666
+        }
+
+        .detail_list li input[type="text"] {
+            flex: 1;
+            border: 1px solid #c9c9c9;
+            height: 40px;
+            padding: 0 15px;
+            width: 30px;
+        }
+
+        .detail_search .btnWrap {
+            display: flex;
+            justify-content: center;
+            margin: 45px 0 0;
+        }
+
+        .detail_search .btnWrap button {
+            display: block;
+            width: 140px;
+            height: 50px;
+            border-radius: 5px;
+            font-size: 16px;
+            color: #fff;
+            font-weight: 600;
+            border: 0
+        }
+
+        .detail_search .reset {
+            background: #666;
+        }
+
+        .detail_search .submit {
+            background: #a27002;
+            margin-left: 5px;
+        }
+
+        label {
+            display: inline-block;
+            margin-bottom: 0.5rem;
+        }
+
+        /* 결과 */
+
+        .list ul {
+            border-top: 2px solid #575757;
+            margin-bottom: 80px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .data-list li {
+            border-bottom: 1px solid #ddd;
+        }
+
+        span {
+            color: inherit;
+            font-size: inherit;
+            font-weight: inherit;
+            line-height: inherit;
+        }
+
+        a {
+            display: flex;
+            padding: 20px;
+            text-align: center;
+            background-color: transparent;
+            text-decoration: none;
+        }
+
+
+        .result {
+            margin: 55px 0 0;
+            display: flex;
+        }
+
+        .list {
+            flex: 1;
+        }
+
+        /* .datalist{
+	
+			} */
+
+        .div_title {
+            margin-bottom: 20px;
+            margin-top: 10px;
+            align-items: center;
+            width: 100%;
+            display: flex;
+            position: relative;
+        }
+
+        .data-title {
+            font-size: 25px;
+            color: #111;
+            font-weight: 600;
+            line-height: 1.3;
+            margin: 0;
+            padding: 0;
+            margin-right: 12px;
+            cursor: pointer;
+        }
+
+        .data-file {
+            font-size: 25px;
+            color: #111;
+            font-weight: 600;
+            line-height: 1.3;
+            margin: 0;
+            padding: 0;
+            margin-left: 12px;
+            cursor: pointer;
+        }
+
+
+
+        .data-page {
+            font-size: 25px;
+            color: #111;
+            font-weight: 600;
+            line-height: 1.3;
+            margin: 0;
+            padding: 0;
+            cursor: pointer;
+        }
+
+        .active {
+            color: #19ce60;
+        }
+
+        .sort {
+            float: right;
+            color: #333;
+            background-color: transparent;
+            position: absolute;
+            right: 10px;
+        }
+
+        .sort.active {
+            color: red;
+        }
+
+        .sort:hover {
+            cursor: pointer;
+            color: red;
+        }
+
+        .txt {
+            flex: 1;
+            display: flex;
+            justify-content: space-between;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .subject {
+            font: size 18px;
+            color: #333;
+            font-weight: 500;
+            line-height: 1;
+        }
+
+        .content {
+            margin-top: 15px;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .date {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .pagination {
+            text-align: center;
+        }
+
+        .pagination p {
+            color: black;
+            float: left;
+            padding: 8px 16px;
+            text-decoration: none;
+            transition: background-color .3s;
+            cursor: pointer;
+            margin: auto auto;
+        }
+
+        .pagination p:hover {
+            color: dodgerblue;
+        }
+
+        .pagination p.active {
+            background-color: dodgerblue;
+            color: white;
+        }
+
+        /* 네이버검색 */
+        .naver {
+            font-weight: 400;
+            margin: 5px;
+        }
+
+        .naver:hover {
+            cursor: pointer;
+            color: red;
+        }
+
+        .data {
+            font-weight: 400;
+            margin: 5px;
+        }
+
+        .data:hover {
+            cursor: pointer;
+            color: red;
+        }
+
+        .navertitle {
+            font-size: 36px;
+            color: #19ce60;
+            font-weight: 900;
+            text-align: center;
+            line-height: 1;
+            margin: 0 0 30px;
+        }
+
+        .naversearchbutton {
+            border-style: none;
+            width: 150px;
+            height: 80px;
+            background: rgb(11, 248, 11);
+            font-size: 20px;
+            color: #fff;
+            font-weight: 600;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 0;
+            text-transform: none;
+            overflow: visible;
+            margin: 0;
+            font-family: inherit;
+            line-height: inherit;
+            border-radius: 0;
+        }
+
+        .naversearch {
+            border: 2px solid #19ce60 !important;
+            ;
+            border-left: 0 !important;
+            ;
+            flex: 1 !important;
+            ;
+            padding: 0 40px !important;
+            ;
+            font-size: 20px !important;
+            ;
+            color: #333 !important;
+            ;
+            letter-spacing: -0.04em !important;
+            ;
+            text-align: left !important;
+            ;
+            height: 80px !important;
+        }
+
+        .naversearchFiled {
+            height: 80px !important;
+            ;
+            border: 2px solid #19ce60 !important;
+            ;
+            width: 250px !important;
+            ;
+            font-size: 18px !important;
+            ;
+            appearance: none !important;
+            ;
+            word-wrap: normal !important;
+            ;
+            text-transform: none !important;
+            ;
+            margin: 0 !important;
+            ;
+            font-family: inherit !important;
+            ;
+            line-height: inherit !important;
+            ;
+            font-weight: 400 !important;
+            ;
+            color: #19ce60 !important;
+            ;
+            background: url(./img/subProgramList_06.png) no-repeat right 25px center #fff !important;
+            ;
+        }
+
+        .naver-data-title {
+            font-size: 25px !important;
+            ;
+            color: #19ce60 !important;
+            ;
+            font-weight: 600 !important;
+            ;
+            line-height: 1.3 !important;
+            ;
+            margin: 0 !important;
+            ;
+            padding: 0 !important;
+            ;
+        }
+
+        .naver-list ul {
+            border-top: 2px solid #19ce60;
+            margin-bottom: 80px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .naver-list li {
+            border-bottom: 1px solid #ddd;
+        }
+    </style>
+
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/themes/dark.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.js"></script>
+
+    <script>
+        window.onload = function () {
+            // let data = document.getElementById('data');
+            // document.getElementById('chn').appendChild(data);
+            // let naver = document.getElementById('naver');
+            // document.getElementById('chn').appendChild(naver);
+            // naver.style.color = "#19ce60";
+            // naver.style.fontWeight = "400";
+
+
+            let data = document.getElementById('data');
+            document.getElementById('chd').appendChild(data);
+            let naver = document.getElementById('naver');
+            document.getElementById('chd').appendChild(naver);
+            data.style.color = "#19ce60";
+            naver.style.color = "black";
+
+            // changeDesan();
+            day('M');
+
+            flatpickr("#startDate", {
+                "dateFormat": "Y-m-d",
+                "allowInput": true,
+            });
+
+            flatpickr("#endDate", {
+                "dateFormat": "Y-m-d",
+
+                "allowInput": true,
+            });
+
+
+
+
+        }
+
+        function enterkey() {
+
+            if (window.event.keyCode == 13) {
+                document.getElementById('searchbutton').click();
+            }
+        }
+
+        function naverenterkey() {
+
+            if (window.event.keyCode == 13) {
+                document.getElementById('naversearchbutton').click();
+            }
+        }
+
+
+
+
+        function detail_close() {
+            document.getElementById('detail_search').style.visibility = 'hidden';
+            document.getElementById('detail-back').style.display = 'none'
+            event.stopPropagation()
+        }
+
+        function detail_open() {
+            document.getElementById('detail_search').style.visibility = 'visible';
+            document.getElementById('detail-back').style.display = 'block'
+        }
+
+
+
+
+        async function search(_this) {
+            const origin = 'https://211.56.6.134:8443/search/search.jsp';
+            let serachtext = document.querySelector('#searchtext'); //입력단어
+            let searchField = document.getElementById('searchField'); //검색조건(제목,내용,작성자등)
+            let startDate = document.getElementById('startDate'); //상세검색(시작날짜)
+            let endDate = document.getElementById('endDate'); //상세검색(종료날짜)
+            let sort = document.getElementById('sort'); //날짜정렬
+            let collection = document.getElementById('collection');
+            if (_this.className.indexOf('searchbutton') == 0) document.getElementById('detailOn').value = 0;
+
+            let url = `${origin}?query=${searchtext.value}&collection=${collection.value}&searchField=${searchField.value}&listCount=10`;
+
+
+            console.log(url);
+
+
+            //상세검색
+            if (_this.className.indexOf('submit') == 0) {
+                let dateParma = `&startDate=${startDate.value}&endDate=${endDate.value}`;
+                if (startDate.value && endDate.value) url = `${url}${dateParma}`;
+                document.getElementById('detailOn').value = 1;
+                detail_close();
+            }
+
+            //날짜검색 상황일시 url추가
+            if (startDate.value && endDate.value && document.getElementById('detailOn').value == 1) {
+                let dateParma = `&startDate=${startDate.value}&endDate=${endDate.value}`;
+                url = url + dateParma;
+            }
+
+
+            //날짜정렬
+            if (_this.className.indexOf('sort') == 0) {
+                url = `${url}&sort=DATE`;
+                sort.className == "sort" ? sort.className = "sort active" : sort.className = "sort";
+            }
+
+            //페이지선택
+            if (_this.className.indexOf('page') == 0) {
+                url = `${url}&pageNum=${_this.id}`;
+            }
+
+
+
+            let response = await fetch(url, { method: 'POST', })
+            let result = await response.json();
+            console.log(result);
+
+            if (collection.value == 'board') {
+                let length = result.board.dataList.length;
+                document.getElementById('word').textContent = `'${serachtext.value}'`;
+                document.getElementById('count').textContent = `${result.board.totalCount}건`;
+
+                //페이지네이션
+                let pageNum = Number(result.board.totalCount / 10);
+                if (Number(result.board.totalCount % 10) > 0) pageNum++;
+                let pagination = document.getElementById('pagination');
+                let currentPageNum = document.getElementById('currentPageNum');
+                pagination.innerHTML = '';
+                let startPage;
+                let endPage;
+
+                let startNum = parseInt(_this.id / 10) * 10 + 1;
+                if (_this.id % 10 == 0) startNum = ((_this.id / 10) - 1) * 10 + 1;
+                _this.className != 'page' ? startPage = 1 : startPage = startNum;
+                startPage + 10 > pageNum ? endPage = pageNum : endPage = startPage + 9;
+
+                for (let i = startPage; i <= endPage; i++) {
+                    let p = document.createElement('p');
+                    p.className = "page";
+
+                    if (_this.id == i) p.className = "page active";
+                    p.addEventListener('click', function () {
+                        search(this)
+                    });
+
+                    p.id = i;
+                    p.textContent = i;
+                    currentPageNum.value = _this.id;
+
+                    pagination.appendChild(p);
+                }
+
+
+
+                let prev = document.createElement('p');
+                prev.textContent = "<<";
+                prev.id = Number(currentPageNum.value) - 10;
+                prev.className = "page";
+
+                prev.addEventListener("click", function () {
+                    search(this);
+                });
+
+                let next = document.createElement('p');
+                next.textContent = ">>";
+                next.id = Number(currentPageNum.value) + 10;
+                next.className = "page";
+
+                next.addEventListener('click', function () {
+                    search(this);
+                });
+
+                if (currentPageNum.value > 10) pagination.prepend(prev);
+                if (pageNum > 10 && pageNum > endPage) pagination.appendChild(next);
+
+                if (_this.className == "searchbutton" || _this.className == "submit") document.getElementById('1').click();
+
+
+
+                let datalist = document.getElementById('data-list');
+                datalist.innerHTML = '';
+
+
+                for (let i = 0; i < length; i++) {
+
+
+                    let li = document.createElement('li');
+                    let a = document.createElement('a');
+                    let txt = document.createElement('span');
+                    let subject = document.createElement('span');
+                    let content = document.createElement('span');
+                    let date = document.createElement('span');
+
+                    // <!HE>
+                    // <!HS>
+                    //$amp;
+                    let rs = result.board.dataList[i].TITLE.replaceAll("<!HE>", '');
+                    rs = rs.replaceAll("<!HS>", '');
+                    rs = rs.replaceAll("&amp;", ' ');
+
+                    //date변환
+                    let de = sc(result.board.dataList[i].DATE, '-', 4);
+                    de = sc(de, '-', 7);
+                    de = sc(de, '-', 10);
+                    de = sc(de, ':', 13);
+                    de = sc(de, ':', 16);
+
+
+
+                    subject.textContent = rs;
+                    content.textContent = result.board.dataList[i].CONTENT;
+                    date.textContent = de;
+                    a.href = `https://dataonair.or.kr/?kboard_content_redirect=${result.board.dataList[0].UID}`;
+
+                    txt.className = 'txt';
+                    subject.className = 'subject';
+                    content.className = 'content';
+                    date.className = 'date';
+
+
+                    txt.appendChild(subject);
+                    txt.appendChild(content);
+                    txt.appendChild(date);
+                    a.appendChild(txt);
+                    li.appendChild(a);
+                    datalist.appendChild(li);
+                }
+            }
+            else if(collection.value=='attach'){
+                let length = result.attach.dataList.length;
+                document.getElementById('word').textContent = `'${serachtext.value}'`;
+                document.getElementById('count').textContent = `${result.attach.totalCount}건`;
+
+                //페이지네이션
+                let pageNum = Number(result.attach.totalCount / 10);
+                if (Number(result.attach.totalCount % 10) > 0) pageNum++;
+                let pagination = document.getElementById('pagination');
+                let currentPageNum = document.getElementById('currentPageNum');
+                pagination.innerHTML = '';
+                let startPage;
+                let endPage;
+
+                let startNum = parseInt(_this.id / 10) * 10 + 1;
+                if (_this.id % 10 == 0) startNum = ((_this.id / 10) - 1) * 10 + 1;
+                _this.className != 'page' ? startPage = 1 : startPage = startNum;
+                startPage + 10 > pageNum ? endPage = pageNum : endPage = startPage + 9;
+
+                for (let i = startPage; i <= endPage; i++) {
+                    let p = document.createElement('p');
+                    p.className = "page";
+
+                    if (_this.id == i) p.className = "page active";
+                    p.addEventListener('click', function () {
+                        search(this)
+                    });
+
+                    p.id = i;
+                    p.textContent = i;
+                    currentPageNum.value = _this.id;
+
+                    pagination.appendChild(p);
+                }
+
+
+
+                let prev = document.createElement('p');
+                prev.textContent = "<<";
+                prev.id = Number(currentPageNum.value) - 10;
+                prev.className = "page";
+
+                prev.addEventListener("click", function () {
+                    search(this);
+                });
+
+                let next = document.createElement('p');
+                next.textContent = ">>";
+                next.id = Number(currentPageNum.value) + 10;
+                next.className = "page";
+
+                next.addEventListener('click', function () {
+                    search(this);
+                });
+
+                if (currentPageNum.value > 10) pagination.prepend(prev);
+                if (pageNum > 10 && pageNum > endPage) pagination.appendChild(next);
+
+                if (_this.className == "searchbutton" || _this.className == "submit") document.getElementById('1').click();
+
+
+
+                let datalist = document.getElementById('data-list');
+                datalist.innerHTML = '';
+
+
+                for (let i = 0; i < length; i++) {
+
+
+                    let li = document.createElement('li');
+                    let a = document.createElement('a');
+                    let txt = document.createElement('span');
+                    let subject = document.createElement('span');
+                    let content = document.createElement('span');
+                    let date = document.createElement('span');
+
+                    // <!HE>
+                    // <!HS>
+                    //$amp;
+                    let rs = result.attach.dataList[i].TITLE.replaceAll("<!HE>", '');
+                    rs = rs.replaceAll("<!HS>", '');
+                    rs = rs.replaceAll("&amp;", ' ');
+
+                    //date변환
+                    let de = sc(result.attach.dataList[i].DATE, '-', 4);
+                    de = sc(de, '-', 7);
+                    de = sc(de, '-', 10);
+                    de = sc(de, ':', 13);
+                    de = sc(de, ':', 16);
+
+
+
+                    subject.textContent = `번호: ${result.attach.dataList[i].DOCID}`;
+                    content.textContent = rs;
+                    date.textContent = `첨부파일 경로: ${result.attach.dataList[i].PATH}`;
+                    a.href = result.attach.dataList[i].PATH;
+
+                    txt.className = 'txt';
+                    subject.className = 'subject';
+                    content.className = 'content';
+                    date.className = 'date';
+
+
+                    txt.appendChild(subject);
+                    txt.appendChild(content);
+                    txt.appendChild(date);
+                    a.appendChild(txt);
+                    li.appendChild(a);
+                    datalist.appendChild(li);
+                }
+            }
+            else {
+                let length = result.post.dataList.length;
+                document.getElementById('word').textContent = `'${serachtext.value}'`;
+                document.getElementById('count').textContent = `${result.post.totalCount}건`;
+
+                //페이지네이션
+                let pageNum = Number(result.post.totalCount / 10);
+                if (Number(result.post.totalCount % 10) > 0) pageNum++;
+                let pagination = document.getElementById('pagination');
+                let currentPageNum = document.getElementById('currentPageNum');
+                pagination.innerHTML = '';
+                let startPage;
+                let endPage;
+
+                let startNum = parseInt(_this.id / 10) * 10 + 1;
+                if (_this.id % 10 == 0) startNum = ((_this.id / 10) - 1) * 10 + 1;
+                _this.className != 'page' ? startPage = 1 : startPage = startNum;
+                startPage + 10 > pageNum ? endPage = pageNum : endPage = startPage + 9;
+
+                for (let i = startPage; i <= endPage; i++) {
+                    let p = document.createElement('p');
+                    p.className = "page";
+
+                    if (_this.id == i) p.className = "page active";
+                    p.addEventListener('click', function () {
+                        search(this)
+                    });
+
+                    p.id = i;
+                    p.textContent = i;
+                    currentPageNum.value = _this.id;
+
+                    pagination.appendChild(p);
+                }
+
+
+
+                let prev = document.createElement('p');
+                prev.textContent = "<<";
+                prev.id = Number(currentPageNum.value) - 10;
+                prev.className = "page";
+
+                prev.addEventListener("click", function () {
+                    search(this);
+                });
+
+                let next = document.createElement('p');
+                next.textContent = ">>";
+                next.id = Number(currentPageNum.value) + 10;
+                next.className = "page";
+
+                next.addEventListener('click', function () {
+                    search(this);
+                });
+
+                if (currentPageNum.value > 10) pagination.prepend(prev);
+                if (pageNum > 10 && pageNum > endPage) pagination.appendChild(next);
+
+                if (_this.className == "searchbutton" || _this.className == "submit") document.getElementById('1').click();
+
+
+
+                let datalist = document.getElementById('data-list');
+                datalist.innerHTML = '';
+
+
+                for (let i = 0; i < length; i++) {
+
+
+                    let li = document.createElement('li');
+                    let a = document.createElement('a');
+                    let txt = document.createElement('span');
+                    let subject = document.createElement('span');
+                    let content = document.createElement('span');
+                    let date = document.createElement('span');
+
+                    // <!HE>
+                    // <!HS>
+                    //$amp;
+                    let rs = result.post.dataList[i].TITLE.replaceAll("<!HE>", '');
+                    rs = rs.replaceAll("<!HS>", '');
+                    rs = rs.replaceAll("&amp;", ' ');
+
+                    //date변환
+                    let de = sc(result.post.dataList[i].DATE, '-', 4);
+                    de = sc(de, '-', 7);
+                    de = sc(de, '-', 10);
+                    de = sc(de, ':', 13);
+                    de = sc(de, ':', 16);
+
+
+
+                    subject.textContent = rs;
+                    content.textContent = result.post.dataList[i].CONTENT;
+                    date.textContent = de;
+                    a.href = `https://dataonair.or.kr/?kboard_content_redirect=${result.post.dataList[0].UID}`;
+
+                    txt.className = 'txt';
+                    subject.className = 'subject';
+                    content.className = 'content';
+                    date.className = 'date';
+
+
+                    txt.appendChild(subject);
+                    txt.appendChild(content);
+                    txt.appendChild(date);
+                    a.appendChild(txt);
+                    li.appendChild(a);
+                    datalist.appendChild(li);
+                }
+            }
+
+
+
+            //제목 result.board.dataList[0].TITLE
+        }
+
+        async function Naversearch() {
+
+            const origin = 'https://211.56.6.134:8443/search/search_naver.jsp';
+            let searchtextNaver = document.querySelector('#searchtextNaver');
+            let naversearchFiled = document.querySelector('#naversearchFiled');
+            let url = `${origin}?query=${searchtextNaver.value}&display=100&gubun=${naversearchFiled.value}`;
+            let response = await fetch(url, { method: 'POST', })
+            let result = await response.json();
+
+
+            document.getElementById('naver-word').textContent = searchtextNaver.value;
+            document.getElementById('naver-count').textContent = `${result.total}건`;
+
+
+
+            let datalist = document.querySelector('#naver-list');
+            datalist.innerHTML = '';
+
+            for (let i = 0; i < result.total; i++) {
+                let li = document.createElement('li');
+                let a = document.createElement('a');
+                let txt = document.createElement('span');
+                let subject = document.createElement('span');
+                let content = document.createElement('span');
+                let date = document.createElement('span');
+
+                let rs = result.items[i].title.replaceAll("<b>", ' ');
+                rs = rs.replaceAll("</b>", ' ');
+                rs = rs.replaceAll("&quot;", ' ');
+
+                let rd = result.items[i].description.replaceAll("<b>", ' ');
+                rd = rd.replaceAll("</b>", ' ');
+                rd = rd.replaceAll("&quot;", ' ');
+
+                subject.textContent = rs;
+                content.textContent = rd;
+
+                let d = new Date(result.items[i].pubDate);
+                date.textContent = d.toLocaleString();
+                a.href = result.items[i].link;
+
+                txt.className = 'txt';
+                subject.className = 'subject';
+                content.className = 'content';
+                date.className = 'date';
+
+
+                txt.appendChild(subject);
+                txt.appendChild(content);
+                if (naversearchFiled.value == 'news') txt.appendChild(date);
+                a.appendChild(txt);
+                li.appendChild(a);
+                datalist.appendChild(li);
+            }
+        }
+
+        function sc(str, insert, index) {
+            let newstr = '';
+            for (let i = 0; i < str.length; i++) {
+                if (index == i) {
+                    newstr += insert;
+
+                }
+                newstr += str[i];
+            }
+
+            return newstr;
+        }
+
+        async function day(range) {
+
+            const origin = 'https://211.56.6.134:8443/search/searchTrans.jsp';
+            let url = `${origin}?target=popword&range=${range}&collection=_ALL_`;
+            let response = await fetch(url, { method: 'POST', })
+            let result = await response.json();
+            console.log(result);
+            console.log(result.Data.Query);
+            console.log(result.Data.Query.length);
+
+            trandlistcontainer = document.getElementById('trandlist-container');
+
+            document.getElementById('trandlist-container').innerHTML = "";
+            if (!result.Data.Query.length) {
+                trandlistcontainer.innerHTML = "결과가 없습니다";
+                trandlistcontainer.style.fontSize = "13px";
+                return;
+            }
+            for (let i = 0; i < result.Data.Query.length; i++) {
+                let ul = document.createElement('ul');
+                let li = document.createElement('li');
+                let num = document.createElement('span');
+                let text = document.createElement('span');
+                let arrow = document.createElement('span');
+
+                num.textContent = i + 1;
+                text.textContent = result.Data.Query[i].content;
+
+                arrow.textContent = "new";
+
+                num.className = "pop-num";
+                text.className = "pop-text";
+                arrow.className = "arrow";
+
+                li.appendChild(num);
+                li.appendChild(text);
+                li.appendChild(arrow);
+                ul.appendChild(li);
+                trandlistcontainer.appendChild(ul);
+
+
+            }
+
+        }
+
+
+        //네이버
+        function changeNaver() {
+            document.getElementById('desan').style.display = "none";
+            document.getElementById('naverEngine').style.display = "block";
+            document.getElementById('trand-container').style.display = "none";
+
+            let data = document.getElementById('data');
+            document.getElementById('chn').appendChild(data);
+            let naver = document.getElementById('naver');
+            document.getElementById('chn').appendChild(naver);
+            naver.style.color = "#19ce60";
+            data.style.color = "black";
+        }
+
+        function changeDesan() {
+            document.getElementById('desan').style.display = "block";
+            document.getElementById('trand-container').style.display = "block";
+            document.getElementById('naverEngine').style.display = "none";
+
+            let data = document.getElementById('data');
+            document.getElementById('chd').appendChild(data);
+            let naver = document.getElementById('naver');
+            document.getElementById('chd').appendChild(naver);
+            data.style.color = "#19ce60";
+            naver.style.color = "black";
+        }
+
+        function chCol(value) {
+            let col = document.getElementById('collection');
+            col.value = value;
+            if (value == "board") {
+                document.getElementById('data-post').className = "data-page ";
+                document.getElementById('data-title').className = "data-title active";
+                document.getElementById('data-file').className = "data-file";
+            } else if (value == 'post') {
+                document.getElementById('data-title').className = "data-title";
+                document.getElementById('data-post').className = "data-page active";
+                document.getElementById('data-file').className = "data-file";
+            } else {
+                document.getElementById('data-title').className = "data-title";
+                document.getElementById('data-post').className = "data-page";
+                document.getElementById('data-file').className = "data-file active";
+            }
+        }
+
+    </script>
+
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="all" id="desan">
+            <div class="header">
+                <p class="title">데이터온에어 검색엔진</p>
+                <p class="result_txt">
+                    요청하신
+                    <span id="word" class="searchWord"></span>
+                    에 대한 검색 결과는
+                    <span id="count" class="searchCount"></span>
+                    입니다.
+                </p>
+
+                <span id="data" class="data" onclick="changeDesan()">데이터온에어</span>
+                <span id="naver" class="naver" onclick="changeNaver()">네이버검색</span>
+
+                <div id="chd">
+
+                </div>
+
+                <div class="searchDiv">
+                    <select class="searchFiled" id="searchField" name="searchField">
+                        <option value="TITLE">제목</option>
+                        <option value="CONTENT">내용</option>
+                        <option value="MEMBER_DISPLAY">작성자</option>
+                    </select>
+                    <input class="search" onkeyup="enterkey()" type="text" id="searchtext" value="" />
+                    <button id="searchbutton" class="searchbutton" type="button" onclick="search(this)">검색</button>
+                    <div id="detail-back" class="detail-back">
+
+                    </div>
+
+
+                    <div class="detail"><button class="detail_button" onclick="detail_open()">상세검색</button>
+
+                        <div id="detail_search" class="detail_search">
+                            <a class="close" onclick="detail_close()" href="#">닫기</a>
+                            <ul class="detail_list">
+                                <li>
+                                    <label for="date1">기간</label>
+                                    <input id="startDate" class="datepicker flatpickr" type="text">
+                                    <span class="mx-1">~</span>
+                                    <input id="endDate" class="datepicker flatpickr" type="text">
+                                </li>
+                            </ul>
+
+                            <div class="btnWrap">
+                                <button class="reset" type="button" onclick="detail_close()">닫기
+                                </button>
+                                <button class="submit" type="button" onclick="search(this)">검색</button>
+                            </div>
+
+                        </div>
+                    </div></br>
+
+                </div>
+            </div>
+
+            <div class="result">
+                <div class="list">
+                    <div class="div_title">
+                        <p id="data-title" class="data-title active" onclick="chCol('board')">게시판</p>
+                        <p id="data-post" class="data-page" onclick="chCol('post')">페이지</p>
+                        <p id="data-file" class="data-file" onclick="chCol('attach')">파일</p>
+                        <p class="sort" id="sort" onclick="search(this)">날짜정렬(최신순)</p>
+                    </div>
+
+                    <ul id="data-list" class="data-list">
+
+
+                    </ul>
+                </div>
+
+            </div>
+
+            <input style="display: none;" type="text" id="collection" value="board">
+
+            <div id="pagination" class="pagination">
+
+            </div>
+
+            <input style="display:none" value="" id="currentPageNum">
+            <input style="display:none" value="" id="detailOn">
+        </div>
+
+
+        <div class="all2">
+            <div id="trand-container" class="trand-container">
+                <div class="trand-content">
+                    <h3 style="text-align:center">인기 검색어</h3>
+                    <ul style="margin-right:10px">
+                        <li style="margin-left:12px; text-align:center;" class="center">
+                            <a style="" onclick="day('D')" href="#">일간</a>
+                            <a onclick="day('W')" href="#">주간</a>
+                            <a onclick="day('M')" href="#">월간</a>
+                        </li>
+                    </ul>
+                    <div id="trandlist-container" class="trandlist-container">
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div style="display: none;" id="naverEngine" class="naverEngine">
+        <div class="header">
+            <p class="navertitle">네이버 검색엔진</p>
+            <p class="result_txt">
+                요청하신
+                <span id="naver-word" class="searchWord"></span>
+                에 대한 검색 결과는
+                <span id="naver-count" class="searchCount"></span>
+                입니다.
+            </p>
+
+            <div id="chn">
+
+            </div>
+            <div class="searchDiv">
+                <select class="naversearchFiled" id="naversearchFiled" name="naversearchFiled">
+                    <option value="news">뉴스</option>
+                    <option value="blog">내용</option>
+                    <option value="book">책</option>
+                    <option value="encyc">백과사전</option>
+                    <option value="cafearticle">카페</option>
+                    <option value="kin">지식인</option>
+                    <option value="webkr">웹문서</option>
+                    <option value="doc">전문자료</option>
+
+                </select>
+                <input class="naversearch" onkeyup="naverenterkey()" type="text" id="searchtextNaver" value="" />
+                <button id="naversearchbutton" class="naversearchbutton" type="button"
+                    onclick="Naversearch(this)">검색</button>
+                <div id="detail-back" class="detail-back">
+
+
+                </div>
+            </div>
+
+            <div class="searchresultNaver" id="searchresultNaver">
+                <div class="list">
+                    <div class="div_title">
+                        <p class="naver-data-title">검색결과</p>
+                    </div>
+
+                    <ul id="naver-list" class="naver-list">
+
+
+                    </ul>
+                </div>
+
+            </div>
+
+            <div id="pagination" class="pagination">
+
+            </div>
+
+            <input style="display:none" value="" id="currentPageNum">
+            <input style="display:none" value="" id="detailOn">
+        </div>
+    </div>
+
+</body>
+
+
+</html>

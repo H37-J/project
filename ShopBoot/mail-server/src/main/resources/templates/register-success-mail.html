@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>H37-J Market</title>
+</head>
+<body>
+<div>
+    <h2>안녕하세요. <span th:text="${name}"></span> 님</h2>
+    <h2 th:text="${message}"></h2>
+    <div>
+        <h3>-아이디</h3>
+        <p th:text="${accountId}"></p>
+    </div>
+    <div>
+        <h3>-이메일</h3>
+        <p th:text="${email}"></p>
+    </div>
+    <div>
+        <h3>-호스트</h3>
+        <p th:text="${host}"></p>
+    </div>
+
+</div>
+</body>
+<br/>
+<footer>
+        <img th:src="${host} + '/img/market-logo.jpg'">
+</footer>
+</html>

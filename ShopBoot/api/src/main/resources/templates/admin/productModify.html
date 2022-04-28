@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<th:block th:include="template/head" />
+
+<head>
+
+  <script th:inline="javascript">
+
+
+    window.onload = function () {
+
+
+      flatpickr("#comingDate", {
+        "dateFormat": "Y-m-d H:i",
+        minDate: "today",
+        "enableTime": true,
+        "allowInput": true,
+        "time_24hr": true,
+      });
+    }
+
+    function getComingDate(_this) {
+    }
+
+    function displayComingDate(_this) {
+      _this.id == 'coming' ? document.getElementById('ComingDiv').style.display = 'inline' : document.getElementById('ComingDiv').style.display = 'none';
+    }
+
+
+    function cateDisplay(_this) {
+
+      let cate2_html;
+      document.getElementById('cate2').style.display = 'block';
+      if (_this.value === '남성' || _this.value === '여성') {
+        cate2_html = `<label class="form-check-inline u-check mb-0 g-mx-15">
+    <input checked id="top" class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="cate2" value="상의" type="radio">
+    <span class="d-block g-font-size-12 g-color-primary--checked">상의</span>
+  </label>
+  <label class="form-check-inline u-check mb-0 g-mx-15">
+    <input id="bottom" class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="cate2" value="하의" type="radio">
+    <span class="d-block g-font-size-12 g-color-primary--checked">하의</span>
+  </label>
+  <label class="form-check-inline u-check mb-0 g-mx-15">
+    <input id="coat" class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="cate2" value="코트" type="radio">
+    <span class="d-block g-font-size-12 g-color-primary--checked">코트</span>
+  </label>`;
+      }
+      else {
+        cate2_html = `<label class="form-check-inline u-check mb-0 g-mx-15">
+    <input checked id="top" class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="cate2" value="시계" type="radio">
+    <span class="d-block g-font-size-12 g-color-primary--checked">시계</span>
+  </label>
+  <label class="form-check-inline u-check mb-0 g-mx-15">
+    <input id="bottom" class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="cate2" value="장갑" type="radio">
+    <span class="d-block g-font-size-12 g-color-primary--checked">장갑</span>
+  </label>
+  <label class="form-check-inline u-check mb-0 g-mx-15">
+    <input id="coat" class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="cate2" value="지갑" type="radio">
+    <span class="d-block g-font-size-12 g-color-primary--checked">지갑</span>
+  </label>`;
+      }
+      document.getElementById('cate2_value').innerHTML = cate2_html;
+    }
+
+    function korea_currency(o) {
+      const price = document.getElementById("price");
+      price.value = o.value;
+      if (Number(o.value) > 100000000) {
+        alert('가격은 100000000원 이하여야 합니다');
+        price.value = 100;
+      }
+    }
+
+    function validStock(_this) {
+      const stock = document.getElementById("stock");
+      if (Number(_this.value) < 1) {
+        alert('재고는 1개 이상이여야 합니다');
+        stock.value = 1;
+      }
+    }
+
+
+
+    const setFileName = (file, id) => {
+      const fileArr = file.split("\\");
+      let filename = fileArr[fileArr.length - 1];
+      filename = "/files/products/" + id + "/" + filename;
+      return filename;
+    };
+
+    const productUpload = () => {
+      let product = {};
+      product.title = $('#title').val();
+      product.content = $('#content').val();
+      product.category_main = document.querySelector('input[name="cate1"]:checked').value;
+      product.category_sub = document.querySelector('input[name="cate2"]:checked').value;
+      product.size = document.querySelector('input[name="size"]:checked').value;
+      product.status = document.querySelector('input[name="status"]:checked').value;
+      product.price = Number($('#price').val());
+      product.stock = Number($('#stock').val());
+      product.description1 = $('#description1').val();
+      product.description2 = $('#description2').val();
+      product.description3 = $('#description3').val();
+      if ($('#file1').val()) product.main_image1 = 'temp';
+      if ($('#file2').val()) product.main_image2 = 'temp';
+      if ($('#file3').val()) product.main_image3 = 'temp';
+      if ($('#file4').val()) product.des_image1 = 'temp';
+      if ($('#file5').val()) product.des_image2 = 'temp';
+      if ($('#file6').val()) product.des_image3 = 'temp';
+      if (product.status == 'COMING') product.comingdate = new Date(document.getElementById('comingDate').value);
+
+
+      if (product.price == '') {
+        alert('가격을 입력 해주세요');
+        return;
+      }
+
+
+      var header = $("meta[name='_csrf_header']").attr("content");
+      var token = $("meta[name='_csrf']").attr("content");
+
+
+          const form = $('#uploadForm')[0];
+          const formData = new FormData(form);
+          let id=[[${product.id}]];
+          formData.append("productname",id);
+
+          product.id =id;
+          product.createAt = [[${product.createAt}]];
+          if ($('#file1').val()){
+            product.main_image1 = setFileName($('#file1').val(), product.id);
+          } else{
+            product.main_image1 = document.getElementById('file_1').value;
+          }
+          if ($('#file2').val()){
+            product.main_image2 = setFileName($('#file2').val(), product.id);
+          } else{
+            product.main_image2 = document.getElementById('file_2').value;
+          }
+          if ($('#file3').val()){
+            product.main_image3 = setFileName($('#file3').val(), product.id);
+          } else{
+            product.main_image3 = document.getElementById('file_3').value;
+          }
+          if ($('#file4').val()){
+            product.des_image1 = setFileName($('#file4').val(), product.id);
+          } else{
+            product.des_image1 = document.getElementById('file_4').value;
+          }
+          if ($('#file5').val()){
+            product.des_image2 = setFileName($('#file5').val(), product.id);
+          } else{
+            product.des_image2 = document.getElementById('file_5').value;
+          }
+          if ($('#file6').val()){
+            product.des_image3 = setFileName($('#file6').val(), product.id);
+          } else{
+            product.des_image3 = document.getElementById('file_6').value;
+          }
+
+          console.log(product);
+
+
+
+          $.ajax({
+            type: 'POST',
+            url: '/api/product/update',
+            contentType: 'application/json',
+            data: JSON.stringify(product),
+            beforeSend: function (xhr) {
+              xhr.setRequestHeader(header, token);
+            }
+          }).done(function (response) {
+            if (typeof response.message != 'undefined') {
+              alert(response.message);
+            } else {
+              $.ajax({
+                type: 'POST',
+                data: formData,
+                url: '/api/file/productUpload',
+                contentType: false,
+                processData: false,
+                beforeSend: function (xhr) {
+                  xhr.setRequestHeader(header, token);
+                },
+                success: function () {
+                  alert('상품을 수정 하였습니다');
+                  location.href = '/admin/productManage?page=1';
+                },
+                error: function (request, status, error) {
+                  alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+                }
+              });
+            }
+          })
+        
+
+    };
+
+
+    $(document).ready(function () {
+
+      $('#pre1').click(function (e) {
+        e.preventDefault();
+        $('#file1').click();
+      });
+
+      $('#pre2').click(function (e) {
+        e.preventDefault();
+        $('#file2').click();
+      });
+
+      $('#pre3').click(function (e) {
+        e.preventDefault();
+        $('#file3').click();
+      });
+
+
+      $('#pre4').click(function (e) {
+        e.preventDefault();
+        $('#file4').click();
+      });
+
+
+      $('#pre5').click(function (e) {
+        e.preventDefault();
+        $('#file5').click();
+      });
+
+
+      $('#pre6').click(function (e) {
+        e.preventDefault();
+        $('#file6').click();
+      });
+
+      $(function () {
+        $('#file1').on('change',
+          function () {
+            imageShow(this)
+          });
+      });
+
+      $(function () {
+        $('#file2').on('change',
+          function () {
+            imageShow2(this)
+          });
+      });
+
+      $(function () {
+        $('#file3').on('change',
+          function () {
+            imageShow3(this)
+          });
+      });
+
+      $(function () {
+        $('#file4').on('change',
+          function () {
+            imageShow4(this)
+          });
+      });
+
+      $(function () {
+        $('#file5').on('change',
+          function () {
+            imageShow5(this)
+          });
+      });
+
+      $(function () {
+        $('#file6').on('change',
+          function () {
+            imageshow6(this)
+          });
+      });
+    });
+
+    function allfile() {
+      let file1 = document.getElementById('file1');
+      let file2 = document.getElementById('file2');
+      console.log(file1);
+      file2.innerHTML = file1.innerHTML;
+    }
+
+    function allDes() {
+      let content = document.getElementById('content').value;
+      document.getElementById('description1').value = content;
+      document.getElementById('description2').value = content;
+      document.getElementById('description3').value = content;
+
+    }
+
+    function imageShow(input) {
+      if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          $('.target1').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+
+    function imageShow2(input) {
+      if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          $('.target2').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+
+    function imageShow3(input) {
+      if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          $('.target3').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+
+    function imageShow4(input) {
+      if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          $('.target4').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+
+    function imageShow5(input) {
+      if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          $('.target5').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+
+    function imageshow6(input) {
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          $('.target6').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+  </script>
+  <title></title>
+
+</head>
+
+<body>
+  <main>
+    <th:block th:include="template/header" />
+
+    <form id="uploadForm" accept-charset="utf-8" enctype="multipart/form-data">
+      <input accept=".gif, .jpg, .png" style="display:none;" id="file1" name="file1" type="file" multiple="multiple">
+      <input accept=".gif, .jpg, .png" style="display:none;" id="file2" name="file2" type="file">
+      <input accept=".gif, .jpg, .png" style="display:none;" id="file3" name="file3" type="file">
+      <input accept=".gif, .jpg, .png" style="display:none;" id="file4" name="file4" type="file">
+      <input accept=".gif, .jpg, .png" style="display:none;" id="file5" name="file5" type="file">
+      <input accept=".gif, .jpg, .png" style="display:none;" id="file6" name="file6" type="file">
+
+      <input id="file_1" type="text" style="display:none;" accept=".gif, .jpg, .png" th:value="${product.main_image1}">
+      <input id="file_2" type="text" style="display:none;" accept=".gif, .jpg, .png" th:value="${product.main_image2}">
+      <input id="file_3" type="text" style="display:none;" accept=".gif, .jpg, .png" th:value="${product.main_image3}">
+      <input id="file_4" type="text" style="display:none;" accept=".gif, .jpg, .png" th:value="${product.des_image1}">
+      <input id="file_5" type="text" style="display:none;" accept=".gif, .jpg, .png" th:value="${product.des_image2}">
+      <input id="file_6" type="text" style="display:none;" accept=".gif, .jpg, .png" th:value="${product.des_image3}">
+
+      <!-- Breadcrumbs -->
+      <section class="g-brd-bottom g-brd-gray-light-v4 g-py-30">
+        <div class="container">
+          <ul class="u-list-inline">
+            <li class="list-inline-item g-mr-5">
+              <a class="u-link-v5 g-color-text" href="#">관리자페이지</a>
+              <i class="g-color-gray-light-v2 g-ml-5 fa fa-angle-right"></i>
+            </li>
+            <li class="list-inline-item g-mr-5">
+              <a class="u-link-v5 g-color-text" href="/productManage?page=1">상품</a>
+              <i class="g-color-gray-light-v2 g-ml-5 fa fa-angle-right"></i>
+            </li>
+            <li class="list-inline-item g-color-primary">
+              <span>상품등록</span>
+            </li>
+          </ul>
+        </div>
+      </section>
+      <!-- End Breadcrumbs -->
+
+
+
+      <!-- 상품등록 -->
+      <div class="container g-pt-50 g-pb-100">
+        <div class="row">
+          <div class="col-lg-7">
+            <!-- 메인이미지 등록 -->
+            <div id="carouselCus1" class="js-carousel g-pt-10 g-mb-10" data-infinite="true" data-fade="true"
+              data-arrows-classes="u-arrow-v1 g-brd-around g-brd-white g-absolute-centered--y g-width-45 g-height-45 g-font-size-14 g-color-white g-color-primary--hover rounded-circle"
+              data-arrow-left-classes="fa fa-angle-left g-left-40"
+              data-arrow-right-classes="fa fa-angle-right g-right-40" data-nav-for="#carouselCus2">
+
+              <div id="pre1" class="js-slide g-bg-cover g-bg-black-opacity-0_1--after">
+                <img style="width:650px; height:750px;" id="target1" class="img-fluid w-100 target1"
+                  th:src="${product.main_image1}" alt="">
+              </div>
+
+              <div id="pre2" class="js-slide g-bg-cover g-bg-black-opacity-0_1--after">
+                <img style="width:650px; height:750px;" class="img-fluid w-100 target2" alt="Image Description"
+                  th:src="${product.main_image2}">
+              </div>
+              <div id="pre3" class="js-slide g-bg-cover g-bg-black-opacity-0_1--after">
+                <img style="width:650px; height:750px; " class="img-fluid w-100 target3" th:src="${product.main_image3}"
+                  alt="Image Description" src="">
+              </div>
+            </div>
+
+            <div id="carouselCus2" class="js-carousel text-center u-carousel-v3 g-mx-minus-5" data-infinite="true"
+              data-center-mode="true" data-slides-show="3" data-is-thumbs="true" data-nav-for="#carouselCus1">
+              <div class="js-slide g-cursor-pointer g-px-5">
+                <img style="width:250px; height:170px;" class="img-fluid target1" th:src="${product.main_image1}"
+                  alt="Image Description">
+              </div>
+
+              <div class="js-slide g-cursor-pointer g-px-5">
+                <img style="width:250px; height:170px;" class="img-fluid target2" th:src="${product.main_image2}"
+                  alt="Image Description">
+              </div>
+
+              <div class="js-slide g-cursor-pointer g-px-5">
+                <img style="width:250px; height:170px;" class="img-fluid target3" th:src="${product.main_image3}"
+                  alt="Image Description">
+              </div>
+
+            </div>
+            <!-- 메인이미지 등록 끝 -->
+          </div>
+
+          <div class="col-lg-5">
+            <div class="g-px-40--lg g-pt-70">
+              <!-- 상품정보 입력 -->
+              <div class="g-mb-30">
+
+                <div class="form-group g-mb-30">
+                  <label class="g-mb-10" for="title">상품명</label>
+
+                  <div class="g-pos-rel">
+                    <span class="g-pos-abs g-top-0 g-right-0 d-block g-width-40 h-100 opacity-0 g-opacity-1--success">
+                      <i class="hs-admin-check g-absolute-centered g-font-size-default g-color-secondary"></i>
+                    </span>
+                    <input id="title" th:value="${product.title}"
+                      class="form-control form-control-md g-brd-none g-brd-bottom g-brd-blue-light-v7 g-brd-gray-light-v3--focus rounded-0 px-0 g-py-10"
+                      type="text" placeholder="상품명을 입력해주세요">
+                  </div>
+                </div>
+
+
+                <div class="form-group g-mb-30">
+                  <label class="g-mb-10" for="content">상품설명</label>
+
+                  <div class="g-pos-rel">
+                    <span class="g-pos-abs g-top-0 g-right-0 d-block g-width-40 h-100 opacity-0 g-opacity-1--success">
+                      <i class="hs-admin-check g-absolute-centered g-font-size-default g-color-secondary"></i>
+                    </span>
+                    <input id="content" th:value="${product.content}"
+                      class="form-control form-control-md g-brd-none g-brd-bottom g-brd-blue-light-v7 g-brd-gray-light-v3--focus rounded-0 px-0 g-py-10"
+                      type="text" placeholder="상품설명을 입력해주세요" />
+                  </div>
+                </div>
+
+              </div>
+              <!--상품정보 입력 끝-->
+
+              <!-- 가격 -->
+
+              <div class="form-group g-mb-30">
+                <label class="g-mb-10" for="price">가격</label>
+
+                <div class="g-pos-rel">
+                  <span class="g-pos-abs g-top-0 g-right-0 d-block g-width-40 h-100 opacity-0 g-opacity-1--success">
+                    <i class="hs-admin-check g-absolute-centered g-font-size-default g-color-secondary"></i>
+                  </span>
+
+                  <input onKeyup="this.value=this.value.replace(/[^-0-9]/g,'')" onchange="korea_currency(this)"
+                    style="display:inline-block;" id="price" th:value="${product.price}"
+                    class="form-control form-control-md g-brd-none g-brd-bottom--dashed  g-brd-blue-light-v7 g-brd-gray-light-v3--focus rounded-0 px-0 g-py-10"
+                    type="text" placeholder="가격을 입력해주세요">
+
+
+                </div>
+              </div>
+              <!-- 가격 끝 -->
+
+              <!-- 카테고리1 -->
+              <div id="cate1" class="d-flex justify-content-between align-items-center g-brd-bottom g-brd-gray-light-v3
+                  py-3" role="tab">
+                <h5 class="g-color-gray-dark-v5 g-font-weight-400 g-font-size-default mb-0">카테고리-1</h5>
+
+                <div>
+                  <label class="form-check-inline u-check mb-0 g-mx-15">
+                    <input checked onchange="cateDisplay(this);" id="man"
+                      class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="cate1" value="남성" type="radio">
+                    <span class="d-block g-font-size-12 g-color-primary--checked">남성</span>
+                  </label>
+                  <label class="form-check-inline u-check mb-0 g-mx-15">
+                    <input onchange="cateDisplay(this);" id="woman" class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0"
+                      name="cate1" value="여성" type="radio">
+                    <span class="d-block g-font-size-12 g-color-primary--checked">여성</span>
+                  </label>
+                  <label class="form-check-inline u-check mb-0 g-mx-15">
+                    <input onchange="cateDisplay(this);" id="ac" class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0"
+                      name="cate1" value="악세사리" type="radio">
+                    <span class="d-block g-font-size-12 g-color-primary--checked">악세사리</span>
+                  </label>
+                </div>
+              </div>
+              <!-- 카테고리1 끝 -->
+
+              <!-- 카테고리2 -->
+              <div id="cate2">
+                <div style="margin-right:22px;" class="d-flex justify-content-between align-items-center g-brd-bottom g-brd-gray-light-v3
+                  py-3" role="tab">
+                  <h5 class="g-color-gray-dark-v5 g-font-weight-400 g-font-size-default mb-0">카테고리-2</h5>
+                  <div id="cate2_value">
+                    <label class="form-check-inline u-check mb-0 g-mx-15">
+                      <input checked id="top" class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="cate2" value="상의"
+                        type="radio">
+                      <span class="d-block g-font-size-12 g-color-primary--checked">상의</span>
+                    </label>
+                    <label class="form-check-inline u-check mb-0 g-mx-15">
+                      <input id="bottom" class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="cate2" value="하의"
+                        type="radio">
+                      <span class="d-block g-font-size-12 g-color-primary--checked">하의</span>
+                    </label>
+                    <label class="form-check-inline u-check mb-0 g-mx-15">
+                      <input id="coat" class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="cate2" value="코트"
+                        type="radio">
+                      <span class="d-block g-font-size-12 g-color-primary--checked">코트</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <!-- 카테고리2 끝 -->
+
+              <!-- 상품구분 -->
+              <div class="d-flex justify-content-between align-items-center g-brd-bottom g-brd-gray-light-v3
+                  py-3" role="tab">
+                <h5 class="g-color-gray-dark-v5 g-font-weight-400 g-font-size-default mb-0">상품구분</h5>
+
+                <div>
+                  <label class="form-check-inline u-check mb-0 g-mx-15">
+                    <input checked onchange="displayComingDate(this)" id="normal"
+                      class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="status" value="NORMAL" type="radio">
+                    <span class="d-block g-font-size-12 g-color-primary--checked">일반상품</span>
+                  </label>
+                  <label class="form-check-inline u-check mb-0 g-mx-15">
+                    <input onchange="displayComingDate(this)" id="new" class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0"
+                      name="status" value="NEW" type="radio">
+                    <span class="d-block g-font-size-12 g-color-primary--checked">신상품</span>
+                  </label>
+                  <label class="form-check-inline u-check mb-0 g-mx-15">
+                    <input onchange="displayComingDate(this)" id="coming"
+                      class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="status" value="COMING" type="radio">
+                    <span class="d-block g-font-size-12 g-color-primary--checked">출시임박</span>
+                  </label>
+                </div>
+              </div>
+              <!-- 상품구분 끝 -->
+
+              <!-- 사이즈 -->
+              <div class="d-flex justify-content-between align-items-center g-brd-bottom g-brd-gray-light-v3
+                  py-3 g-mb-30" role="tab">
+                <h5 class="g-color-gray-dark-v5 g-font-weight-400 g-font-size-default mb-0">사이즈</h5>
+                <label class="form-check-inline u-check mb-0 ml-auto g-mr-15">
+                  <input checked id="s_size" class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="size" value="S"
+                    type="radio">
+                  <span class="d-block g-font-size-12 g-color-primary--checked">S</span>
+                </label>
+                <label class="form-check-inline u-check mb-0 g-mx-15">
+                  <input id="m_size" class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="size" value="M"
+                    type="radio">
+                  <span class="d-block g-font-size-12 g-color-primary--checked">M</span>
+                </label>
+                <label class="form-check-inline u-check mb-0 g-mx-15">
+                  <input id="l_size" class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="size" value="L"
+                    type="radio">
+                  <span class="d-block g-font-size-12 g-color-primary--checked">L</span>
+                </label>
+                <label class="form-check-inline u-check mb-0 g-mx-15">
+                  <input id="xl_size" class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="size" value="XL"
+                    type="radio">
+                  <span class="d-block g-font-size-12 g-color-primary--checked">XL</span>
+                </label>
+              </div>
+              <!-- 사이즈 끝 -->
+
+
+              <div id="ComingDiv" style="display:none" class="form-group g-mb-30">
+                <label class="g-mb-10" for="title">출시날짜</label>
+
+                <div class="g-pos-rel">
+                  <span class="g-pos-abs g-top-0 g-right-0 d-block g-width-40 h-100 opacity-0 g-opacity-1--success">
+                    <i class="hs-admin-check g-absolute-centered g-font-size-default g-color-secondary"></i>
+                  </span>
+                  <input onchange="getComingDate(this)" id="comingDate" value=""
+                    class="flatpickr form-control form-control-md g-brd-none g-brd-bottom--dashed  g-brd-blue-light-v7 g-brd-gray-light-v3--focus rounded-0 px-0 g-py-10"
+                    data-defaultDate=" 2016-03-01 03:30:00
+                  -0300" data-enableTime="true" placeholder="출시날짜를 선택 하세요">
+                </div>
+              </div>
+
+
+              <!--         
+              <div class="form-group g-mb-30">
+                <label class="g-mb-10" for="title">상품명</label>
+
+                <div class="g-pos-rel">
+                  <span class="g-pos-abs g-top-0 g-right-0 d-block g-width-40 h-100 opacity-0 g-opacity-1--success">
+                    <i class="hs-admin-check g-absolute-centered g-font-size-default g-color-secondary"></i>
+                  </span>
+                  <input id="datep1" value="" class="flatpickr form-control form-control-md g-brd-none g-brd-bottom--dashed  g-brd-blue-light-v7 g-brd-gray-light-v3--focus rounded-0 px-0 g-py-10" data-defaultDate=" 2016-03-01 03:30:00
+                  -0300" data-enableTime="true">
+                </div>
+              </div> -->
+
+
+
+              <!-- Quantity -->
+              <div class="d-flex justify-content-between align-items-center g-brd-bottom g-brd-gray-light-v3 py-3
+                  g-mb-30" role="tab">
+                <h5 class="g-color-gray-dark-v5 g-font-weight-400 g-font-size-default mb-0">재고</h5>
+
+                <div class="js-quantity input-group u-quantity-v1 g-width-50 g-brd-primary--focus">
+                  <input  onchange="validStock(this)" id="stock"
+                    class="js-result form-control text-center g-font-size-13 rounded-0" type="text" th:value="${product.stock}">
+
+
+                </div>
+              </div>
+
+              <div class="row g-mx-minus-5 g-mb-20">
+                <div class="col g-px-5 g-mb-10">
+                  <button class="btn btn-block u-btn-primary g-font-size-12 text-uppercase g-py-15 g-px-25"
+                    type="button" onclick="productUpload()">
+                    상품등록하기 <i class="align-middle ml-2 icon-finance-100 u-line-icon-pro"></i>
+                  </button>
+                </div>
+              </div>
+
+              설명 통일 <input onchange="allDes()" type="checkbox" id="ades">
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+
+
+
+    <div class="g-brd-y g-brd-gray-light-v4">
+      <div class="container g-py-30">
+        <div class="row justify-content-center">
+          <div class="col-md-4 mx-auto g-py-15">
+            <div class="media g-px-50--lg">
+              <i class="d-flex g-color-black g-font-size-30 g-pos-rel g-top-3 mr-4 icon-real-estate-048
+                  u-line-icon-pro"></i>
+              <div class="media-body">
+                <span class="d-block g-font-weight-400 g-font-size-default text-uppercase">Free Shipping</span>
+                <span class="d-block g-color-gray-dark-v4">In 2-3 Days</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4 mx-auto g-brd-x--md g-brd-gray-light-v3 g-py-15">
+            <div class="media g-px-50--lg">
+              <i class="d-flex g-color-black g-font-size-30 g-pos-rel g-top-3 mr-4 icon-real-estate-040
+                  u-line-icon-pro"></i>
+              <div class="media-body">
+                <span class="d-block g-font-weight-400 g-font-size-default text-uppercase">Free Returns</span>
+                <span class="d-block g-color-gray-dark-v4">No Questions Asked</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4 mx-auto g-py-15">
+            <div class="media g-px-50--lg">
+              <i class="d-flex g-color-black g-font-size-30 g-pos-rel g-top-3 mr-4 icon-hotel-restaurant-062
+                  u-line-icon-pro"></i>
+              <div class="media-body text-left">
+                <span class="d-block g-font-weight-400 g-font-size-default text-uppercase">Free 24</span>
+                <span class="d-block g-color-gray-dark-v4">Days Storage</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Features -->
+
+
+    <!-- Details -->
+    <div style="padding-top:70px;" id="details" class="container-fluid g-px-0">
+      <div class="row no-gutters g-min-height-100vh">
+        <div class="col-md-6 align-self-center">
+          <!-- Textarea -->
+          <div class="form-group g-mb-30">
+            <label class="g-mb-10 g-font-weight-400 g-font-size-default text-uppercase" for="description1">
+              <h2>-상품설명1</h2>
+            </label>
+            <textarea th:text="${product.description1}"  id="description1" class="form-control form-control-md g-resize-none g-brd-none g-brd-bottom g-brd-gray-light-v7
+                  g-brd-gray-light-v3--focus rounded-0" rows="3" placeholder="설명을 입력해주세요"></textarea>
+            <small class="form-text text-muted g-font-size-default g-mt-10">
+            </small>
+          </div>
+          <!-- End Textarea -->
+        </div>
+
+        <img id="pre4" style="width:1200px; height:800px;" class="col-md-6 g-bg-size-cover g-min-height-300 target4"
+        th:src="${product.des_image1}">
+
+      </div>
+    </div>
+    </div>
+    <!-- End Details -->
+
+    <!-- Craftmanship -->
+    <div class="container-fluid g-px-0">
+      <div class="row no-gutters g-min-height-100vh">
+        <div class="col-md-6 order-md-2 align-self-center">
+          <!-- Textarea -->
+          <div class="form-group g-mb-30">
+            <label class="g-mb-10 g-font-weight-400 g-font-size-default text-uppercase" for="description2">
+              <h2>-상품설명2</h2>
+            </label>
+            <textarea th:text="${product.description2}" id="description2" class="form-control form-control-md g-resize-none g-brd-none g-brd-bottom g-brd-gray-light-v7
+                  g-brd-gray-light-v3--focus rounded-0" rows="3" placeholder="설명을 입력해주세요"></textarea>
+            <small class="form-text text-muted g-font-size-default g-mt-10">
+            </small>
+          </div>
+          <!-- End Textarea -->
+        </div>
+
+        <img id="pre5" style="width:1200px; height:800px;" class="col-md-6 g-bg-size-cover g-min-height-300 target5"
+        th:src="${product.des_image2}">
+
+      </div>
+    </div>
+    <!-- End Craftmanship -->
+
+    <!-- Caring -->
+    <div class="container-fluid g-px-0">
+      <div class="row no-gutters g-min-height-100vh">
+        <div class="col-md-6 align-self-center">
+          <!-- Textarea -->
+          <div class="form-group g-mb-30">
+            <label class="g-mb-10 g-font-weight-400 g-font-size-default text-uppercase" for="description3">
+              <h2>-상품설명3</h2>
+            </label>
+            <textarea th:text="${product.description3}" id="description3" class="form-control form-control-md g-resize-none g-brd-none g-brd-bottom g-brd-gray-light-v7
+                  g-brd-gray-light-v3--focus rounded-0" rows="3" placeholder="설명을 입력해주세요"></textarea>
+            <small class="form-text text-muted g-font-size-default g-mt-10">
+            </small>
+          </div>
+          <!-- End Textarea -->
+        </div>
+
+        <img id="pre6" style="width:1200px; height:800px;" class="col-md-6 g-bg-size-cover g-min-height-300 target6"
+          th:src="${product.des_image3}">
+
+      </div>
+    </div>
+
+
+    <th:block th:include="template/footer" />
+
+    <a class="js-go-to u-go-to-v2" href="#" data-type="fixed" data-position='{
+          "bottom": 15,
+          "right": 15
+         }' data-offset-top="400" data-compensation="#js-header" data-show-effect="zoomIn">
+      <i class="hs-icon hs-icon-arrow-top"></i>
+    </a>
+  </main>
+
+  <div class="u-outer-spaces-helper"></div>
+
+  <th:block th:include="template/script" />
+
+  <script>
+    $(document).on('ready', function () {
+      // initialization of custom select
+      $('.js-select').selectpicker();
+
+      // initialization of sidebar navigation component
+      $.HSCore.components.HSSideNav.init('.js-side-nav');
+
+      // initialization of hamburger
+      $.HSCore.helpers.HSHamburgers.init('.hamburger');
+
+      // initialization of HSDropdown component
+      $.HSCore.components.HSDropdown.init($('[data-dropdown-target]'), {
+        dropdownHideOnScroll: false
+      });
+
+      // initialization of custom scrollbar
+      $.HSCore.components.HSScrollBar.init($('.js-custom-scroll'));
+
+      // initialization of forms
+      $.HSCore.components.HSCountQty.init('.js-quantity');
+    });
+  </script>
+
+
+  <!-- JS Plugins Init. -->
+  <script>
+    $(document).on('ready', function () {
+      // initialization of carousel
+      $.HSCore.components.HSCarousel.init('.js-carousel');
+
+      // initialization of header
+      $.HSCore.components.HSHeader.init($('#js-header'));
+      $.HSCore.helpers.HSHamburgers.init('.hamburger');
+
+      // initialization of HSMegaMenu plugin
+      $('.js-mega-menu').HSMegaMenu({
+        event: 'hover',
+        pageContainer: $('.container'),
+        breakpoint: 991
+      });
+
+      // initialization of HSDropdown component
+      $.HSCore.components.HSDropdown.init($('[data-dropdown-target]'), {
+        afterOpen: function () {
+          $(this).find('input[type="search"]').focus();
+        }
+      });
+
+      // initialization of go to
+      $.HSCore.components.HSGoTo.init('.js-go-to');
+
+      // initialization of HSScrollBar component
+      $.HSCore.components.HSScrollBar.init($('.js-scrollbar'));
+
+      // initialization of quantity counter
+      $.HSCore.components.HSCountQty.init('.js-quantity');
+
+      // initialization of tabs
+      $.HSCore.components.HSTabs.init('[role="tablist"]');
+
+      // initialization of rating
+      $.HSCore.helpers.HSRating.init();
+    });
+
+    $(window).on('resize', function () {
+      setTimeout(function () {
+        $.HSCore.components.HSTabs.init('[role="tablist"]');
+      }, 200);
+    });
+  </script>
+</body>
+
+</html>

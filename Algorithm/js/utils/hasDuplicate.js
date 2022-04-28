@@ -1,0 +1,1 @@
+const hasDuplicates = arr => new Set(arr).size != arr.length;

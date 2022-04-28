@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0" />
+
+<head>
+    <link rel="stylesheet" href="./css/verticalTab.css">
+
+</head>
+
+<body>
+    <h2>Vertiacl Tabs</h2>
+
+    <div class="tab">
+        <button onclick="change(event,'1')" class="tablink active">1</button>
+        <button onclick="change(event,'2')" class="tablink">2</button>
+        <button onclick="change(event,'3')" class="tablink">3</button>
+    </div>
+
+    <div style="display: block;" id="1" class="tab-content">
+        <h1>1</h1>
+    </div>
+
+    <div id="2" class="tab-content">
+        <h1>2</h1>
+    </div>
+
+    <div id="3" class="tab-content">
+        <h1>3</h1>
+    </div>
+
+    <script>
+        function change(evt,name){
+            tabContent=document.getElementsByClassName('tab-content');
+            for(let i=0; i<tabContent.length; i++){
+                tabContent[i].style.display="none";
+            }
+            tablink=document.getElementsByClassName('tablink');
+            for(let i=0; i<tablink.length; i++){
+                tablink[i].className='tablink';
+            }
+            evt.currentTarget.className="tablink active";
+            document.getElementById(name).style.display="block";
+
+        }
+    </script>
+
+
+
+</body>
+
+</html>

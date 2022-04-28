@@ -1,0 +1,504 @@
+
+/* 콜 */
+.col-10p {
+    flex: 0 0 10%;
+    max-width: 10%;
+}
+
+.col-13 {
+    flex: 0 0 13%;
+    max-width: 13%;
+}
+
+.col-15 {
+    flex: 0 0 15%;
+    max-width: 15%;
+}
+
+.col-20 {
+    flex: 0 0 20%;
+    max-width: 20%;
+}
+
+.col-30 {
+    flex: 0 0 30%;
+    max-width: 30%;
+}
+
+.col-32 {
+    flex: 0 0 32%;
+    max-width: 32%;
+}
+
+.col-33 {
+    flex: 0 0 33%;
+    max-width: 33%;
+}
+
+.col-40 {
+    flex: 0 0 40%;
+    max-width: 40%;
+}
+
+.col-45 {
+    flex: 0 0 45%;
+    max-width: 45%;
+}
+
+.col-48 {
+    flex: 0 0 48%;
+    max-width: 48%;
+}
+
+.col-50 {
+    flex: 1 0 50%;
+    max-width: 100%;
+}
+
+.col-60 {
+    flex: 0 0 60%;
+    max-width: 60%;
+}
+
+.col-65 {
+    flex: 0 0 65%;
+    max-width: 65%;
+}
+
+.col-66 {
+    flex: 0 0 66%;
+    max-width: 66%;
+}
+
+.col-70 {
+    flex: 0 0 70%;
+    max-width: 70%;
+}
+
+.col-80 {
+    flex: 0 0 80%;
+    max-width: 80%;
+}
+
+.col-85 {
+    flex: 1 0 85%;
+    max-width: 100%;
+}
+
+.col-87 {
+    flex: 0 0 87%;
+    max-width: 87%;
+}
+
+.col-90 {
+    flex: 0 0 90%;
+    max-width: 90%;
+}
+
+.col-100 {
+    flex: 0 0 100%;
+    max-width: 100%;
+}
+
+/* 플렉스 관련 */
+.flex {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.inline-flex {
+    display: inline-flex;
+}
+
+.flex-grow-1 {
+    flex-grow: 1;
+}
+
+.flex-row {
+    flex-direction: row;
+}
+
+.flex-col {
+    flex-direction: column;
+}
+
+.flex-wrap {
+    flex-wrap: wrap;
+}
+
+.flex-nowrap {
+    flex-wrap: nowrap;
+}
+
+.order-1 {
+    order: 1;
+}
+
+.order-2 {
+    order: 2;
+}
+
+.order-3 {
+    order: 3;
+}
+
+
+.justify-content-start {
+    justify-content: start;
+}
+
+.justify-content-center {
+    justify-content: center;
+}
+
+.justify-content-around {
+    justify-content: space-around;
+}
+
+.justify-content-between {
+    justify-content: space-between;
+}
+
+.justify-content-stretch {
+    justify-content: flex-start;
+}
+
+.justify-content-end {
+    justify-content: end;
+}
+
+.align-items-start {
+    align-items: flex-start;
+}
+
+.align-items-stretch {
+    align-items: stretch;
+}
+
+.align-items-center {
+    align-items: center;
+}
+
+.align-content-center {
+    align-content: center;
+}
+
+/* 색상관련 */
+
+.c-white {
+    color: #fff;
+}
+
+.c-grey-light {
+    color: #ddd;
+}
+
+.c-grey-dark {
+    color: #777;
+}
+
+.c-grey-dark-2 {
+    color: #999;
+}
+
+.c-grey-dark-3 {
+    color: #888b99;
+}
+
+.c-aqua-1 {
+    color: rgb(29, 155, 240);
+}
+
+.c-red {
+    color: rgb(221, 1, 1);
+}
+
+.c-greeen {
+    color: #1e3830;
+}
+
+.c-pri-hover:hover {
+    color: #3bb18f;
+}
+
+.c-aqua-hover:hover {
+    color: rgb(29, 155, 240);
+}
+
+.bg-inherit {
+    background-color: inherit;
+}
+
+.bg-aqua-1 {
+    background-color: rgb(29, 155, 240);
+}
+
+.bg-pri {
+    background-color: #3bb18f;
+}
+
+.bg-trans {
+    background-color: transparent;
+}
+
+.bg-black {
+    background-color: #000 !important;
+}
+
+.bg-black-2 {
+    background-color: rgb(21, 24, 28);
+}
+
+.bg-white {
+    background-color: #fff !important;
+}
+
+.bg-dark-1 {
+    background-color: #262729;
+}
+
+.bg-grey-dark {
+    background-color: #777 !important;
+}
+
+.bg-grey-dark-2 {
+    background-color: #999 !important;
+}
+
+.bg-grey-dark-3 {
+    background-color: rgba(47, 51, 44) !important;
+}
+
+.bg-grey-dark-opa {
+    background-color: #666;
+    opacity: 0.3;
+}
+
+.bg-black--hover:hover {
+    background-color: black;
+    color: white !important;
+}
+
+.bg-active-pri {
+    background-color: #3bb18f;
+    border-radius: 50%;
+    color: white;
+}
+
+.c-active-aqua {
+    color: rgb(29, 155, 240);
+}
+
+.c-active-pri {
+    color: #3bb18f;
+}
+
+.c-active-grey {
+    color: #999;
+}
+
+.c-active-grey-2 {
+    color: #999;
+}
+
+/* radius */
+.circle {
+    border-radius: 50%;
+}
+
+.round-4 {
+    border-radius: 4px;
+}
+
+.round-8 {
+    border-radius: 8px;
+}
+
+.round-12 {
+    border-radius: 12px;
+}
+
+.round-16 {
+    border-radius: 16px;
+}
+
+.round-20 {
+    border-radius: 20px;
+}
+
+.round-24 {
+    border-radius: 24px;
+}
+
+.round-9999 {
+    border-radius: 9999px;
+}
+
+/* 폰트관련 */
+.font-size-12 {
+    font-size: 12px;
+}
+
+.font-size-14 {
+    font-size: 14px;
+}
+
+.font-size-16 {
+    font-size: 16px;
+}
+
+.font-size-18 {
+    font-size: 18px;
+}
+
+.font-size-20 {
+    font-size: 20px;
+}
+
+.font-size-22 {
+    font-size: 22px;
+}
+
+.font-size-24 {
+    font-size: 24px;
+}
+
+.font-size-28 {
+    font-size: 28px;
+}
+
+.font-size-40 {
+    font-size: 40px;
+}
+
+.font-weight-300 {
+    font-weight: 300;
+}
+
+.font-weight-400 {
+    font-weight: 400;
+}
+
+.font-weight-500 {
+    font-weight: 500;
+}
+
+.font-weight-600 {
+    font-weight: 600;
+}
+
+.font-weight-700 {
+    font-weight: 700;
+}
+
+.line-height-20 {
+    line-height: 20px;
+}
+
+.line-height-30 {
+    line-height: 30px;
+}
+
+.text-uppercase {
+    text-transform: uppercase;
+}
+
+/* 선 관련 */
+.brd-none {
+    border: none;
+}
+
+.brd {
+    border: 1px solid transparent;
+}
+
+.brd-top {
+    border-top: 1px solid transparent !important;
+}
+
+.brd-left {
+    border-left: 1px solid transparent !important;
+}
+
+.brd-bottom {
+    border-bottom: 1px solid transparent;
+}
+
+.brd-right {
+    border-right: 1px solid transparent !important;
+}
+
+.brd-pri {
+    border-color: #3bb18f !important;
+}
+
+.brd-grey {
+    border-color: #343638 !important;
+}
+
+.brd-grey-dark {
+    border-color: rgb(44, 44, 44) !important;
+}
+
+.brd-grey-dark-2 {
+    border-color: #212228 !important;
+}
+
+.brd-white {
+    border-color: white;
+}
+
+.brd-light {
+    border-color: #eee !important;
+}
+
+.brd-aqua {
+    border-color: rgb(29, 155, 240);
+}
+
+/* 위치 */
+.text-center {
+    text-align: center;
+}
+
+.text-end {
+    text-align: end;
+}
+
+.vertical-align-middle {
+    vertical-align: middle;
+}
+
+/* 포지션 */
+.pos-rel {
+    position: relative;
+}
+
+.pos-abs {
+    position: absolute;
+}
+
+.pos-fixed {
+    position: fixed;
+}
+
+.pos-sticky {
+    position: sticky;
+}
+
+.top {
+    top: 0;
+}
+
+.bottom {
+    bottom: 0;
+}
+
+
+/* svg */
+.svg {
+    color: rgb(217, 217, 217);
+    height: 2.25em;
+    fill: currentColor;
+    cursor: pointer;
+}

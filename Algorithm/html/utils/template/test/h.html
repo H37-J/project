@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0" />
+
+<head>
+    <link rel="stylesheet" href="./css/h.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <style>
+        body,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5 {
+            font-family: "Raleway", sans-serif
+        }
+
+        .h-third img {
+            margin-bottom: -6px;
+            opacity: 0.8;
+            cursor: pointer
+        }
+
+        .h-third img:hover {
+            opacity: 1
+        }
+    </style>
+</head>
+
+<body class="h-light-grey h-content" style="max-width: 1600px;">
+
+    <div id="sidebar" style="z-index:3; width:300px; font-weight:bold"
+        class="h-sidebar h-top h-bar-block h-animate-left h-text-grey h-collapse h-center">
+        <h3 class="h-padding-64 h-center">SOME NAME</h3>
+        <a href="#" class="h-bar-item h-btn">PORTFOLIO</a>
+        <a href="#" class="h-bar-item h-btn">ABOUT ME</a>
+        <a href="#" class="h-bar-item h-btn">CONTACT</a>
+    </div>
+
+    <div class="h-container h-top h-hide-large h-white h-xlarge h-padding-16">
+        <span class="h-left h-padding">SOME NAME</span>
+        <a onclick="side_open()" href="#" class="h-right h-btn">☰</a>
+    </div>
+
+    <div onclick="side_close()" class="h-overlay h-hide-large h-animate-opacity" id="overlay" style="cursor:pointer">
+    </div>
+
+    <div class="h-main" style="margin-left:300px">
+        <div class="h-hide-large" style="margin-top:83px"></div>
+
+        <div class="h-row">
+            <div class="h-third">
+                <img onclick="onClick(this)"
+                    src="https://i.guim.co.uk/img/media/26392d05302e02f7bf4eb143bb84c8097d09144b/446_167_3683_2210/master/3683.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=49ed3252c0b2ffb49cf8b508892e452d"
+                    style="width:100%" />
+                <img onclick="onClick(this)"
+                    src="https://i.guim.co.uk/img/media/26392d05302e02f7bf4eb143bb84c8097d09144b/446_167_3683_2210/master/3683.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=49ed3252c0b2ffb49cf8b508892e452d"
+                    style="width:100%" /> <img onclick="onClick(this)"
+                    src="https://i.guim.co.uk/img/media/26392d05302e02f7bf4eb143bb84c8097d09144b/446_167_3683_2210/master/3683.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=49ed3252c0b2ffb49cf8b508892e452d"
+                    style="width:100%" />
+            </div>
+            <div class="h-third">
+                <img onclick="onClick(this)"
+                    src="https://i.guim.co.uk/img/media/26392d05302e02f7bf4eb143bb84c8097d09144b/446_167_3683_2210/master/3683.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=49ed3252c0b2ffb49cf8b508892e452d"
+                    style="width:100%" />
+                <img onclick="onClick(this)"
+                    src="https://i.guim.co.uk/img/media/26392d05302e02f7bf4eb143bb84c8097d09144b/446_167_3683_2210/master/3683.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=49ed3252c0b2ffb49cf8b508892e452d"
+                    style="width:100%" /> <img onclick="onClick(this)"
+                    src="https://i.guim.co.uk/img/media/26392d05302e02f7bf4eb143bb84c8097d09144b/446_167_3683_2210/master/3683.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=49ed3252c0b2ffb49cf8b508892e452d"
+                    style="width:100%" />
+            </div>
+            <div class="h-third">
+                <img onclick="onClick(this)"
+                    src="https://i.guim.co.uk/img/media/26392d05302e02f7bf4eb143bb84c8097d09144b/446_167_3683_2210/master/3683.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=49ed3252c0b2ffb49cf8b508892e452d"
+                    style="width:100%" />
+                <img onclick="onClick(this)"
+                    src="https://i.guim.co.uk/img/media/26392d05302e02f7bf4eb143bb84c8097d09144b/446_167_3683_2210/master/3683.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=49ed3252c0b2ffb49cf8b508892e452d"
+                    style="width:100%" /> <img onclick="onClick(this)"
+                    src="https://i.guim.co.uk/img/media/26392d05302e02f7bf4eb143bb84c8097d09144b/446_167_3683_2210/master/3683.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=49ed3252c0b2ffb49cf8b508892e452d"
+                    style="width:100%" />
+            </div>
+
+        </div>
+
+        <div class="h-center h-padding-32">
+            <div class="h-bar">
+                <a href="#" class="h-bar-item h-btn h-hover-black">
+                    <<</a>
+                        <a href="#" class="h-bar-item h-btn h-hover-black">1</a>
+                        <a href="#" class="h-bar-item h-btn h-black h-hover-black">2</a>
+                        <a href="#" class="h-bar-item h-btn h-hover-black">3</a>
+                        <a href="#" class="h-bar-item h-btn h-hover-black">>></a>
+
+            </div>
+        </div>
+
+        <div id="modal" class="h-modal h-black" style="padding-top:0" onclick="this.style.display='none'">
+            <span class="h-button h-black h-xlarge h-display-topright">x</span>
+            <div class="h-modal-content h-animate-zoom h-center h-transparent h-padding-64">
+                <img id="img" class="h-img">
+                <p id="caption"></p>
+            </div>
+        </div>
+
+        <div class="h-container h-dark-grey h-center h-text-light-grey h-padding-32" id="about">
+            <h4>About Me</h4>
+            <img style="width:600px; height:650px;" class="h-image h-padding-32"
+                src="https://i.guim.co.uk/img/media/26392d05302e02f7bf4eb143bb84c8097d09144b/446_167_3683_2210/master/3683.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=49ed3252c0b2ffb49cf8b508892e452d" />
+            <div class="h-content h-justify">
+                <h4>My Name</h4>
+                <p>some</p>
+            </div>
+        </div>
+
+        <div class="h-container h-ligh-grey h-padding-32 h-padding-large">
+            <div class="h-content" style="max-width:600px">
+                <h4 class="h-center">Contact Me</h4>
+                <p>Do you want me to photograph you? Fill out the form and fill me in with the details :) I love meeting
+                    new people!</p>
+            </div>
+        </div>
+
+        <footer class="h-container h-padding-32 h-grey">
+            <div class="h-row-padding">
+                <div class="h-third">
+                    <h3>INFO</h3>
+                    <p>Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae,
+                        ultricies congue gravida diam non fringilla.</p>
+                </div>
+
+                <div class="h-third">
+                    <ul class="h-ul">
+                        <li class="h-padding-16 h-hover-black">
+                            <img class="h-left h-margin-right" style="width:50px"
+                                src="https://i.guim.co.uk/img/media/26392d05302e02f7bf4eb143bb84c8097d09144b/446_167_3683_2210/master/3683.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=49ed3252c0b2ffb49cf8b508892e452d">
+                            <span class="h-large">cat</span><br />
+                            <span>cats</span>
+                        </li>
+                        <li class="h-padding-16 h-hover-black">
+                            <img class="h-left h-margin-right" style="width:50px"
+                                src="https://i.guim.co.uk/img/media/26392d05302e02f7bf4eb143bb84c8097d09144b/446_167_3683_2210/master/3683.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=49ed3252c0b2ffb49cf8b508892e452d">
+                            <span class="h-large">cat</span><br />
+                            <span>cats</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="h-third">
+                    <span class="h-tag h-black h-margin-bottom">Travel</span>
+                    <span class="h-tag h-dark-grey h-small h-margin-bottom">Travel</span>
+                    <span class="h-tag h-dark-grey h-small h-margin-bottom">Travel</span>
+                    <span class="h-tag h-dark-grey h-small h-margin-bottom">Travel</span>
+                    <span class="h-tag h-dark-grey h-small h-margin-bottom">Travel</span>
+                    <span class="h-tag h-dark-grey h-small h-margin-bottom">Travel</span>
+                    <span class="h-tag h-dark-grey h-small h-margin-bottom">Travel</span>
+                    <span class="h-tag h-dark-grey h-small h-margin-bottom">Travel</span>
+                    <span class="h-tag h-dark-grey h-small h-margin-bottom">Travel</span>
+                    <span class="h-tag h-dark-grey h-small h-margin-bottom">Travel</span>
+
+
+                </div>
+            </div>
+        </footer>
+    </div>
+
+
+    <script>
+        function side_open() {
+            document.getElementById('sidebar').style.display = 'block';
+            document.getElementById('overlay').style.display = 'block';
+        }
+
+        function side_close() {
+            document.getElementById('sidebar').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
+        }
+
+        function onClick(element) {
+            document.getElementById("img").src = element.src;
+            document.getElementById("modal").style.display = "block";
+            var captionText = document.getElementById("caption");
+            captionText.innerHTML = element.alt;
+        }
+    </script>
+
+
+</body>
+
+</html>

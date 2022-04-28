@@ -1,0 +1,100 @@
+<head>
+
+    <script th:inline="javascript">
+        window.onload = function () {
+            if([[${duplicatedLogin}]]) {
+                alert([[${duplicatedLogin}]]);
+            }
+
+            if([[${AccessErrorMsg}]]) {
+                alert([[${AccessErrorMsg}]]);
+            }
+        }
+
+
+        const productDetail = (id) => {
+            location.href = '/productDetail/' + id;
+        }
+
+
+    </script>
+
+    <meta name="_csrf" th:content="${_csrf.token}">
+    <meta name="_csrf_header" th:content="${_csrf.headerName}">
+
+    <meta charset="utf-8" content="width=device-width, initial-scale=1">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700,900">
+
+    <!--    메인-->
+    <link rel="stylesheet" th:href="@{/shop/assets/main/vendor/bootstrap/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/shop/assets/main/vendor/icon-awesome/css/font-awesome.min.css}">
+    <link rel="stylesheet" th:href="@{/shop/assets/main/vendor/slick-carousel/slick/slick.css}">
+    <link rel="stylesheet" th:href="@{/shop/assets/main/vendor/hamburgers/hamburgers.min.css}">
+    <link rel="stylesheet" th:href="@{/shop/assets/main/vendor/hs-megamenu/src/hs.megamenu.css}">
+    <link rel="stylesheet" th:href="@{/shop/assets/main/vendor/malihu-scrollbar/jquery.mCustomScrollbar.min.css}">
+    <link rel="stylesheet" th:href="@{/shop/assets/main/vendor/animate.css}">
+
+    <link rel="stylesheet" th:href="@{/shop/assets/main/vendor/dzsparallaxer/dzsparallaxer.css}">
+    <link rel="stylesheet" th:href="@{/shop/assets/main/vendor/dzsparallaxer/dzsscroller/scroller.css}">
+    <link rel="stylesheet" th:href="@{/shop/assets/main/vendor/dzsparallaxer/advancedscroller/plugin.css}">
+    <link rel="stylesheet" th:href="@{/shop/assets/main/vendor/animate.css}">
+    <link rel="stylesheet" th:href="@{/shop/assets/main/vendor/hs-megamenu/src/hs.megamenu.css}">
+    <link rel="stylesheet" th:href="@{/shop/assets/main/vendor/malihu-scrollbar/jquery.mCustomScrollbar.min.css}">
+
+    <link rel="stylesheet" th:href="@{/shop/assets/shop/css/styles.e-commerce.css}">
+    <link rel="stylesheet" th:href="@{/shop/assets/main/css/custom.css}">
+
+    <link rel="stylesheet"
+        th:href="@{/shop/assets/main/vendor/revolution-slider/revolution/fonts/pe-icon-7-stroke/css/pe-icon-7-stroke.css}">
+    <link rel="stylesheet" th:href="@{/shop/assets/main/vendor/revolution-slider/revolution/css/settings.css}">
+    <link rel="stylesheet" th:href="@{/shop/assets/main/vendor/revolution-slider/revolution/css/layers.css}">
+    <link rel="stylesheet" th:href="@{/shop/assets/main/vendor/revolution-slider/revolution/css/navigation.css}">
+    <link rel="stylesheet"
+        th:href="@{/shop/assets/main/vendor/revolution-slider/revolution-addons/typewriter/css/typewriter.css}">
+
+    <link rel="stylesheet" th:href="@{/shop/assets/admin/vendor/bootstrap-select/css/bootstrap-select.min.css}">
+    <link rel="stylesheet" th:href="@{/shop/assets/admin/vendor/bootstrap-tagsinput/css/bootstrap-tagsinput.css}">
+    <link rel="stylesheet" th:href="@{/shop/assets/admin/vendor/hs-admin-icons/hs-admin-icons.css}">
+
+    <!--   Google Fonts -->
+    <link rel="stylesheet"
+        href="//fonts.googleapis.com/css?family=Open+Sans%3A400%2C300%2C500%2C600%2C700%7CPlayfair+Display%7CRoboto%7CRaleway%7CSpectral%7CRubik">
+    <!-- C SS Global Compulsory -->
+    <link rel="stylesheet" th:href="@{/shop/assets/main/vendor/icon-awesome/css/font-awesome.min.css}">
+    <link rel="stylesheet" th:href="@{/shop/assets/main/vendor/icon-line/css/simple-line-icons.css}">
+    <link rel="stylesheet" th:href="@{/shop/assets/main/vendor/icon-etlinefont/style.css}">
+    <link rel="stylesheet" th:href="@{/shop/assets/main/vendor/icon-line-pro/style.css}">
+    <link rel="stylesheet" th:href="@{/shop/assets/main/vendor/icon-hs/style.css}">
+    <link rel="stylesheet"
+        th:href="@{/shop/assets/main/vendor/cubeportfolio-full/cubeportfolio/css/cubeportfolio.min.css}">
+    <link rel="stylesheet" th:href="@{/shop/assets/main/vendor/animate.css}">
+    <link rel="stylesheet" th:href="@{/shop/assets/main/vendor/hs-megamenu/src/hs.megamenu.css}">
+
+    <!-- CSS Unify -->
+    <!--    <link rel="stylesheet" th:href="@{/shop/assets/main/css/unify-core.css}">-->
+    <!--    <link rel="stylesheet" th:href="@{/shop/assets/main/css/unify-components.css}">-->
+    <!--    <link rel="stylesheet" th:href="@{/shop/assets/main/css/unify-globals.css}">-->
+
+    <!-- 알람 -->
+    <link rel="stylesheet" th:href="@{/shop/assets/main/vendor/icon-awesome/css/font-awesome.min.css}">
+    <link rel="stylesheet" th:href="@{/shop/assets/main/vendor/icon-line/css/simple-line-icons.css}">
+    <link rel="stylesheet" th:href="@{/shop/assets/main/vendor/icon-etlinefont/style.css}">
+    <link rel="stylesheet" th:href="@{/shop/assets/main/vendor/icon-line-pro/style.css}">
+    <link rel="stylesheet" th:href="@{/shop/assets/main/vendor/icon-hs/style.css}">
+    <link rel="stylesheet" th:href="@{/shop/assets/admin/vendor/hs-admin-icons/hs-admin-icons.css}">
+    <link rel="stylesheet" th:href="@{/shop/assets/main/vendor/animate.css}">
+    <link rel="stylesheet" th:href="@{/shop/assets/main/vendor/malihu-scrollbar/jquery.mCustomScrollbar.min.css}">
+    <link rel="stylesheet" th:href="@{/shop/assets/admin/vendor/bootstrap-select/css/bootstrap-select.min.css}">
+    <link rel="stylesheet" th:href="@{/shop/assets/admin/vendor/noty/lib/noty.css}">
+    <link rel="stylesheet" th:href="@{/shop/assets/main/vendor/hamburgers/hamburgers.min.css}">
+    <link rel="stylesheet" th:href="@{/shop/assets/admin/css/unify-admin.css}">
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/themes/dark.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.js"></script>
+
+</head>

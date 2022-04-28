@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0" />
+
+<head>
+    <link rel="stylesheet" href="/bootstrap-5.0.2-dist/css/bootstrap.css">
+    <script src="/bootstrap-5.0.2-dist/js/bootstrap.bundle.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
+    <script>
+        window.onload = function () {
+            $.ajax({
+
+                type: "GET",
+
+                url: "https://211.56.6.134:8443/search/search_naver.jsp",
+
+                dataType: 'jsonp',
+
+                data: { "query": "데이터", "display": "10" },
+
+                jsonpCallback: "sendMeJsonp",
+
+                error: function (a, b, c) {
+
+                    console.log("a : " + a);
+
+                    console.log("b : " + b);
+
+                    console.log("c : " + c);
+
+                },
+
+                success: function (data) {
+
+                    console.log("popword : " + JSON.stringify(data));
+
+
+
+                }
+
+            });
+
+            let data={ "query": "데이터", "display": "10" };
+            let url="https://211.56.6.134:8443/search/search_naver.jsp";
+
+            $.ajax(
+                { url: url, dataType: 'jsonp', jsonpCallback: "myCallback", success: callback }); 
+            $.getJSON(url + "?callback=?", data, callback);
+
+        }
+
+        function edu() {
+
+        }
+    </script>
+
+</head>
+
+<body>
+    <div>
+
+    </div>
+
+
+    <script>
+
+    </script>
+</body>
+
+</html>

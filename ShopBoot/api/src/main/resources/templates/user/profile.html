@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <th:block th:include="template/head"></th:block>
+
+    <script th:inline="javascript">
+        function sp_edit(){
+            document.getElementById('div_password').style.display='none';
+            document.getElementById('i_password').style.display='block';
+        }
+
+        function sn_edit(){
+            document.getElementById('div_name').style.display='none';
+            document.getElementById('i_name').style.display='block';
+        }
+
+        function se_edit(){
+            document.getElementById('div_email').style.display='none';
+            document.getElementById('i_email').style.display='block';
+        }
+
+        function userUpdate(){
+            let user=[[${session.User}]];
+            let password=document.getElementById('password').value;
+            user.name=document.getElementById('name').value;
+            user.email=document.getElementById('email').value;
+
+            if(password=='' && document.getElementById('name').value==[[${session.User.name}]] && document.getElementById('email').value==[[${session.User.email}]]){
+                alert('수정 할 항목을 하나라도 입력 해주세요');
+                return;
+            }
+
+            if(password!='') {
+                user.password=password;
+            }
+
+            console.log(user);
+
+
+            var header = $("meta[name='_csrf_header']").attr("content");
+            var token  = $("meta[name='_csrf']").attr("content");
+            $.ajax({
+                "url": "/api/user/userUpdate",
+                "method": "post",
+                contentType: 'application/json',
+                data: JSON.stringify(user),
+                beforeSend	: function(xhr) {
+                    xhr.setRequestHeader(header, token);
+                },
+            }).done(function (response) {
+                if (typeof response.message != 'undefined') {
+                    alert(response.message);
+                } else {
+                    alert('회원정보를 변경 하였습니다');
+                    location.reload();
+                }
+            })
+        }
+
+        function deleteByUser(){
+            let user=[[${session.User}]];
+            let cm=confirm('정말 탈퇴 하시겠습니까?');
+            if(cm==false) return;
+            if(user.id==1) {
+                alert('이 계정은 탈퇴 할 수 없습니다');
+                return;
+            }
+
+            var header = $("meta[name='_csrf_header']").attr("content");
+            var token  = $("meta[name='_csrf']").attr("content");
+
+            $.ajax({
+                "url": "/api/user/deleteByUser",
+                "method": "delete",
+                contentType: 'application/json',
+                data: JSON.stringify(user),
+                beforeSend	: function(xhr) {
+                    xhr.setRequestHeader(header, token);
+                },
+            }).done(function (response) {
+                if (typeof response.message != 'undefined') {
+                    alert(response.message);
+                } else {
+                    alert('안녕히 가세요 ㅠㅠ');
+                    location.href="/";
+                }
+            })
+        }
+    </script>
+
+</head>
+
+<body>
+    <main>
+        <th:block th:include="template/header"/>
+        <th:block th:include="template/profileside"></th:block>
+
+
+        <!-- Login & Security -->
+        <div th:if="${session.User}!=null" class="col-lg-9 g-mb-50">
+            <!-- Info -->
+            <div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">
+                <div class="row">
+                    <div class="col-8">
+                        <span class="d-block g-color-text g-font-size-13 mb-1">아이디:</span>
+                        <span class="d-block"><span th:text="${session.User.accountId}">아이디</span></span>
+                    </div>
+
+
+                </div>
+
+                <hr class="g-brd-gray-light-v4 g-my-20">
+
+                <div class="row">
+                    <div id="div_password"  class="col-8">
+                        <span class="d-block g-color-text g-font-size-13 mb-1">비밀번호:</span>
+                        <span class="d-block"><span >*******</span></span>
+                    </div>
+
+                    <div id="i_password" style="display: none" class="col-8">
+                        <span class="d-block g-color-text g-font-size-13 mb-1">비밀번호:</span>
+                        <input id="password"
+                               class="form-control form-control-md g-brd-none g-brd-bottom g-brd-blue-light-v7 g-brd-gray-light-v3--focus rounded-0 px-0 g-py-10"
+                               type="text" placeholder="변경 할 비밀번호를 입력해주세요">
+                    </div>
+
+                    <div class="col-4 text-right">
+                        <a onclick="sp_edit()" class="btn g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4--hover g-font-size-13 rounded g-px-18 g-py-7" href="#">수정</a>
+                    </div>
+                </div>
+
+                <hr class="g-brd-gray-light-v4 g-my-20">
+
+                <div class="row">
+                    <div id="div_name" class="col-8">
+                        <span class="d-block g-color-text g-font-size-13 mb-1">닉네임:</span>
+                        <span class="d-block"><span th:text="${session.User.name}">닉네임</span>
+                        </span>
+                    </div>
+
+                    <div id="i_name" style="display: none" class="col-8">
+                        <span class="d-block g-color-text g-font-size-13 mb-1">닉네임:</span>
+                        <input id="name" th:value="${session.User.name}"
+                               class="form-control form-control-md g-brd-none g-brd-bottom g-brd-blue-light-v7 g-brd-gray-light-v3--focus rounded-0 px-0 g-py-10"
+                               type="text" placeholder="변경 할 닉네임을 입력해주세요">
+                    </div>
+
+                    <div class="col-4 text-right">
+                        <a onclick="sn_edit()"  class="btn g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4--hover g-font-size-13 rounded g-px-18 g-py-7" href="#">수정</a>
+                    </div>
+
+
+                </div>
+
+                <hr class="g-brd-gray-light-v4 g-my-20">
+
+                <div class="row">
+                    <div id="div_email"  class="col-8">
+                        <span class="d-block g-color-text g-font-size-13 mb-1">이메일:</span>
+                        <span class="d-block"><span th:text="${session.User.email}">이메일</span>
+                        </span>
+                    </div>
+
+                    <div id="i_email" style="display: none" class="col-8">
+                        <span class="d-block g-color-text g-font-size-13 mb-1">이메일:</span>
+                        <input id="email" th:value="${session.User.email}"
+                               class="form-control form-control-md g-brd-none g-brd-bottom g-brd-blue-light-v7 g-brd-gray-light-v3--focus rounded-0 px-0 g-py-10"
+                               type="text" placeholder="변경 할 이메일을 입력해주세요">
+                    </div>
+
+                    <div class="col-4 text-right">
+                        <a onclick="se_edit()" class="btn g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4--hover g-font-size-13 rounded g-px-18 g-py-7" href="#">수정</a>
+                    </div>
+
+
+                </div>
+
+                <hr class="g-brd-gray-light-v4 g-my-20">
+
+                <div class="row">
+                    <div class="col-8">
+                        <span class="d-block g-color-text g-font-size-13 mb-1">포인트:</span>
+                        <span class="d-block"><span th:text="${session.User.point}">포인트</span>
+                        </span>
+                    </div>
+
+
+                </div>
+
+
+            </div>
+            <!-- End Info -->
+
+            <span class="float-right">
+            <button onclick="userUpdate()" class="btn u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25" type="submit">회원정보 변경</button>
+            <button  onclick="deleteByUser()" class="btn u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25" type="submit">회원탈퇴</button>
+            </span>
+        </div>
+        <!-- End Login & Security -->
+        </div>
+        </div>
+
+
+
+        <th:block th:include="template/footer"></th:block>
+
+
+
+        <a class="js-go-to u-go-to-v2" href="#" data-type="fixed" data-position='{
+           "bottom": 15,
+           "right": 15
+         }' data-offset-top="400" data-compensation="#js-header" data-show-effect="zoomIn">
+            <i class="hs-icon hs-icon-arrow-top"></i>
+        </a>
+    </main>
+
+    <div class="u-outer-spaces-helper"></div>
+
+    <th:block th:include="template/script"></th:block>
+
+
+    <!-- JS Plugins Init. -->
+    <script>
+        $(document).on('ready', function() {
+            // initialization of header
+            $.HSCore.components.HSHeader.init($('#js-header'));
+            $.HSCore.helpers.HSHamburgers.init('.hamburger');
+
+            // initialization of HSMegaMenu component
+            $('.js-mega-menu').HSMegaMenu({
+                event: 'hover',
+                pageContainer: $('.container'),
+                breakpoint: 991
+            });
+
+            // initialization of HSDropdown component
+            $.HSCore.components.HSDropdown.init($('[data-dropdown-target]'), {
+                afterOpen: function() {
+                    $(this).find('input[type="search"]').focus();
+                }
+            });
+
+            // initialization of HSScrollBar component
+            $.HSCore.components.HSScrollBar.init($('.js-scrollbar'));
+
+            // initialization of go to
+            $.HSCore.components.HSGoTo.init('.js-go-to');
+        });
+    </script>
+</body>
+
+</html>

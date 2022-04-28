@@ -1,0 +1,28 @@
+version: '3.7'
+services:
+  php:
+    image: php:7.3-fpm
+    restart: always
+    ports:
+      - "9102:9000"
+    volumes:
+      - ./source:/source
+  web:
+    image: nginx:latest
+    restart: always
+    depends_on:
+      - php
+    ports:
+      - "9101:8080"
+    volumes:
+      - ./source:/source
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+  proxy:
+    image: nginx:latest
+    restart: always
+    depends_on:
+      - web
+    ports:
+      - "9100:8080"
+    volumes:
+      - ./proxy.conf:/etc/nginx/nginx.conf

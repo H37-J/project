@@ -1,0 +1,1 @@
+const includeAll = (arr, values) => values.every(v => arr.includes(v));

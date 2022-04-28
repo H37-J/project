@@ -1,0 +1,122 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Launch st",
+            "request": "launch",
+            "mainClass": "javalgo.utils.st",
+            "projectName": "Algorithm_eec25f5e"
+        },
+        {
+            "type": "java",
+            "name": "Launch BigNumber",
+            "request": "launch",
+            "mainClass": "javalgo.level2.BigNumber",
+            "projectName": "Algorithm_eec25f5e"
+        },
+        {
+            "type": "java",
+            "name": "Launch HowManyTimesRotated",
+            "request": "launch",
+            "mainClass": "Java.Searches.HowManyTimesRotated",
+            "projectName": "Algorithm_eec25f5e"
+        },
+        {
+            "type": "java",
+            "name": "Launch BruteForceKnapsack",
+            "request": "launch",
+            "mainClass": "Java.DynamicProgramming.BruteForceKnapsack",
+            "projectName": "Algorithm_eec25f5e"
+        },
+        {
+            "type": "java",
+            "name": "Launch TruckQueue",
+            "request": "launch",
+            "mainClass": "javas.level2.TruckQueue",
+            "projectName": "Algorithm_eec25f5e"
+        },
+        {
+            "type": "java",
+            "name": "Launch PrintQueue",
+            "request": "launch",
+            "mainClass": "javas.level2.PrintQueue",
+            "projectName": "Algorithm_eec25f5e"
+        },
+        {
+            "type": "java",
+            "name": "Launch RemProgress",
+            "request": "launch",
+            "mainClass": "javas.level2.RemProgress",
+            "projectName": "Algorithm_eec25f5e"
+        },
+        {
+            "type": "java",
+            "name": "Launch GreedyReserve",
+            "request": "launch",
+            "mainClass": "javas.level1.GreedyReserve",
+            "projectName": "Algorithm_eec25f5e"
+        },
+        {
+            "type": "java",
+            "name": "Launch ArrayDistinct",
+            "request": "launch",
+            "mainClass": "javas.level1.ArrayDistinct",
+            "projectName": "Algorithm_eec25f5e"
+        },
+        {
+            "type": "java",
+            "name": "Launch ArrayDistinct",
+            "request": "launch",
+            "mainClass": "java.level1.ArrayDistinct",
+            "projectName": "Algorithm_eec25f5e"
+        },
+        {
+            "type": "java",
+            "name": "Launch StringSort",
+            "request": "launch",
+            "mainClass": "javaclass.level1.StringSort",
+            "projectName": "Algorithm_eec25f5e"
+        },
+        {
+            "type": "java",
+            "name": "Launch permutation_prime",
+            "request": "launch",
+            "mainClass": "javaclass.leve1.permutation_prime",
+            "projectName": "Algorithm_eec25f5e"
+        },
+        {
+            "type": "java",
+            "name": "Launch distnct",
+            "request": "launch",
+            "mainClass": "javaclass.leve1.distnct",
+            "projectName": "Algorithm_eec25f5e"
+        },
+        {
+            "name": "Launch Built-in web server",
+            "type": "php",
+            "request": "launch",
+            "runtimeArgs": [
+                "-dxdebug.mode=debug",
+                "-dxdebug.start_with_request=yes",
+                "-S",
+                "localhost:0"
+            ],
+            "program": "",
+            "cwd": "${workspaceRoot}",
+            "port": 9003,
+            "serverReadyAction": {
+                "pattern": "Development Server \\(http://localhost:([0-9]+)\\) started",
+                "uriFormat": "http://localhost:%s",
+                "action": "openExternally"
+            }
+        },
+        {
+            "name": "Launch Chrome",
+            "request": "launch",
+            "type": "pwa-chrome",
+            "url": "http://localhost:8080",
+            "webRoot": "${workspaceFolder}"
+        }
+    ]
+   
+}

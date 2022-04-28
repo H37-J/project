@@ -1,0 +1,16 @@
+{
+  "1" : {
+    "accountId" : "로그인 하지 않았습니다",
+    "name" : "로그인 하지 않았습니다",
+    "threadId" : "45",
+    "threadName" : "http-nio-8080-exec-1",
+    "ip" : "218.38.137.28",
+    "url" : "http://localhost:8080/",
+    "httpMethod" : "GET",
+    "result" : "shop/shop",
+    "timeCost" : 0.13,
+    "os" : "MAC_OS_X",
+    "browser" : "FIREFOX9",
+    "userAgent" : "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0) Gecko/20100101 Firefox/91.0"
+  }
+}

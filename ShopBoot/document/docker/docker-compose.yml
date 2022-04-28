@@ -1,0 +1,45 @@
+version: '3'
+services:
+  shop-mysql:
+    image: mysql:latest
+    platform: linux/x86_64
+    container_name: shop-mysql
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    restart: always
+    environment:
+      MYSQL_DATABASE: shop
+      MYSQL_ROOT_PASSWORD: star8903 
+    ports:
+      - 3306:3306
+    networks: 
+      - shop_network
+  shop-server:
+    container_name: shop-server
+    restart: always
+    build:
+        context: docker-shop-server
+        dockerfile: Dockerfile
+    image: shop-server:latest
+    ports:
+      - 5050:8080
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://shop-mysql:3306/shop?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_PASSWORD: star8903
+    depends_on:
+          - shop-mysql
+    networks: 
+      - shop_network
+  mail-server:
+    container_name: mail-server
+    restart: always
+    build:
+        context: docker-mail-server
+        dockerfile: Dockerfile
+    image: mail-server:latest
+    ports:
+      - 5051:8081
+    networks: 
+      - shop_network
+
+networks:
+  shop_network:

@@ -1,0 +1,9 @@
+curl "https://api.m3o.com/v1/avatar/Generate" \
+-H "Content-Type: application/json" \
+-H "Authorization: Bearer ZGJkYjFhOTQtYjBjYS00MDE3LWFmMjktZjE3OTdhOWFmYjRl" \
+-d '{
+  "format": "jpeg",
+  "gender": "female",
+  "upload": false,
+  "username": ""
+}'

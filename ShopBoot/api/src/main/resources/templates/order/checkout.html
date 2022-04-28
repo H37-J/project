@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<th:block th:include="template/head" />
+
+<!-- CSS Implementing Plugins -->
+<link rel="stylesheet" th:href="@{/shop/assets/main/vendor/icon-awesome/css/font-awesome.min.css}">
+<link rel="stylesheet" th:href="@{/shop/assets/main/vendor/icon-line-pro/style.css}">
+<link rel="stylesheet" th:href="@{/shop/assets/main/vendor/icon-hs/style.css}">
+<link rel="stylesheet" th:href="@{/shop/assets/main/vendor/chosen/chosen.css}">
+<link rel="stylesheet" th:href="@{/shop/assets/main/vendor/animate.css}">
+<link rel="stylesheet" th:href="@{/shop/assets/main/vendor/hamburgers/hamburgers.min.css}">
+<link rel="stylesheet" th:href="@{/shop/assets/main/vendor/hs-megamenu/src/hs.megamenu.css}">
+<link rel="stylesheet" th:href="@{/shop/assets/main/vendor/malihu-scrollbar/jquery.mCustomScrollbar.min.css}">
+
+<script type="text/javascript" th:inline="javascript">
+  var header = $("meta[name='_csrf_header']").attr("content");
+  var token = $("meta[name='_csrf']").attr("content");
+
+  $(document).ready(function () {
+    if (![[${session.User}]]) {
+      alert('로그인 후 이용 가능합니다');
+      location.href = "/login";
+      return;
+    }
+
+    $("#inputGroup10").keyup(function () {
+      let point = document.getElementById('inputGroup10').value;
+      let myPoint = document.getElementById('myPoint').textContent;
+
+      if (Number(point) > Number(myPoint)) {
+        alert('사용 하실 수 있는 포인트를 초과 하였습니다');
+        document.getElementById('inputGroup10').value = 0;
+      }
+    });
+
+  })
+
+  const orderComplete = () => {
+
+    $.ajax({
+      method: 'POST',
+      url: '/api/order/orderComplete',
+      beforeSend: function (xhr) {
+        xhr.setRequestHeader(header, token);
+      },
+    }).done(function (response) {
+      if (typeof response.message != 'undefined') {
+        alert(response.message);
+      } else {
+        alert('결제 완료!');
+        const usedPoint = document.getElementById('inputGroup10').value;
+        const plusPoint = document.getElementById('originalTotal').textContent;
+        let user = {};
+
+        user.usedPoint = usedPoint;
+        user.plusPoint = parseInt(plusPoint);
+        $.ajax({
+          method: 'POST',
+          url: '/api/user/updateUserPoint',
+          contentType: 'application/json',
+          data: JSON.stringify(user),
+          beforeSend: function (xhr) {
+            xhr.setRequestHeader(header, token);
+          },
+        }).done(function (response) {
+          if (typeof response.message != 'undefined') {
+            alert(response.message);
+          } else {
+            location.href = 'user/myOrder?page=1';
+          }
+        });
+
+
+      }
+    })
+  }
+
+
+  const updateOrderInfo = () => {
+    const name = document.getElementById('inputGroup4').value;
+    const phone = document.getElementById('inputGroup5').value;
+    const email = document.getElementById('inputGroup6').value;
+    const request = document.getElementById('inputGroup7').value;
+    const address_main = document.getElementById('inputGroup8').value;
+    const address_sub = document.getElementById('inputGroup9').value;
+    const point = document.getElementById('inputGroup10').value;
+
+    document.getElementById('name_input').textContent = '성함:' + name;
+    document.getElementById('email_input').textContent = '이메일:' + email;
+    document.getElementById('phone_input').textContent = '휴대폰번호:' + phone;
+    document.getElementById('request_input').textContent = '요청사항:' + request;
+    document.getElementById('address_main').textContent = '배송주소: ' + address_main;
+    document.getElementById('address_sub').textContent = '상세주소: ' + address_sub;
+    document.getElementById('point').textContent = '포인트:' + point;
+    
+
+    let orders = {};
+    orders.id = [[${ order.get(0).id }]];
+    orders.createAt = [[${ order.get(0).createAt }]];
+    orders.updateAt = [[${ order.get(0).updateAt }]];
+    orders.user = [[${ order.get(0).user }]];
+    orders.product = [[${ order.get(0).product }]];
+    orders.price = [[${ order.get(0).price }]];
+    orders.stock = [[${ order.get(0).stock }]];
+    orders.total = [[${ order.get(0).total }]];
+    orders.orderStatus = [[${ order.get(0).orderStatus }]];
+    orders.point = point;
+
+
+    //포인트적용
+    $.ajax({
+      method: 'POST',
+      url: '/asyncOrderPoint',
+      contentType: 'application/json',
+      data: JSON.stringify(orders),
+      beforeSend: function (xhr) {
+        xhr.setRequestHeader(header, token);
+      },
+    }).done(function (response) {
+      if (typeof response.message != 'undefined') {
+        alert(response.message);
+      } else {
+        $('#pointView').replaceWith(response);
+        document.getElementById('usedPoint').textContent = point;
+      }
+    });
+
+
+
+    //주문정보 업데이트
+        let user = {};
+        user.name = name;
+        user.email = email;
+        user.request = request;
+        user.phone = phone;
+        user.address_main=address_main;
+        user.address_sub=address_sub;
+        $.ajax({
+          method: 'POST',
+          url: '/api/user/updateOrderInfo',
+          contentType: 'application/json',
+          data: JSON.stringify(user),
+          beforeSend: function (xhr) {
+            xhr.setRequestHeader(header, token);
+          },
+        }).done(function (response) {
+          if (typeof response.message != 'undefined') {
+            alert(response.message);
+          } else {
+          }
+        });
+  }
+
+
+
+
+
+</script>
+
+<body>
+  <main>
+
+    <th:block th:include="template/header" />
+    <!-- Breadcrumbs -->
+    <section class="g-brd-bottom g-brd-gray-light-v4 g-py-30">
+      <div class="container">
+        <ul class="u-list-inline">
+          <li class="list-inline-item g-mr-5">
+            <a class="u-link-v5 g-color-text" href="/">홈</a>
+            <i class="g-color-gray-light-v2 g-ml-5 fa fa-angle-right"></i>
+          </li>
+          <li class="list-inline-item g-mr-5">
+            <a class="u-link-v5 g-color-text" style="cursor:pointer" onclick="window.history.back()">상품페이지</a>
+            <i class="g-color-gray-light-v2 g-ml-5 fa fa-angle-right"></i>
+          </li>
+          <li class="list-inline-item g-color-primary">
+            <span>결제페이지</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+    <!-- End Breadcrumbs -->
+
+
+
+    <!-- Checkout Form -->
+    <div class="container g-pt-100 g-pb-70">
+      <form class="js-validate js-step-form" data-progress-id="#stepFormProgress" data-steps-id="#stepFormSteps">
+        <div class="g-mb-100">
+          <!-- Step Titles -->
+          <ul id="stepFormProgress"
+            class="js-step-progress row justify-content-center list-inline text-center g-font-size-17 mb-0">
+            <li class="col-3 list-inline-item g-mb-20 g-mb-0--sm">
+              <span
+                class="d-block u-icon-v2 u-icon-size--sm g-rounded-50x g-brd-primary g-color-primary g-color-white--parent-active g-bg-primary--active g-color-white--checked g-bg-primary--checked mx-auto mb-3">
+                <i class="g-font-style-normal g-font-weight-700 g-hide-check">1</i>
+                <i class="fa fa-check g-show-check"></i>
+              </span>
+              <h4 class="g-font-size-16 text-uppercase mb-0">구매목록</h4>
+            </li>
+
+            <li class="col-3 list-inline-item g-mb-20 g-mb-0--sm">
+              <span
+                class="d-block u-icon-v2 u-icon-size--sm g-rounded-50x g-brd-gray-light-v2 g-color-gray-dark-v5 g-brd-primary--active g-color-white--parent-active g-bg-primary--active g-color-white--checked g-bg-primary--checked mx-auto mb-3">
+                <i class="g-font-style-normal g-font-weight-700 g-hide-check">2</i>
+                <i class="fa fa-check g-show-check"></i>
+              </span>
+              <h4 class="g-font-size-16 text-uppercase mb-0">주문작성</h4>
+            </li>
+
+            <li class="col-3 list-inline-item">
+              <span
+                class="d-block u-icon-v2 u-icon-size--sm g-rounded-50x g-brd-gray-light-v2 g-color-gray-dark-v5 g-brd-primary--active g-color-white--parent-active g-bg-primary--active g-color-white--checked g-bg-primary--checked mx-auto mb-3">
+                <i class="g-font-style-normal g-font-weight-700 g-hide-check">3</i>
+                <i class="fa fa-check g-show-check"></i>
+              </span>
+              <h4 class="g-font-size-16 text-uppercase mb-0">결제</h4>
+            </li>
+          </ul>
+          <!-- End Step Titles -->
+        </div>
+
+        <div id="stepFormSteps">
+          <!-- Shopping Cart -->
+          <div id="step1" class="active">
+            <div class="row">
+              <div class="col-md-8 g-mb-30">
+                <!-- Products Block -->
+                <div class="g-overflow-x-scroll g-overflow-x-visible--lg">
+                  <table class="text-center w-100">
+                    <thead class="h6 g-brd-bottom g-brd-gray-light-v3 g-color-black text-uppercase">
+                      <tr>
+                        <th class="g-font-weight-400 text-left g-pb-20">상품</th>
+                        <th class="g-font-weight-400 g-width-130 g-pb-20">가격</th>
+                        <th class="g-font-weight-400 g-width-50 g-pb-20">개수</th>
+                        <th class="g-font-weight-400 g-width-130 g-pb-20">총합</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      <!-- Item-->
+                      <tr th:each="o:${order}" class="g-brd-bottom g-brd-gray-light-v3">
+                        <td class="text-left g-py-25">
+                          <img class="d-inline-block g-width-100 mr-4" th:src="${o.product.main_image1}"
+                            alt="Image Description">
+                          <div class="d-inline-block align-middle">
+                            <h4 th:text="${o.product.title}" class="h6 g-color-black">Sneaker</h4>
+                            <ul class="list-unstyled g-color-gray-dark-v4 g-font-size-12 g-line-height-1_6 mb-0">
+                              <li th:text="${o.product.category_main}+'-'+${o.product.category_sub}">Color: Black</li>
+                              <li th:text="${o.product.size}">Size: MD</li>
+                            </ul>
+                          </div>
+                        </td>
+                        <td class="g-color-gray-dark-v2 g-font-size-13" th:text="${o.product.price}+'원'">$ 87.00</td>
+                        <td>
+                          <span th:text="${o.stock}" class="text-center g-font-size-13 g-pa-0">1</span>
+
+                        </td>
+                        <td class="text-right g-color-black">
+                          <span th:text="${o.price}+'원'" style="padding-right:20px;"
+                            class="g-color-gray-dark-v2 g-font-size-13 mr-4">$ 87.00</span>
+
+                        </td>
+                      </tr>
+                      <!-- End Item-->
+                    </tbody>
+                  </table>
+                </div>
+                <!-- End Products Block -->
+              </div>
+
+              <div class="col-md-4 g-mb-30">
+                <!-- Summary -->
+                <div class="g-bg-gray-light-v5 g-pa-20 g-pb-50 mb-4">
+                  <h4 class="h6 text-uppercase mb-3">주문정보</h4>
+
+                  <!-- Accordion -->
+                  <div id="accordion-01" class="mb-4" role="tablist" aria-multiselectable="true">
+                    <div id="accordion-01-heading-01" class="g-brd-y g-brd-gray-light-v2 py-0" role="tab">
+
+                    </div>
+
+                  </div>
+                  <!-- End Accordion -->
+
+
+                  <div class="d-flex justify-content-between">
+                    <span class="g-color-black">주문총합</span>
+                    <span class="g-color-black g-font-weight-300" th:text="${orderTotal}+'원' "></span>
+                  </div>
+                </div>
+                <!-- End Summary -->
+
+                <button class="btn btn-block u-btn-primary g-font-size-13 text-uppercase g-py-15 mb-4" type="button"
+                  data-next-step="#step2">주문서 작성</button>
+
+
+
+
+              </div>
+            </div>
+          </div>
+          <!-- End Shopping Cart -->
+
+          <!-- Shipping -->
+          <div id="step2">
+            <div class="row">
+              <div class="col-md-8 g-mb-30">
+                <div class="row">
+                  <div class="col-sm-6 g-mb-20">
+                    <div class="form-group">
+                      <label class="d-block g-color-gray-dark-v2 g-font-size-13">이름</label>
+                      <input th:value="${session.User.name}" id="inputGroup4"
+                        class="form-control u-form-control g-placeholder-gray-light-v1 rounded-0 g-py-15"
+                        name="firstName" type="text" placeholder="Alexander" required data-msg="This field is mandatory"
+                        data-error-class="u-has-error-v1" data-success-class="u-has-success-v1">
+                    </div>
+                  </div>
+
+                  <div class="col-sm-6 g-mb-20">
+                    <div class="form-group">
+                      <label class="d-block g-color-gray-dark-v2 g-font-size-13">이메일</label>
+                      <input th:value="${session.User.email}" id="inputGroup6"
+                        class="form-control u-form-control g-placeholder-gray-light-v1 rounded-0 g-py-15" name="email"
+                        type="email" placeholder="alex@gmail.com" required data-msg="This field is mandatory"
+                        data-error-class="u-has-error-v1" data-success-class="u-has-success-v1">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+
+
+                  <div class="col-sm-6 g-mb-20">
+                    <div class="form-group">
+                      <label class="d-block g-color-gray-dark-v2 g-font-size-13">적립금</label>
+                      <input value="0" id="inputGroup10"
+                        class="form-control u-form-control g-placeholder-gray-light-v1 rounded-0 g-py-15"
+                        name="phoneNumber" type="text" placeholder="+01 (00) 555 666 77" required
+                        data-msg="This field is mandatory" data-error-class="u-has-error-v1"
+                        data-success-class="u-has-success-v1">
+                    </div>
+                    회원님의 포인트: <span id="myPoint" th:text="${session.User.point}"></span>
+                  </div>
+
+                  <div class="col-sm-6 g-mb-20">
+                    <div class="form-group">
+                      <label class="d-block g-color-gray-dark-v2 g-font-size-13">요청사항</label>
+                      <input id="inputGroup7" th:value="${session.User.request}"
+                        class="form-control u-form-control g-placeholder-gray-light-v1 rounded-0 g-py-15" name="company"
+                        type="text" placeholder="Pixeel Ltd.">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-sm-6 g-mb-20">
+                    <div class="form-group">
+                      <label class="d-block g-color-gray-dark-v2 g-font-size-13">휴대폰번호</label>
+                      <input th:value="${session.User.phone}" id="inputGroup5"
+                        class="form-control u-form-control g-placeholder-gray-light-v1 rounded-0 g-py-15"
+                        name="lastName" type="text" placeholder="Teseira" required data-msg="This field is mandatory"
+                        data-error-class="u-has-error-v1" data-success-class="u-has-success-v1">
+                    </div>
+                  </div>
+
+                  <div class="col-sm-6 g-mb-20">
+                    <div class="form-group">
+                      <label class="d-block g-color-gray-dark-v2 g-font-size-13">쿠폰</label>
+                      <select  id="aset"
+                        class="js-custom-select u-select-v1 g-brd-gray-light-v2 g-color-gray-light-v1 g-py-12"
+                        style="width: 100%;" data-placeholder="쿠폰이 없습니다" data-open-icon="fa fa-angle-down"
+                        data-close-icon="fa fa-angle-up"  data-msg="This field is mandatory"
+                        data-error-class="u-has-error-v1" data-success-class="u-has-success-v1">
+                        <option></option>
+                        <span
+                          <option th:id="'aid_'" >쿠폰이 없습니다
+                          </option>
+                        </span>
+
+                      </select>
+                    </div>
+
+                    <input type="text" style="display:none" value="" id="aname">
+                  </div>
+                </div>
+
+                <div id="addDiv" class="row">
+                  <div class="col-sm-6 g-mb-20">
+                    <div class="form-group">
+                      <label class="d-block g-color-gray-dark-v2 g-font-size-13">배송주소</label>
+                      <input th:value="${session.User.address_main}" id="inputGroup8"
+                        class="form-control u-form-control g-placeholder-gray-light-v1 rounded-0 g-py-15"
+                        name="stateProvince" type="text" placeholder="London" required
+                        data-msg="This field is mandatory" data-error-class="u-has-error-v1"
+                        data-success-class="u-has-success-v1">
+
+                    </div>
+                  </div>
+
+                  <div class="col-sm-6 g-mb-20">
+                    <div class="form-group">
+                      <label class="d-block g-color-gray-dark-v2 g-font-size-13">상세주소</label>
+                      <input th:value="${session.User.address_sub}" id="inputGroup9"
+                        class="form-control u-form-control g-placeholder-gray-light-v1 rounded-0 g-py-15" name="zip"
+                        type="text" placeholder="AB123" required data-msg="This field is mandatory"
+                        data-error-class="u-has-error-v1" data-success-class="u-has-success-v1">
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <div id="accordion-01" ㅈ class="mb-4" role="tablist" aria-multiselectable="true">
+                <div id="accordion-01-heading-01" class="g-brd-y g-brd-gray-light-v2 py-0" role="tab">
+                </div>
+
+              </div>
+
+              <div class="col-md-4 g-mb-30">
+                <!-- Order Summary -->
+                <div class="g-bg-gray-light-v5 g-pa-20 g-pb-50 mb-4">
+                  <h4 class="h6 text-uppercase mb-3">주문요약</h4>
+
+                  <div id="accordion-01" ㅈ class="mb-4" role="tablist" aria-multiselectable="true">
+                    <div id="accordion-01-heading-01" class="g-brd-y g-brd-gray-light-v2 py-0" role="tab">
+                    </div>
+
+                  </div>
+
+                  <div class="d-flex justify-content-between">
+                    <span class="g-color-black">주문총합</span>
+                    <span th:text="${orderTotal}+'원'" class="g-color-black g-font-weight-300">$459.5</span>
+                  </div>
+                </div>
+                <!-- End Order Summary -->
+                <button onclick="updateOrderInfo()"
+                  class="btn btn-block u-btn-primary g-font-size-13 text-uppercase g-px-40 g-py-15" type="button"
+                  data-next-step="#step3">결제하러 가기</button>
+
+              </div>
+            </div>
+          </div>
+          <!-- End Shipping -->
+
+          <!-- Payment & Review -->
+          <div id="step3">
+            <div class="row">
+              <div class="col-md-8 g-mb-30">
+                <!-- Payment Methods -->
+                <ul class="list-unstyled mb-5">
+                  <!--                  <li class="g-brd-bottom g-brd-gray-light-v3 pb-3 my-3">-->
+                  <!--                    <label-->
+                  <!--                      class="form-check-inline u-check d-block u-link-v5 g-color-gray-dark-v4 g-color-primary&#45;&#45;hover g-pl-30">-->
+                  <!--                      <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="radInline1_1" type="radio">-->
+                  <!--                      <span class="d-block u-check-icon-checkbox-v4 g-absolute-centered&#45;&#45;y g-left-0">-->
+                  <!--                        <i class="fa" data-check-icon="&#xf00c"></i>-->
+                  <!--                      </span>-->
+                  <!--                      휴대폰결제-->
+                  <!--                      <img  style="width:20px; height: 16px" th:src="@{/img/phone1.png}" alt="Image Description">-->
+                  <!--                    </label>-->
+                  <!--                  </li>-->
+                  <li class="my-3">
+                    <label
+                      class="form-check-inline u-check d-block u-link-v5 g-color-gray-dark-v4 g-color-primary--hover g-pl-30">
+                      <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="radInline1_1" type="radio" checked>
+                      <span class="d-block u-check-icon-checkbox-v4 g-absolute-centered--y g-left-0">
+                        <i class="fa" data-check-icon="&#xf00c"></i>
+                      </span>
+                      신용/체크카드
+                      <img class="g-width-50 ml-2" th:src="@{/img/card1.png}" alt="Image Description">
+                    </label>
+                  </li>
+                </ul>
+                <!-- End Payment Methods -->
+
+                <!-- Alert -->
+                <div class="alert g-brd-around g-brd-gray-dark-v5 rounded-0 g-pa-0 mb-4" role="alert">
+                  <div class="media">
+                    <div class="d-flex g-brd-right g-brd-gray-dark-v5 g-pa-15">
+                      <span class="u-icon-v1 u-icon-size--xs g-color-black">
+                        <i class="align-middle icon-media-065 u-line-icon-pro"></i>
+                      </span>
+                    </div>
+                    <div class="media-body g-pa-15">
+                      <p class="g-color-black m-0">나의 주문정보 확인</p>
+                    </div>
+                  </div>
+                </div>
+                <!-- End Alert -->
+
+                <!-- Shipping Details -->
+                <br class="list-unstyled g-color-gray-dark-v4 g-font-size-15 g-pl-70 mb-5">
+                <li id="name_input" class="g-my-3">호종규</li> </br>
+                <li id="email_input" class="g-my-3">these990712@gmail.com</li> </br>
+                <li id="phone_input" class="g-my-3">010-401806763</li> </br>
+                <li id="request_input" class="g-my-3">요청사항</li> </br>
+                <!--<li id="coupon" class="g-my-3">쿠폰</li> </br>-->
+                <li id="point" class="g-my-3">포인트</li>
+                </ul>
+                <!-- End Shipping Details -->
+
+                <div class="g-brd-bottom g-brd-gray-light-v3 g-pb-30 g-mb-30">
+                  <div class="text-right">
+                    <button onclick="orderComplete()"
+                      class="btn u-btn-primary g-font-size-13 text-uppercase g-px-40 g-py-15"
+                      type="button">결제하기</button>
+                  </div>
+                </div>
+
+
+              </div>
+
+              <div class="col-md-4 g-mb-30">
+                <!-- Order Summary -->
+                <div id="pointView" class="g-bg-gray-light-v5 g-pa-20 g-pb-50 mb-4">
+                  <div class="g-brd-bottom g-brd-gray-light-v3 g-mb-15">
+                    <h4 class="h6 text-uppercase mb-3">주문요약</h4>
+                  </div>
+
+                  <div class="d-flex justify-content-between mb-3">
+                    <span class="g-color-black">가격총합</span>
+                    <span id="originalTotal" class="g-color-black g-font-weight-300"
+                      th:text="${originalTotal}+'원'">$454.00</span>
+                  </div>
+
+                  <div class="mb-3">
+                    <div class="d-flex justify-content-between mb-1">
+                      <span class="g-color-black">사용한 포인트</span>
+                      <span id="usedPoint" class="g-color-black g-font-weight-300">0</span>
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <div class="d-flex justify-content-between mb-1">
+                      <span class="g-color-black">배송비</span>
+                      <span class="g-color-black g-font-weight-300">무료</span>
+                    </div>
+                    <p class="g-font-size-13">배송은 약 1~2일이 소요됩니다.</p>
+                  </div>
+                  <div class="d-flex justify-content-between mb-3">
+                    <span class="g-color-black">주문총합</span>
+                    <span class="g-color-black g-font-weight-300" th:text="${orderTotal}+'원'">$459.5</span>
+                  </div>
+
+                  <!-- Accordion -->
+                  <div id="accordion-05" class="mb-4" role="tablist" aria-multiselectable="true">
+                    <div id="accordion-05-heading-05" class="g-brd-y g-brd-gray-light-v2 py-3" role="tab">
+                      <h5 class="g-font-weight-400 g-font-size-default mb-0">
+                        <a th:text="${size}+'개의 상품'" class="g-color-gray-dark-v4 g-text-underline--none--hover"
+                          data-toggle="collapse" data-parent="#accordion-05" aria-expanded="true"
+                          aria-controls="accordion-05-body-05">
+                          <span class="ml-3 fa fa-angle-down"></span></a>
+                      </h5>
+                    </div>
+                    <div id="accordion-05-body-05" class="collapse" role="tabpanel"
+                      aria-labelledby="accordion-05-heading-05">
+                      <div class="g-py-15">
+
+                        <ul th:each="o:${order}" class="list-unstyled mb-3">
+                          <!-- Product -->
+                          <li class="d-flex justify-content-start">
+                            <img class="g-width-100 g-height-100 mr-3" th:src="${o.product.main_image1}"
+                              alt="Image Description">
+                            <div class="d-block">
+                              <h4 class="h6 g-color-black" th:text="${o.product.title}">Sneaker</h4>
+                              <ul class="list-unstyled g-color-gray-dark-v4 g-font-size-12 g-line-height-1_4 mb-1">
+                                <li th:text="${o.product.category_main}+'-'+${o.product.category_sub}"></li>
+                                <li th:text="'사이즈'+${o.product.size}">Size: MD</li>
+                                <li th:text="${size}+'개'">QTY: 1</li>
+                              </ul>
+                              <span class="d-block g-color-black g-font-weight-400" th:text="${orderTotal}+'원'">$
+                                87.00</span>
+                            </div>
+                          </li>
+                          <!-- End Product -->
+
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- End Accordion -->
+                </div>
+                <!-- End Order Summary -->
+
+                <!-- Ship To -->
+                <div class="g-px-20 mb-5">
+                  <div class="d-flex justify-content-between g-brd-bottom g-brd-gray-light-v3 g-mb-15">
+                    <h4 class="h6 text-uppercase mb-3">배송지정보</h4>
+                    <span class="g-color-gray-dark-v4 g-color-black--hover g-cursor-pointer">
+                      <i class="fa fa-pencil"></i>
+                    </span>
+                  </div>
+                  <ul class="list-unstyled g-color-gray-dark-v4 g-font-size-15">
+                    <li id="address_main" class="g-my-3">Chester Ryan</li>
+                    <li id="address_sub" class="g-my-3">chester@gmail.com</li>
+
+                  </ul>
+                </div>
+                <!-- End Ship To -->
+
+
+              </div>
+            </div>
+          </div>
+          <!-- End Payment & Review -->
+        </div>
+      </form>
+    </div>
+    <!-- End Checkout Form -->
+
+
+
+
+    <th:block th:include="template/footer" />
+
+
+    <a class="js-go-to u-go-to-v2" href="#" data-type="fixed" data-position='{
+           "bottom": 15,
+           "right": 15
+         }' data-offset-top="400" data-compensation="#js-header" data-show-effect="zoomIn">
+      <i class="hs-icon hs-icon-arrow-top"></i>
+    </a>
+  </main>
+
+  <div class="u-outer-spaces-helper"></div>
+
+  <!-- JS Global Compulsory -->
+
+  <script th:src="@{/shop/assets/main/vendor/appear.js}"></script>
+
+  <script th:src="@{/shop/assets/main/vendor/jquery/jquery.min.js}"></script>
+  <script th:src="@{/shop/assets/main/vendor/jquery-migrate/jquery-migrate.min.js}"></script>
+  <script th:src="@{/shop/assets/main/vendor/popper.js/popper.min.js}"></script>
+  <script th:src="@{/shop/assets/main/vendor/bootstrap/bootstrao.product.min.js}"></script>
+
+  <!-- JS Implementing Plugins -->
+  <script th:src="@{/shop/assets/main/vendor/hs-megamenu/src/hs.megamenu.js}"></script>
+  <script th:src="@{/shop/assets/main/vendor/malihu-scrollbar/jquery.mCustomScrollbar.concat.min.js}"></script>
+  <script th:src="@{/shop/assets/main/vendor/jquery-validation/dist/jquery.validate.min.js}"></script>
+  <script th:src="@{/shop/assets/main/vendor/chosen/chosen.jquery.js}"></script>
+  <script th:src="@{/shop/assets/main/vendor/image-select/src/ImageSelect.jquery.js}"></script>
+
+  <!-- JS Unify -->
+  <script th:src="@{/shop/assets/main/js/hs.core.js}"></script>
+  <script th:src="@{/shop/assets/main/js/components/hs.header.js}"></script>
+  <script th:src="@{/shop/assets/main/js/helpers/hs.hamburgers.js}"></script>
+  <script th:src="@{/shop/assets/main/js/components/hs.dropdown.js}"></script>
+  <script th:src="@{/shop/assets/main/js/components/hs.scrollbar.js}"></script>
+  <script th:src="@{/shop/assets/main/js/components/hs.select.js}"></script>
+  <script th:src="@{/shop/assets/main/js/components/hs.count-qty.js}"></script>
+  <script th:src="@{/shop/assets/main/js/components/hs.step-form.js}"></script>
+  <script th:src="@{/shop/assets/main/js/components/hs.validation.js}"></script>
+  <script th:src="@{/shop/assets/main/js/components/hs.go-to.js}"></script>
+
+  <!-- JS Customization -->
+  <script th:src="@{/shop/assets/main/js/custom.js}"></script>
+
+  <!-- JS Plugins Init. -->
+  <script>
+    $(document).on('ready', function () {
+      // initialization of header
+      $.HSCore.components.HSHeader.init($('#js-header'));
+      $.HSCore.helpers.HSHamburgers.init('.hamburger');
+
+      // initialization of HSMegaMenu component
+      $('.js-mega-menu').HSMegaMenu({
+        event: 'hover',
+        pageContainer: $('.container'),
+        breakpoint: 991
+      });
+
+      // initialization of HSDropdown component
+      $.HSCore.components.HSDropdown.init($('[data-dropdown-target]'), {
+        afterOpen: function () {
+          $(this).find('input[type="search"]').focus();
+        }
+      });
+
+      // initialization of HSScrollBar component
+      $.HSCore.components.HSScrollBar.init($('.js-scrollbar'));
+
+      // initialization of go to
+      $.HSCore.components.HSGoTo.init('.js-go-to');
+
+      // initialization of form validation
+      $.HSCore.components.HSValidation.init('.js-validate');
+
+      // initialization of custom select
+      $.HSCore.components.HSSelect.init('.js-custom-select');
+
+      // initialization of quantity counter
+      $.HSCore.components.HSCountQty.init('.js-quantity');
+
+      // initialization of step form
+      $.HSCore.components.HSStepForm.init('.js-step-form');
+    });
+  </script>
+</body>
+
+</html>

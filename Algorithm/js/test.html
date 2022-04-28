@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0" />
+
+<head>
+    <link rel="stylesheet" href="/bootstrap-5.0.2-dist/css/bootstrap.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script>
+        window.onload = function () {
+            // canvasElem.onmousemove = function (e) {
+            //     let ctx = canvasElem.getContext('2d');
+            //     ctx.lineTo(e.clientX, e.clientY);
+            //     ctx.stroke();
+            // }
+
+
+            getCookie();
+
+        }
+
+        //promise,fetch 관련
+        async function fetchTest1() {
+            let url = 'https://api.github.com/repos/javascript-tutorial/en.javascript.info/commits';
+            let response = await fetch(url);
+            //status-HTTP code상태, ok=불린 값, 200~299일때 true
+            if (response.ok) { //200~299일때 true 실행을 의미
+                let json = await response.json();
+            } else {
+                console.log(json);
+            }
+
+            // res.text() 응답을 읽고 텍스트를 반환
+            // res.json() 응답을 읽고 json형태로 파싱
+            // res.formData() 응답을 FormData객체 형태로 반환
+            // res.blob() 응답을 Blob(타입이 있는 바이너리 데이터) 형태로 반환
+            // res.arrayBuffer 응답을 ArrayBuffer(바이너리 데이터를 로우 레벨려 형식한것) 형태로 반환
+
+            response = await fetch(url);
+            let commits = await response.json();
+            console.log(commits[0].author.login);
+
+        }
+
+        async function fetchTest2() {
+            let response = await fetch('https://www.naver.com/')
+
+            let result = await response.text();
+            console.log(result);
+        }
+
+        async function imageSave() {
+            let blob = await new Promise(resolve => canvasElem.toBlob(resolve, 'image/png'));
+            let response = await fetch('/article/fetch/post/image', {
+                method: 'POST',
+                body: blob
+            });
+
+            // 전송이 잘 되었다는 응답이 오고 이미지 사이즈가 얼럿창에 출력됩니다.
+            let result = await response.json();
+            alert(result.message);
+        }
+
+
+
+        function promiseTest() {
+            fetch('./user.json')
+                // 원격 서버가 응답하면 .then 아래 코드가 실행됩니다.
+                .then(res => res.json())
+                // response.text()는 응답 텍스트 전체가 다운로드되면
+                // 응답 텍스트를 새로운 이행 프라미스를 만들고, 이를 반환합니다.
+                // response.json()은 원격 서버에서 불러온 내용을 JSON으로 변경해준다
+                .then(user => fetch(`https://api.github.com/users/${user.name}`))
+                .then(response => response.json())
+                .then(githubUser => {
+                    console.log(githubUser.avatar_url);
+                    let img = document.createElement('img');
+                    img.src = githubUser.avatar_url;
+                    img.className = "github-user-img";
+                    document.body.append(img);
+
+                    setTimeout(() => img.remove(), 3000);
+                });
+
+            //2
+            let names = ['H37-J', 'React', "Srping"];
+
+            let requests = names.map(name => fetch(`https://api.github.com/users/${name}`));
+
+            Promise.all(requests)
+                .then(repsonses => {
+                    for (let response of repsonses) {
+                        console.log(`${response.url}: ${response.status}`);
+                    }
+                    return repsonses;
+                }).then(responses => Promise.all(responses.map(r => r.json())))
+                .then(users => users.forEach(user => console.log(user.name)));
+        }
+
+        //url 관련
+        function geturlParam(){
+            let url=new URL('http://127.0.0.1:5500/js/test.html');
+            console.log(url.protocol);
+            console.log(url.host);
+            console.log(url.pathname);
+            url.searchParams.set('name','hjk');
+            console.log(url.searchParams.has('name'));
+            console.log(url.searchParams.get('name'));
+            console.log(url.searchParams.delete('name'));
+            console.log(url.searchParams.has('name'));
+            // location.href=url; 파라미터 값으로 이동
+        }
+
+        function encode(u){
+            let url=encodeURI(u);
+            console.log(url);
+        }
+
+        //쿠키 관련
+        function getCookie(){
+            document.cookie='user=hjk; max-age=3600'; //한번만 실행하면 브라우저 종료후 다시 불러와도 코드를 지워도 상관없슴
+            console.log(document.cookie);
+        }
+    </script>
+
+</head>
+
+<body>
+    <canvas id="canvasElem" width="100" height="80" style="border:1px solid"></canvas>
+
+    <input type="button" value="전송" onclick="imageSave()">
+
+
+    <script>
+
+    </script>
+</body>
+
+</html>
