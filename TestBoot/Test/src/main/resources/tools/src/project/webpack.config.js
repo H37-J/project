@@ -16,7 +16,7 @@ module.exports = {
                 }
             },
             {
-                test: /\.css$/,
+                test: [/\.s[ac]ss$/i, /\.css$/],
                 use: [
                     {
                         loader: 'style-loader'
@@ -29,7 +29,13 @@ module.exports = {
                                 localIdentName: '[name]__[local]___[hash:base64:5]'
                             }
                         }
-                    }
+                    },
+                    {
+                        loader: "sass-loader",
+                        options: {
+                          implementation: require.resolve("sass"),
+                        },
+                    },
                 ]
             }
         ]
