@@ -10,13 +10,6 @@ const addMinutesToDate = (date, n) => {
     return d.toISOString().split('.')[0].replace('T', ' ');
 }
 
-const dateRangeGenerator = function* (start, end, step = 1) {
-    while (start < end) {
-        yield new Date(d);
-        d.setDate(d.getDate() + step);
-    }
-};
-
 const daysAgo = n => {
     let d = new Date();
     d.setDate(d.getDate() - Math.abs(n));

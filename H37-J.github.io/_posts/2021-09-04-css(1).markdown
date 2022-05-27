@@ -15,26 +15,23 @@ tags:
 
 ## 속성정리
 
-
 ### Flex
+
 flex: 1 0 auto로 가변 길이를 만들 수 있다. flex-grow-1은 flex박스의 상위 박스의 최대 넓이, 높이 까지 갈 수 있는 여유를 줌
 flex-row는 박스들이 가로로 쌓임. flex-col는 박스들이 세로로 쌓임. 행과 열대로.
 
 * Flex는 마진, 바텀을 포함한 총 width,height에 따라 유연하게 박스의 크기가 생성된다.
 
 ### Positioin
+
 absolute : left, ,top, right, bottom으로 위치표시. 가장 가까운 relative기준으로 위치가 설정됨.
 
-
-
-
 ### 이미지
+
 backgrounod-size: cover; -> 화면에 사진을 채운다
 background-position: center; 사진의 중앙을 표시
 
-
 ### em vs rem
+
 rem은 최상위의 font-size 기준으로 배수가 됨
 em은 현재 엘리멘트의 font-size 기주능로 배수가 됨
-
-

@@ -10,7 +10,6 @@ tags:
     - Gradle
 ---
 ## 스프링 실행관련
+
 * gradle build: 스프링 빌드
 * gradle bootrun: 스프링 실행
-
-
