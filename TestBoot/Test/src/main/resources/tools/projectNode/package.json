@@ -2,7 +2,7 @@
   "name": "project",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.jsx",
   "scripts": {
     "test": "react-scripts start",
     "clean": "rm -rf build public/bundle.js",
@@ -10,11 +10,6 @@
     "build2": "react-scripts build",
     "start": "NODE_ENV=production node ./build/main.js",
     "development": "NODE_ENV=development node ./build/main.js"
-  },
-  "browser": {
-    "fs": false,
-    "path": false,
-    "os": false
   },
   "author": "hjk",
   "license": "ISC",
@@ -38,9 +33,11 @@
     "del": "^6.0.0",
     "express": "~4.16.1",
     "express-session": "^1.17.2",
+    "faker": "^6.6.6",
     "file-saver": "^2.0.5",
     "formik": "^2.2.9",
-    "fs": "*",
+    "fs": "^0.0.1-security",
+    "https-browserify": "^1.0.0",
     "immer": "^9.0.12",
     "jszip": "^3.6.0",
     "jszip-utils": "^0.1.0",
@@ -49,6 +46,7 @@
     "mongoose": "^6.3.1",
     "morgan": "^1.10.0",
     "mysql": "^2.18.1",
+    "node-polyfill-webpack-plugin": "^1.1.4",
     "path": "^0.12.7",
     "prism-themes": "^1.9.0",
     "qs": "^6.5.2",
@@ -64,11 +62,13 @@
     "react-router": "^6.3.0",
     "react-router-dom": "^6.3.0",
     "react-scripts": "^5.0.1",
+    "react-table": "^7.8.0",
     "redux": "^4.2.0",
     "redux-actions": "^2.6.5",
     "redux-devtools-extension": "^2.13.9",
     "socicon": "^3.0.5",
     "terser-webpack-plugin": "^5.3.1",
+    "vimeo": "^2.1.1",
     "xlsx": "0.16.0",
     "yup": "^0.32.11"
   },
@@ -123,5 +123,17 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx}": "eslint --fix"
+  },
+  "eslintIgnore": [
+    "dist/*"
+  ]
 }

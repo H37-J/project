@@ -15,3 +15,6 @@ const HSVG: React.FC<Props> = ({className = '', path, svgClassName = 'mh-50px'})
     </span>
   )
 }
+
+
+export {HSVG}

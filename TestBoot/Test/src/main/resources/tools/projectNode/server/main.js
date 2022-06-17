@@ -29,12 +29,12 @@ app.get('/hello', (req, res) => {
     return res.send('Can you hear me?');
 });
 
-app.get('/user', function (req, res) {
-    con.query("SELECT * FROM USER", (err, results) => {
-        if (err) throw error;
-        res.send(results);
-    });
-});
+// app.get('/user', function (req, res) {
+//     con.query("SELECT * FROM USER", (err, results) => {
+//         if (err) throw error;
+//         res.send(results);
+//     });
+// });
 
 
 const server = app.listen(port, () => {

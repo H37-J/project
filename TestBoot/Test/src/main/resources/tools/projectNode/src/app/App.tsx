@@ -1,21 +1,20 @@
-import { Suspense, useEffect } from 'react';
-import { Outlet } from 'react-router-dom';
-import { LayoutSplashScreen } from '../_h/layout/core/HSplashScreen';
-import { LayoutProvider } from '../_h/layout/core/LayoutProvider';
-import { HInit } from '../_h/layout/HInit';
-import { AuthInit } from './modules/auth';
+
+import { AppToolBar } from './components/toolbar/AppToolBar';
+import { AppContent } from './template/AppContent';
+import { AppHeader } from './template/header/AppHeader';
+import { AppSide } from './template/side/AppSide';
 
 
 const App = () => {
   return (
-    <Suspense fallback={<LayoutSplashScreen />}>
-        <LayoutProvider>
-          <AuthInit>
-            <Outlet />
-            <HInit />
-          </AuthInit>
-        </LayoutProvider>
-    </Suspense>
+    <div className="flex flex-row flex-column-fluid">
+      <AppSide />
+      <div className="wrapper flex flex-col flex-row-fluid">
+        <AppHeader />
+        <AppToolBar />
+        <AppContent />
+      </div>
+    </div>
   );
 };
 
