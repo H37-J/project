@@ -11,4 +11,4 @@ const AppProfile = () => {
     )
 }
 
-export { AppProfile }
+export default AppProfile

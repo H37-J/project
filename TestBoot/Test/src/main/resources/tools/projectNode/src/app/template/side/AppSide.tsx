@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import { HSVG } from "../../../_h/helpers/components/HSVG"
 
 const AppSide = () => {
@@ -27,9 +28,9 @@ const AppSide = () => {
                                 <HSVG path="/media/icons/dashboard.svg" />
                             </span>
                         </div>
-                        <div className="menu-title fw-bolder fs-5">
+                        <Link to="/DashBoard" className="menu-title fw-bolder fs-5">
                             Dashboard
-                        </div>
+                        </Link>
                         <span className="menu-arrow"></span>
                     </div>
                 </div>
@@ -40,9 +41,9 @@ const AppSide = () => {
                                 <HSVG path="/media/icons/profile.svg" />
                             </span>
                         </div>
-                        <div className="menu-title fw-bolder fs-5">
+                        <Link to="/Profile" className="menu-title fw-bolder fs-5">
                             Profile
-                        </div>
+                        </Link>
                         <span className="menu-arrow"></span>
                     </div>
                 </div>

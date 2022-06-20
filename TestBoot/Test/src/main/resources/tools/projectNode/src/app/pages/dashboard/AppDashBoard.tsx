@@ -12,4 +12,4 @@ const AppDashBoard = () => {
     )
 }
 
-export { AppDashBoard }
+export default AppDashBoard

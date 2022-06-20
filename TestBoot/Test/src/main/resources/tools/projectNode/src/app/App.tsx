@@ -1,4 +1,5 @@
 
+import { Outlet } from 'react-router';
 import { AppToolBar } from './components/toolbar/AppToolBar';
 import { AppContent } from './template/AppContent';
 import { AppHeader } from './template/header/AppHeader';
@@ -12,7 +13,8 @@ const App = () => {
       <div className="wrapper flex flex-col flex-row-fluid">
         <AppHeader />
         <AppToolBar />
-        <AppContent />
+        <Outlet />
+      
       </div>
     </div>
   );

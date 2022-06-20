@@ -1,18 +1,19 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './_h/assets/sass/style.scss';
+import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
+import './_h/assets/sass/style.dark.scss';
 
 import {QueryClientProvider, QueryClient}  from 'react-query';
-import AppReportTable  from './app/pages/admin/report/AppReportTable';
+import { AppRoutes } from './app/routes/AppRoutes';
 
-
-const container = document.getElementById('root');
-
+const container = document.getElementById('root') as HTMLElement
+const root = createRoot(container); 
 const queryClient = new QueryClient()
-ReactDOM.createRoot(container).render(
+
+root.render(
     <QueryClientProvider client={queryClient}>
-       <AppReportTable />
-    </QueryClientProvider>
+       <AppRoutes />
+    </QueryClientProvider>,
 );
 
 // setupAxios(axios);

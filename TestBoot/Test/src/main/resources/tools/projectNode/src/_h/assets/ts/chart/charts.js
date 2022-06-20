@@ -1,4 +1,6 @@
 import { getCSSVariableValue } from "../../../utils";
+import 'peity';
+const $ = window.jQuery;
 
 const peityInit = () => {
     const peityOne = $("#peity-chart-one").peity("line", {
@@ -70,9 +72,6 @@ const CPUChartInit = () => {
     var canvas = document.createElement("canvas");
     var span = document.createElement("span");
 
-    if (typeof G_vmlCanvasManager !== "undefined") {
-        G_vmlCanvasManager.initElement(canvas);
-    }
 
     var ctx = canvas.getContext("2d");
     canvas.width = canvas.height = options.size;
@@ -90,7 +89,7 @@ const CPUChartInit = () => {
         ctx.beginPath();
         ctx.arc(0, 0, radius, 0, Math.PI * 2 * percent, false);
         ctx.strokeStyle = color;
-        ctx.lineCap = "round"; // butt, round or square
+        ctx.lineCap = "round"; 
         ctx.lineWidth = lineWidth;
         ctx.stroke();
     };

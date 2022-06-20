@@ -1,12 +1,11 @@
+
 import { useEffect } from "react"
 import { peityInit } from "../../../../_h/assets/ts/chart/charts"
-import $ from 'jquery'
 
 const Statics = () => {
     useEffect(() => {
         peityInit()
     }, [])
-
 
     return (
         <>
@@ -70,8 +69,7 @@ const Statics = () => {
                             <div className="flex-grow-1 pb-0">
                                 <div className="d-flex flex-stack flex-wrap">
                                     <div className="me-2">
-                                        <a href="#"
-                                            className="text-dark text-hover-primary fw-bolder fs-3">Session
+                                        <a href="#" className="text-dark text-hover-primary fw-bolder fs-3">Session
                                             Reports</a>
                                         <div className="text-muted fs-7 fw-bold">
                                             현재 로그인 한 세션 수 입니다.
