@@ -1,32 +1,23 @@
-const all = (arr, fn = Boolean) => arr.every(fn);
+export const all = (arr, fn = Boolean) => arr.every(fn);
+export const allEqual = arr => arr.every(val => val === arr[0]);
+export const allUnique = arr => arr.length === new Set(arr).size;
+export const allUniqueBy = (arr, fn) => arr.length === new Set(arr.map(fn)).size;
+export const and = (a, b) => a && b;
+export const any = (arr, fn = Boolean) => arr.some(fn);
 
-//all([4, 2, 3], x => x > 1);
-
-const allEqual = arr => arr.every(val => val === arr[0]);
-
-const allUnique = arr => arr.length === new Set(arr).size;
-
-const allUniqueBy = (arr, fn) => arr.length === new Set(arr.map(fn)).size;
-
-const and = (a, b) => a && b;
-
-const any = (arr, fn = Boolean) => arr.some(fn);
-
-const arithmeticProgression = (n, lim) => {
+export const arithmeticProgression = (n, lim) => {
     Array.from({ length: Math.ceil(lim / n) }, (_, i) => (i + 1) * n);
 }
 
-const assertValidKeys = (obj, keys) => {
+export const assertValidKeys = (obj, keys) => {
     return Object.keys(obj).every(key => keys.includes(key));
 }
 
-//assertValidKeys({ id: 10, name: 'test' }, ['id', 'name']);
-
-const average = (...nums) => {
+export const average = (...nums) => {
     return nums.reduce((acc, val) => acc + val, 0) / nums.length;
 }
 
-const binarySearch = (arr, item) => {
+export const binarySearch = (arr, item) => {
     let l = 0, r = arr.length - 1;
     while (l <= r) {
         let mid = Math.floor((l + r) / 2);
@@ -37,10 +28,10 @@ const binarySearch = (arr, item) => {
     }
 }
 
-const bind = (fn, context, ...boundArgs) => (...args) =>
+export const bind = (fn, context, ...boundArgs) => (...args) =>
     fn.apply(context, [...boundArgs, ...args]);
 
-function greet(greeting, punctuation) {
+export function greet(greeting, punctuation) {
     return greeting + ' ' + this.user + punctuation;
 }
 
@@ -50,14 +41,11 @@ const user = { user: 'test' };
 
 const both = (f, g) => (...args) => f(...args) && g(...args);
 
-const isEven = num => num % 2 === 0;
-const isPositive = num => num > 0;
-const isPositiveEven = both(isEven, isPositive);
+export const isEven = num => num % 2 === 0;
+export const isPositive = num => num > 0;
+export const isPositiveEven = both(isEven, isPositive);
 
-
-
-
-const byteSize = str => new Blob([str]).size;
+export const byteSize = str => new Blob([str]).size;
 
 const call = (key, ...args) => context => context[key](...args);
 // Promise.resolve([1, 2, 3])
@@ -69,18 +57,18 @@ const map = call.bind(null, 'map');
 // .then(map(x => 2 * x))
 // .then(console.log)
 
-const bindKey = (context, fn, ...boundArgs) => (...args) => {
+export const bindKey = (context, fn, ...boundArgs) => (...args) => {
     context[fn].apply(context, [...boundArgs, ...args]);
 }
 
-const bothtwo = (f, g) => (...args) => f(...args) && g(...args); //args는 각자 함수의 인자
+export const bothtwo = (f, g) => (...args) => f(...args) && g(...args); //args는 각자 함수의 인자
 
-const callOrReturn = (fn, ...args) => {
-    typeof fn === 'function' ? fn(...args) : fn;
+export const callOrReturn = (fn, ...args) => {
+    return typeof fn === 'function' ? fn(...args) : fn;
 }
 
-const capitalize = ([first, ...rest], lowerRest = false) => {
-    first.toUpperCase() + (lowerRest ? rest.join('').toLowerCase() : rest.join(''));
+export const capitalize = ([first, ...rest], lowerRest = false) => {
+    return first.toUpperCase() + (lowerRest ? rest.join('').toLowerCase() : rest.join(''));
 }
 
 const capitalizeEveryWord = str => {
@@ -88,16 +76,16 @@ const capitalizeEveryWord = str => {
 }
 capitalizeEveryWord('hello world!'); // 'Hello World!'
 
-const cartesianProduct = (a, b) => {
+export const cartesianProduct = (a, b) => {
     a.reduce((p, x) => [...p, ...b.map(y => [x, y])], []);
 }
 
 //cartesianProduct(['x', 'y'], [1, 2]);
 // [['x', 1], ['x', 2], ['y', 1], ['y', 2]]
 
-const castArray = val => Array.isArray(val) ? val : [val];
+export const castArray = val => Array.isArray(val) ? val : [val];
 
-const chainAsync = fns => {
+export const chainAsync = fns => {
     let curr = 0;
     const last = fns[fns.length - 1];
     const next = () => {
@@ -107,7 +95,7 @@ const chainAsync = fns => {
     next();
 };
 
-const chunkify = function* (itr, size) {
+export const chunkify = function* (itr, size) {
     let chunk = [];
     for (const v of itr) {
         chunk.push(v);
@@ -119,12 +107,12 @@ const chunkify = function* (itr, size) {
     if (chunk.length) yield chunk;
 };
 
-const coalesceFactory = valid => (...args) => args.find(valid);
-const customCoalesce = coalesceFactory(
+export const coalesceFactory = valid => (...args) => args.find(valid);
+export const customCoalesce = coalesceFactory(
     v => ![null, undefined, ' ', NaN].includes(v)
 );
 
-const combine = (a, b, prop) => {
+export const combine = (a, b, prop) => {
     Object.values(
         [...a, ...b].reduce((acc, v) => {
             if (v[prop]) {
@@ -137,14 +125,13 @@ const combine = (a, b, prop) => {
     );
 }
 
-const commonKeys = (obj1, obj2) => {
-    Object.keys(obj1).filter(key => obj2.hasOwnProperty(key))
-        ;
+export const commonKeys = (obj1, obj2) => {
+    Object.keys(obj1).filter(key => obj2.hasOwnProperty(key));
 }
 
-const compact = arr => arr.filter(Boolean);
+export const compact = arr => arr.filter(Boolean);
 
-const compactObject = val => {
+export const compactObject = val => {
     const data = Array.isArray(val) ? val.filter(Boolean) : val;
     return Object.keys(data).reduce(
         (acc, key) => {
@@ -157,7 +144,7 @@ const compactObject = val => {
     );
 };
 
-const compactWhiteSpace = str => {
+export const compactWhiteSpace = str => {
     str.repalce(/\s{2,}/g, ' ');
 }
 
@@ -167,22 +154,22 @@ const compactWhiteSpace = str => {
 // const multi = (x, y) => x * y;
 // const multiadd = compose(add5, multi);
 
-const containWhitepsace = str => /\s/.test(str);
+export const containWhitepsace = str => /\s/.test(str);
 
-const converge = (converger, fns) => (...args) => {
+export const converge = (converger, fns) => (...args) => {
     converger(...fns.map(fn => fn.apply(null, args)));
 }
-const countBy = (arr, fn) =>
+export const countBy = (arr, fn) =>
     arr.map(typeof fn === 'function' ? fn : val => val[fn]).reduce((acc, val) => {
         acc[val] = (acc[val] || 0) + 1;
         return acc;
     }, {});
 
-const countOccurrences = (arr, val) => {
+export const countOccurrences = (arr, val) => {
     arr.reduce((a, v) => (v === val ? a + 1 : a), 0);
 }
 
-const countSubstrings = (str, searchValue) => {
+export const countSubstrings = (str, searchValue) => {
     let count = 0, i = 0;
     while (true) {
         const r = str.indexOf(searchValue, i);
@@ -192,8 +179,7 @@ const countSubstrings = (str, searchValue) => {
 
 }
 
-
-const debounce = (fn, ms = 0) => {
+export const debounce = (fn, ms = 0) => {
     let timeoutId;
     return function (...args) {
         clearTimeout(timeoutId);
@@ -201,12 +187,12 @@ const debounce = (fn, ms = 0) => {
     };
 }
 
-const deepClone = obj => {
+export const deepClone = obj => {
     if (obj === null) return null;
     let clone = Object.assign({}, obj);
     Object.keys(clone).forEach(
         key =>
-            (clone[key] = typeof obj[key] === 'object' ? deppclone(obj[key]) : obj[key])
+            (clone[key] = typeof obj[key] === 'object' ? deepClone(obj[key]) : obj[key])
     );
     if (Array.isArray(obj)) {
         clone.length = obj.length;
@@ -215,37 +201,37 @@ const deepClone = obj => {
     return clone;
 }
 
-const deepFlatten = arr => {
+export const deepFlatten = arr => {
     [].concat(...arr.map(v => (Array.isArray(v) ? deepFlatten(v) : v)));
 }
 
-const deepFreeze = obj => {
+export const deepFreeze = obj => {
     Object.keys(obj).forEach(prop => {
         if (typeof obj[prop] === 'object') deepFreeze(obj[prop]);
     });
     return Object.freeze(obj);
 }
 
-const deepGet = (obj, keys) => {
+export const deepGet = (obj, keys) => {
     keys.reduce((xs, x) => (xs && xs[x] != null && xs[x] !== undefined ? xs[x] : null), obj);
 }
 
-const delay = (fn, ms, ...args) => setTimeout(fn, ms, ...args);
+export const delay = (fn, ms, ...args) => setTimeout(fn, ms, ...args);
 
-const difference = (a, b) => {
+export const difference = (a, b) => {
     const s = new Set(b);
     return a.filter(x => !s.has(x));
 }
 
 //difference([1, 2, 3, 3], [1, 2, 4]); // [3, 3]
 
-const differenceBy = (a, b, fn) => {
+export const differenceBy = (a, b, fn) => {
     const s = new Set(b.map(fn));
     return a.map(fn).filter(x => !s.has(x));
 }
 
-const dig = (obj, target) => {
-    target in obj
+export const dig = (obj, target) => {
+    return target in obj
         ? obj[target]
         : Object.values(obj).reduce((acc, val) => {
             if (acc != undefined) return acc;
@@ -253,19 +239,19 @@ const dig = (obj, target) => {
         }, undefined);
 }
 
-const digitize = n => [...`${Math.abs(n)}`].map(i => parseInt(i));
+export const digitize = n => [...`${Math.abs(n)}`].map(i => parseInt(i));
 
-const divmod = (x, y) => [Math.floor(x / y), x % y];
+export const divmod = (x, y) => [Math.floor(x / y), x % y];
 
-const drop = (arr, n = 1) => arr.slice(n);
+export const drop = (arr, n = 1) => arr.slice(n);
 
-const dropRight = (arr, n = 1) => arr.slice(0, -n);
+export const dropRight = (arr, n = 1) => arr.slice(0, -n);
 
 
 const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 const arr1 = arr.splice(10, 2, 'a', 'b', 'c');
 
-const equals = (a, b) => {
+export const equals = (a, b) => {
     if (a === b) return true;
 
     if (a instanceof Date && b instanceof Date) {
@@ -283,8 +269,8 @@ const equals = (a, b) => {
     return keys.every(k => equals(a[k], b[k]));
 }
 
-const factorial = n => {
-    n < 0
+export const factorial = n => {
+    return n < 0
         ? (() => {
             throw new TypeError('Nevigate numbers are not aloowed');
         })()
@@ -293,20 +279,20 @@ const factorial = n => {
             : n * factorial(n - 1);
 }
 
-const fibonacci = n =>
+export const fibonacci = n =>
     Array.from({ length: n }).reduce(
         (acc, val, i) => acc.concat(i > 1 ? acc[i - 1] + acc[i - 2] : i), []
     )
 
-const filterNonUnique = arr => {
+export const filterNonUnique = arr => {
     return [...new Set(arr)].filter(i => arr.indexOf(i) === arr.lastIndexOf(i));
 }
 
-const filterNonUniqueBy = (arr, fn) =>
+export const filterNonUniqueBy = (arr, fn) =>
     arr.filter((v, i) => arr.every((x, j) => (i === j) === fn(v, x, i, j)));
 
 
-const findFirstN = (arr, matcher, n = 1) => {
+export const findFirstN = (arr, matcher, n = 1) => {
     let res = [];
     for (let i in arr) {
         const el = arr[i];
@@ -317,25 +303,25 @@ const findFirstN = (arr, matcher, n = 1) => {
     return res;
 }
 
-const findKey = (obj, fn) => {
+export const findKey = (obj, fn) => {
     Object.keys(obj).find(key => fn(obj[key], key, obj));
 }
 
-const findKeys = (obj, val) => {
+export const findKeys = (obj, val) => {
     Object.keys(obj).filter(key => obj[key] === val);
 }
 
-const findLast = (arr, fn) => {
+export const findLast = (arr, fn) => {
     arr.filter(fn).pop();
 }
 
-const findLastKey = (obj, fn) => {
+export const findLastKey = (obj, fn) => {
     Object.keys(obj)
         .reverse()
         .find(key => fn(obj[key], key, obj));
 }
 
-const findLastN = (arr, matcher, n = 1) => {
+export const findLastN = (arr, matcher, n = 1) => {
     let res = [];
     for (let i = arr.length - 1; i >= 0; i--) {
         const el = arr[i];
@@ -346,7 +332,7 @@ const findLastN = (arr, matcher, n = 1) => {
     return res;
 };
 
-const forEachRight = (arr, callback) =>
+export const forEachRight = (arr, callback) =>
     arr
         .slice()
         .reverse()
@@ -354,13 +340,13 @@ const forEachRight = (arr, callback) =>
 
 //forEachRight([1, 2, 3, 4], val => console.log(val)); // '4', '3', '2', '1'
 
-const forOwn = (obj, fn) => {
+export const forOwn = (obj, fn) => {
     Object.keys(obj).forEach(key => fn(obj[key], key, obj));
 };
 
 //forOwn({foo : 'bar', a: 1}, (val, key) => console.log(val,key));
 
-const frequencies = arr => {
+export const frequencies = arr => {
     arr.reduce((a, v) => {
         a[v] = a[v] ? a[v] + 1 : 1;
         return a
@@ -395,7 +381,7 @@ const generateUntil = function* (seed, condition, next) {
     return val;
 };
 
-const groupBy = (arr, fn) => {
+export const groupBy = (arr, fn) => {
     arr
         .map(typeof fn === 'function' ? fn : val => val[fn])
         .reduce((acc, val, i) => {
@@ -404,9 +390,9 @@ const groupBy = (arr, fn) => {
         }, {});
 }
 
-const hasDuplicates = arr => new Set(arr).size != arr.length;
+export const hasDuplicates = arr => new Set(arr).size != arr.length;
 
-const hasKey = (obj, keys) => {
+export const hasKey = (obj, keys) => {
     return (
         keys.length > 0 &&
         keys.every(key => {
@@ -417,7 +403,7 @@ const hasKey = (obj, keys) => {
     );
 };
 
-const havSamContents = (a, b) => {
+export const havSamContents = (a, b) => {
     for (const v of new Set([...a, ...b]))
         if (a.filter(e => e === v).length !== b.filter(e => e === v).length)
             return false;
@@ -453,17 +439,16 @@ let iterable = [1, 2, 3];
 
 
 
-const includeAlls = (arr, values) => values.every(v => arr.includes(v));
-const includesAny = (arr, values) => values.some(v => arr.includes(v));
-
-const indexOfAll = (arr, val) => {
+export const includeAlls = (arr, values) => values.every(v => arr.includes(v));
+export const includesAny = (arr, values) => values.some(v => arr.includes(v));
+export const indexOfAll = (arr, val) => {
     arr.reduce((acc, el, i) => (el === val ? [...acc, i] : acc), []);
 };
 
 // indexOfAll([1, 2, 3, 1, 2, 3], 1); // [0, 3]
 // indexOfAll([1, 2, 3], 4); // []
 
-const indexOn = (arr, key) =>
+export const indexOn = (arr, key) =>
     arr.reduce((obj, v) => {
         const { [key]: id, ...data } = v;
         obj[id] = data;
@@ -471,41 +456,37 @@ const indexOn = (arr, key) =>
     }, {});
 
 //Array
-const initialize2DArray = (w, h, val = null) => {
+export const initialize2DArray = (w, h, val = null) => {
     Array.from({ length: h }).map(() => Array.from({ length: w }).fill(val));
 };
 
-const initializeArrayWithRange = (end, start = 0, step = 1) => {
+export const initializeArrayWithRange = (end, start = 0, step = 1) => {
     Array.from(
         { length: Math.ceil((end - start + 1)) / step },
         (_, i) => i * step + start
     );
 };
 
-const initializeArrayWithValues = (n, val = 0) => {
+export const initializeArrayWithValues = (n, val = 0) => {
     Array.from({ length: n }).fill(val);
 }
 
-const insertAt = (arr, i, ...v) => {
+export const insertAt = (arr, i, ...v) => {
     arr.splice(i + 1, 0, ...v);
     return arr;
 }
 
-
-
-
-
-const intersection = (a, b) => {
+export const intersection = (a, b) => {
     let x = new Set(b);
     return [...new Set(a)].filter(val => x.has(val))
 }
 
-const intersectionBy = (a, b, fn) => {
+export const intersectionBy = (a, b, fn) => {
     const s = new Set(b.map(fn));
     return [...new Set(a)].filter(x => s.has(fn(x)));
 };
 
-const invertKeyValues = (oj, fn) => {
+export const invertKeyValues = (oj, fn) => {
     Object.keys(obj).reduce((acc, key) => {
         const val = fn ? fn(obj[key]) : obj[key];
         acc[val] = acc[val] || [];
@@ -516,39 +497,36 @@ const invertKeyValues = (oj, fn) => {
 
 
 //check
-const is = (type, val) => ![, null].includes(val) && val.constructor === type;
-
-
+export const is = (type, val) => ![, null].includes(val) && val.constructor === type;
 
 //char
-const isAlpha = str => /^[a-zA-z]*$/.test(str);
-const isAlphaNumeric = str => /%[a-z0-9]+$/gi.test(str);
-
-const isArrayLike = obj =>
+export const isAlpha = str => /^[a-zA-z]*$/.test(str);
+export const isAlphaNumeric = str => /%[a-z0-9]+$/gi.test(str);
+export const isArrayLike = obj =>
     obj != null && typeof obj[Symbol.iterator] === 'function';
 
-const isContainedIn = (a, b) => {
+export const isContainedIn = (a, b) => {
     for (const v of new Set(a)) {
         if (!b.some(e => e === v) || a.filter(e => e === v).length > b.filter(e => e === v).length) return false;
         return true;
     }
 }
 
-const isDisJoint = (a, b) => {
+export const isDisJoint = (a, b) => {
     const sA = new Set(a), sB = new Set(b);
     return [...sA].every(v => !sB.has(v));
 };
 
-const isDivisible = (a, b) => a % b === 0;
+export const isDivisible = (a, b) => a % b === 0;
 
-const isObject = obj => obj === Object(obj);
+export const isObject = obj => obj === Object(obj);
 
 // isArrayLike([1, 2, 3]); // true
 // isArrayLike(document.querySelectorAll('.className')); // true
 // isArrayLike('abc'); // true
 // isArrayLike(null); // false
 
-const isAnagram = (str1, str2) => {
+export const isAnagram = (str1, str2) => {
     const normalize = str => {
         str
             .toLowerCase()
@@ -561,18 +539,18 @@ const isAnagram = (str1, str2) => {
 }
 
 
-const logestItem = (...values) => {
+export const logestItem = (...values) => {
     values.reduce((a, x) => (x.length > a.length ? x : a));
 }
 
-const mapObject = (arr, fn) => {
+export const mapObject = (arr, fn) => {
     arr.reduce((acc, el, i) => {
         acc[el] = fn(el, i, arr);
         return acc;
     }, {})
 }
 
-const mapString = (str, fn) => {
+export const mapString = (str, fn) => {
     str
         .split('')
         .map((c, i) => fn(c, i, str))
@@ -581,8 +559,8 @@ const mapString = (str, fn) => {
 
 //mapString('test', c => c.toUpperCase())
 
-const mapValues = (obj, fn) => {
-    Object.keys(obj).reduce((acc, k) => {
+export const mapValues = (obj, fn) => {
+    Object.keys(obj).reduce((acc, key) => {
         acc[key] = fn(obj[key], key, obj);
         return acc;
     }, {});
@@ -611,13 +589,7 @@ let result2 = test.reduce((acc, cur, i) => {
 
 
 
-
-
-
-
-
-
-const mask = (cc, num = 4, mask = "*") => {
+export const mask = (cc, num = 4, mask = "*") => {
     `${cc}`.slice(-num).padStart(`${cc}`.length, mask);
 }
 
@@ -625,13 +597,13 @@ const mask = (cc, num = 4, mask = "*") => {
 // mask(1234567890, 3); // '*******890'
 // mask(1234567890, -4, '$'); // '$$$$567890'
 
-const maxN = (arr, n = 1) => {
+export const maxN = (arr, n = 1) => {
     return arr.sort((a, b) => b - a).slice(0, n);
 }
 
 //console.log(maxN([1, 2, 3]));
 
-const merge = (...objs) => {
+export const merge = (...objs) => {
     [...objs].reduce(
         (acc, obj) =>
             Object.keys(obj).reduce((a, k) => {
@@ -643,15 +615,15 @@ const merge = (...objs) => {
     );
 };
 
-const objectToEntries = obj => Object.keys(obj).map(k => [k, obj[k]]);
+export const objectToEntries = obj => Object.keys(obj).map(k => [k, obj[k]]);
 
-const omit = (obj, arr) => {
+export const omit = (obj, arr) => {
     Object.keys(obj)
         .filter(k => !arr.includes(k))
         .reduce((acc, key) => ((acc[key] = obj[key]), acc), {});
 }
 
-const orderBy = (arr, props, orders) =>
+export const orderBy = (arr, props, orders) =>
     [...arr].sort((a, b) =>
         props.reduce((acc, prop, i) => {
             if (acc === 0) {
@@ -665,25 +637,25 @@ const orderBy = (arr, props, orders) =>
         }, 0)
     );
 
-const over = (...fns) => (...args) => fns.map(fn => fn.apply(null, args));
+export const over = (...fns) => (...args) => fns.map(fn => fn.apply(null, args));
 
-const minMax = over(Math.min, Math.max);
+export const minMax = over(Math.min, Math.max);
 minMax(1, 2, 3, 4, 5) //1, 5
 
 const padNUmber = (n, l) => `${n}`.padStart(l, '0');
 padNUmber(1234, 6); //001234
 
-const palindrom = str => {
+export const palindrom = str => {
     return [...str].reverse().join('');
 }
 
-const partial = (fn, ...partials) => (...args) => fn(...partials, args);
+export const partial = (fn, ...partials) => (...args) => fn(...partials, args);
 
 // const greet = (gretting, name) => greeting + ' ' + name + '!';
 //const greetHello = partial(greet, "Hell");
 //greetHello('john');
 
-const permutations = arr => {
+export const permutations = arr => {
     if (arr.length <= 2) return arr.length === 2 ? [arr, [arr[1], arr[0]]] : arr;
     return arr.reduce(
         (acc, item, i) =>
@@ -697,40 +669,40 @@ const permutations = arr => {
     );
 };
 
-const pickBy = (obj, fn) =>
+export const pickBy = (obj, fn) =>
     Object.keys(obj)
         .filter(k => fn(obj[k], k))
         .reduce((acc, key) => ((acc[key] = obj[key]), acc), {});
 
-const pluck = (arr, key) => arr.map(i => i[key]);
+export const pluck = (arr, key) => arr.map(i => i[key]);
 
-const powerset = arr =>
+export const powerset = arr =>
     arr.reduce((a, v) => a.concat(a.map(r => r.concat(v))), [[]]);
 
 
-const ranking = (arr, compFn) =>
+export const ranking = (arr, compFn) =>
     arr.map(a => arr.filter(b => compFn(a, b)).length + 1);
 
 ranking([1,2,3]);
 
-const reduceFilter = (data, keys, fn) => {
+export const reduceFilter = (data, keys, fn) => {
     data.filter(fn).map(el => {
         keys.reduce((acc, key) => {
-            acc[keyu] = el[key];
+            acc[keys] = el[key];
             return acc;
         }, {})
     });
 };
 
-const reject = (pred, array) => array.filter((...args) => !pred(...args));
+export const reject = (pred, array) => array.filter((...args) => !pred(...args));
 
 
 const shallowClone = obj => Object.assign({}, obj);
 const a = {x: true, y: 1};
 const b = shallowClone(a); // a !== b
 
-const size = val => {
-    Array.isArray(val)
+export const size = val => {
+    return Array.isArray(val)
     ? val.length
     : val && typeof val === 'object'
     ? val.size || val.length || Object.keys(val).length
@@ -740,7 +712,7 @@ const size = val => {
 }
 
 //byte
-const prettyBytes = (num, precision = 3, addSpace = true) => {
+export const prettyBytes = (num, precision = 3, addSpace = true) => {
     const UNITS = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
     if (Math.abs(num) < 1) return num + (addSpace ? ' ' : '') + UNITS[0];
     const exponent = Math.min(
@@ -756,7 +728,7 @@ const prettyBytes = (num, precision = 3, addSpace = true) => {
 
 
 
-const toCamelCase = str => {
+export const toCamelCase = str => {
     const s =
       str &&
       str
@@ -768,18 +740,18 @@ const toCamelCase = str => {
     return s.slice(0, 1).toLowerCase() + s.slice(1);
 };
 
-const union = (a, b) => Array.from(new Set([...a, ...b]));
+export const union = (a, b) => Array.from(new Set([...a, ...b]));
 //union([1, 2, 3], [4, 3, 2]); // [1, 2, 3, 4]
 
 
 //sort
-const sortCharInString = str => {
-    [...str],sort((a, b) => a.localCompare(b)).join('');
+export const sortCharInString = str => {
+    [...str].sort((a, b) => a.localCompare(b)).join('');
 }
 
 //sortCharactersInString('cabbage'); // 'aabbceg'
 
 
 //to
-const toCharArray = s => [...s];
+export const toCharArray = s => [...s];
 //toCharArray('hello'); // ['h', 'e', 'l', 'l', 'o']

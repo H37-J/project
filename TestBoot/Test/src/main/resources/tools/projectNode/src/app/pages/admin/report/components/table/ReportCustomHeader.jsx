@@ -1,5 +1,6 @@
 
 import clsx from "clsx";
+import React from "react";
 
 const ReportCustomHeader = ({ className, title, tableProps }) => {
 

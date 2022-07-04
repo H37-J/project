@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { ReportuseQueryRequest } from "../../core/ReportQueryRequestProviderReport"
 import { ReportinitialQueryState } from '../../core/helpers/Reportmodels';
 import { ReportuseDebounce } from "../../core/helpers/Reporthelpers";

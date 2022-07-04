@@ -31,7 +31,7 @@ const DownLoadButton = () => {
     }
     selected.map((select => {
 
-      const link = `https://cybercampus.kua.ac.kr/wp-content/plugins/project-report/api/api_file_get.php?user=${select}&cid=${cid}`
+      const link = `https://online.seoulwomen.or.kr/wp-content/plugins/project-report/api/api_file_get.php?user=${select}&cid=${cid}`
 
       let zip = new JSZip();
       let count = 0
@@ -49,8 +49,8 @@ const DownLoadButton = () => {
           if (!file_link.includes('https')) {
             file_link = file_link.replace('http', 'https')
           }
-          file_link = file_link + 'assignments/' + name
-
+          file_link = data.file
+          console.log(file_link)
 
           JSZipUtils.getBinaryContent(file_link, async function (err, data) {
             if (err) {

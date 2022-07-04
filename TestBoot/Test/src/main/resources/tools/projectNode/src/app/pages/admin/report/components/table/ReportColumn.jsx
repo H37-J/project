@@ -3,6 +3,7 @@ import {ReportCustomHeader}  from "./ReportCustomHeader"
 import ReportDataCell from "./ReportDataCell"
 import ReportSelectionCell  from "./ReportSelectionCell"
 import ReportSelectionHeader  from "./ReportSelectionHeader"
+import React from "react";
 const ReportColumns = [
     {
         Header: (props) => <ReportSelectionHeader tableProps={props} />,

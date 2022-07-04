@@ -1,3 +1,5 @@
+import React from "react";
+
 const ReportListLoading = () => {
     const styles = {
         borderRadius: '0.475rem',

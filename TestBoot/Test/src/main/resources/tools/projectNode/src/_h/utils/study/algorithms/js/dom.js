@@ -1,49 +1,49 @@
-const createElement = (str) => {
+export const createElement = (str) => {
   const el = document.createElement('div')
   el.innerHTML = str
   return el.firstElementChild
 }
 
-const removeElement = (el) => el.parentNode.removeChild(el)
+export const removeElement = (el) => el.parentNode.removeChild(el)
 
-const elementContains = (praent, child) => {
+export const elementContains = (parent, child) => {
   parent != child && parent.contains(child)
 }
 
-const arrayToHTMLList = (arr, listID) => {
+export const arrayToHTMLList = (arr, listID) => {
   document.querySelector(`#${listID}`).innerHTML += arr.map((item) => `<li>${item}</li>`).join('')
 }
 
-const hasClass = (el, className) => el.classList.contains(className)
+export const hasClass = (el, className) => el.classList.contains(className)
 
-const removeClass = (el, className) => el.classList.remove(className)
+export const removeClass = (el, className) => el.classList.remove(className)
 
-const toggleClass = (el, className) => el.classList.toggle(className)
+export const toggleClass = (el, className) => el.classList.toggle(className)
 
-const elementIsFocused = (el) => el === document.activeElement
+export const elementIsFocused = (el) => el === document.activeElement
 
-const getSiblings = (el) => {
+export const getSiblings = (el) => {
   ;[...el.parentNode.childNodes].filter((node) => node !== el)
 }
 
-const insertAfter = (el, htmlString) => {
+export const insertAfter = (el, htmlString) => {
   el.insertAdjacentHTML('afterend', htmlString)
 }
 
-const insertBefore = (el, htmlString) => {
+export const insertBefore = (el, htmlString) => {
   el.insertAdjacentHTML('beforebegin', htmlString)
 }
 
 //style
-const getStyle = (el, rule) => getComputedStyle(el)[rule]
+export const getStyle = (el, rule) => getComputedStyle(el)[rule]
 
-const addStyles = (el, style) => Object.assign(el.style, style)
+export const addStyles = (el, style) => Object.assign(el.style, style)
 
-const setStyle = (el, rule, val) => (el.style[rule] = val)
+export const setStyle = (el, rule, val) => (el.style[rule] = val)
 
-const hide = (...el) => [...el].forEach((e) => (e.style.display = 'none'))
+export const hide = (...el) => [...el].forEach((e) => (e.style.display = 'none'))
 
-const injectCSS = (css) => {
+export const injectCSS = (css) => {
   let el = document.createElement('style')
   el.type = 'text/css'
   el.innerText = css
@@ -51,8 +51,8 @@ const injectCSS = (css) => {
   return el
 }
 
-const formToObject = (from) => {
-  Array.from(new FormDdata(form)).reduce(
+export const formToObject = (form) => {
+  Array.from(new FormData(form)).reduce(
     (acc, [key, value]) => ({
       ...acc,
       [key]: value,
@@ -63,24 +63,24 @@ const formToObject = (from) => {
 //formToObject(document.querySelector('#form'));
 // { email: 'test@email.com', name: 'Test Name' }
 
-const fullscreen = (mode = true, el = 'body') => {
+export const fullscreen = (mode = true, el = 'body') => {
   mode ? document.querySelector(el).requestFullscreen() : document.exitFullscreen()
 }
 
 //URL
-const getBaseURL = (url) => url.replace(/[?#].*$/, '')
+export const getBaseURL = (url) => url.replace(/[?#].*$/, '')
 getBaseURL('http://url.com/page?name=Adam&surname=Smith')
 // 'http://url.com/page'
 
-const currentUrl = () => window.location.href
+export const currentUrl = () => window.location.href
 
-const getProtocol = () => window.location.protocol // 'https:'
+export const getProtocol = () => window.location.protocol // 'https:'
 
-const isSameOrigin = (origin, other) => {
-  origin.protocol === other.protocol && origin.host === other.host
+export const isSameOrigin = (origin, other) => {
+  return origin.protocol === other.protocol && origin.host === other.host
 }
 
-const getURLParameters = (url) =>
+export const getURLParameters = (url) =>
   (url.match(/([^?=&]+)(=([^&]*))/g) || []).reduce(
     (a, v) => ((a[v.slice(0, v.indexOf('='))] = v.slice(v.indexOf('=') + 1)), a),
     {}
@@ -88,13 +88,13 @@ const getURLParameters = (url) =>
 getURLParameters('google.com') // {}
 getURLParameters('http://url.com/page?name=Adam&surname=Smith')
 
-const queryStringToObject = (url) =>
+export const queryStringToObject = (url) =>
   [...new URLSearchParams(url.split('?')[1])].reduce((a, [k, v]) => ((a[k] = v), a), {})
 
 queryStringToObject('https://google.com?page=1&count=10')
 
 //복사
-const copyToClipboard = (str) => {
+export const copyToClipboard = (str) => {
   const el = document.createElement('textarea')
   el.value = str
   el.setAttribute('readonly', '')
@@ -102,7 +102,7 @@ const copyToClipboard = (str) => {
   el.style.left = '-9999px'
   document.body.appendChild(el)
   const selected =
-    document.getSelection().rangeCount > 0 ? document.getSelection().getRangeAt(0) : false
+    getSelection().rangeCount > 0 ? document.getSelection().getRangeAt(0) : false
   el.select()
   document.execCommand('copy')
   document.body.removeChild(el)
@@ -112,38 +112,38 @@ const copyToClipboard = (str) => {
   }
 }
 
-const copyToClipboardAsync = (str) => {
+export const copyToClipboardAsync = (str) => {
   if (navigator && navigator.clipboard && navigator.clipboard.writeText)
     return navigator.clipboard.writeText(str)
   return Promise.reject('The Clipboard API is not avaliable.')
 }
 
 //스크롤
-const getScrollPosition = (el = window) => ({
+export const getScrollPosition = (el = window) => ({
   x: el.pageXOffset !== undefined ? el.pageXOffset : el.scrollLeft,
   y: el.pageYOffset !== undefined ? el.pageYOffset : el.scrollTop,
 })
 
-const getSelectedText = () => window.getSelection().toString()
+export const getSelectedText = () => window.getSelection().toString()
 
 //detect
-const detectDeviceType = () =>
+export const detectDeviceType = () =>
   /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
     ? 'Mobile'
     : 'Desktop'
 
-const detectLanguage = (defaultLang = 'en-US') =>
+export const detectLanguage = (defaultLang = 'en-US') =>
   navigator.language ||
   (Array.isArray(navigator.languages) && navigator.languages[0]) ||
   defaultLang
 
 //event
-const bindAll = (obj, ...fns) => {
+export const bindAll = (obj, ...fns) => {
   fns.forEach(
     (fn) => (
-      (f = obj[fn]),
+      (fn = obj[fn]),
       (obj[fn] = function () {
-        return f.apply(obj)
+        return fn.apply(obj)
       })
     )
   )
@@ -159,17 +159,17 @@ let view = {
 bindAll(view, 'click')
 document.body.addEventListener('click', view.click)
 
-const off = (el, evt, fn, opts = false) => {
+export const off = (el, evt, fn, opts = false) => {
   el.removeEventListener(evt, fn, opts)
 }
 
-const onClickOutSide = (element, callback) => {
+export const onClickOutSide = (element, callback) => {
   document.addEventListener('click', (e) => {
     if (!element.contains(e.target)) callback()
   })
 }
 
-const once = (fn) => {
+export const once = (fn) => {
   let called = false
   return function (...args) {
     if (called) return
@@ -178,7 +178,7 @@ const once = (fn) => {
   }
 }
 
-const onScrollStop = (callback) => {
+export const onScrollStop = (callback) => {
   let isScrolling
   window.addEventListener(
     'scroll',
@@ -193,7 +193,7 @@ const onScrollStop = (callback) => {
 }
 
 //etc
-const escapeHTML = (str) =>
+export const escapeHTML = (str) =>
   str.replace(
     /[&<>'"]/g,
     (tag) =>
@@ -209,7 +209,7 @@ const escapeHTML = (str) =>
 escapeHTML('<a href="#">Me & you</a>')
 // '&lt;a href=&quot;#&quot;&gt;Me &amp; you&lt;/a&gt;'
 
-const unescapeHTML = (str) =>
+export const unescapeHTML = (str) =>
   str.replace(
     /&amp;|&lt;|&gt;|&#39;|&quot;/g,
     (tag) =>
@@ -224,18 +224,3 @@ const unescapeHTML = (str) =>
 
 unescapeHTML('&lt;a href=&quot;#&quot;&gt;Me &amp; you&lt;/a&gt;')
 
-export {
-  createElement,
-  removeElement,
-  elementContains,
-  arrayToHTMLList,
-  unescapeHTML,
-  hasClass,
-  removeClass,
-  toggleClass,
-  insertAfter,
-  insertBefore,
-  setStyle,
-  getStyle,
-  addStyles,
-}

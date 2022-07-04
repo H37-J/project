@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { createRoot } from 'react-dom/client';
-import './_h/assets/sass/style.dark.scss';
+import './_h/assets/sass/style.scss';
 
 import {QueryClientProvider, QueryClient}  from 'react-query';
 import { AppRoutes } from './app/routes/AppRoutes';

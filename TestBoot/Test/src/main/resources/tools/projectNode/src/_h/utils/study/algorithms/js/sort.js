@@ -24,7 +24,7 @@ const bucketSort = (arr, size = 5) => {
     return bucket.reduce((acc, b) => [...acc, ...b.sort((a, b) => a - b)], [])
 };
 
-const heapsort = arr => {
+export const heapsort = arr => {
     const a = [...arr];
     let l = a.length;
 
@@ -41,11 +41,7 @@ const heapsort = arr => {
     }
 
     for(let i = Math.floor(l / 2); i >= 0; i--) heapify(a, i);
-    for(i = a.length - 1; i > 0; i--) {
-        [a[0], a[i]] = [a[i], a[0]];
-        l--;
-        heapify(a, 0);
-    }
+
     return a;
 };
 

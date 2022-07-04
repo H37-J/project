@@ -1,7 +1,7 @@
 import axios from "axios"
 
-const REPORT_URL = 'https://cybercampus.kua.ac.kr/wp-content/plugins/project-report/api/api.php'
-const SELECT_LIST_URL = 'https://cybercampus.kua.ac.kr/wp-content/plugins/project-report/api/api_select_course.php'
+const REPORT_URL = 'https://online.seoulwomen.or.kr/wp-content/plugins/project-report/api/api.php'
+const SELECT_LIST_URL = 'https://online.seoulwomen.or.kr/wp-content/plugins/project-report/api/api_select_course.php'
 
 const getReports = (query) => {
     return axios

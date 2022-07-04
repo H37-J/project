@@ -1,6 +1,6 @@
 
 import {ReportListView} from '../../core/ReportListProvider'
-
+import React from "react";
 
 const ReportSelectionHeader = ({tableProps}) => {
   const {isAllSelected, onSelectAll} = ReportListView()

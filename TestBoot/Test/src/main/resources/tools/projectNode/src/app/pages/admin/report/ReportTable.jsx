@@ -1,4 +1,4 @@
-import  { useMemo } from "react"
+import  React, { useMemo } from "react"
 import { useTable } from "react-table"
 import { ReportuseQueryResponseColData, ReportuseQueryResponseData, ReportuseQueryResponseLoading } from "./core/ReportQueryResponseProvider"
 

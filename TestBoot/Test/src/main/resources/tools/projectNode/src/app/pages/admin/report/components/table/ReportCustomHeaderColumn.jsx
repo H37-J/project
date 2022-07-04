@@ -1,3 +1,5 @@
+import React from "react";
+
 const ReportCustomHeaderColumn = ({column}) => (
   <>
     {column.Header && typeof column.Header === 'string' ? (

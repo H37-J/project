@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react"
+import React, { useEffect, useMemo, useState } from "react"
 import { DownLoadButton } from "../../../../../../project/components/downloads/Downloads"
 import { ReportuseQueryRequest } from "../../core/ReportQueryRequestProviderReport"
 import { ReportSelectuseQueryResponseData } from "../../core/ReportQueryResponseProvider"

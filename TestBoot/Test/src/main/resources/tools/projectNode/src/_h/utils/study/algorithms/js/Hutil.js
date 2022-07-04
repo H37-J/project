@@ -11,14 +11,13 @@ const HUtil = () => {
         const _runResizeHandlers = () => {
             for (let i = 0; i < resizeHandlers.length; i++) {
                 const each = resizeHandlers[i]
-                each.call
             }
         }
 
         let timer
 
         window.addEventListener('resize', function () {
-            KTUtil.throttle(timer, function () {
+            HUtil.throttle(timer, function () {
                 _runResizeHandlers();
             }, 200);
         });
@@ -82,7 +81,7 @@ const HUtil = () => {
         },
 
         getCSSVariableValue: (variableName) => {
-            const value = getComputedStyle(document.documentElement).getPropertyValue(variableName)
+            let value = getComputedStyle(document.documentElement).getPropertyValue(variableName)
             if (value && value.length > 0) {
                 value = value.trim()
             }
@@ -90,7 +89,7 @@ const HUtil = () => {
         },
 
         getBreakpoint: (breakpoint) => {
-            const value = this.getCSSVariableValue('--bs-' + breakpoint)
+            let value = this.getCSSVariableValue('--bs-' + breakpoint)
             if (value) {
                 value = parseInt(value.trime())
             }
@@ -98,7 +97,7 @@ const HUtil = () => {
         },
 
         isMobileDevice: () => {
-            const test = (this.getViewPort().width < this.getBreakpoint('lg') ? true : false)
+            let test = (this.getViewPort().width < this.getBreakpoint('lg') ? true : false)
 
             if (test === false) {
                 test = navigator.userAgent.match(/ipad/i) != null
@@ -264,14 +263,14 @@ const HUtil = () => {
             const ClassNames = className.split(' ')
 
             if (el.classList) {
-                for (let i = 0; i < classNames.length; i++) {
-                    if (classNames[i] && classNames[i].length > 0) {
-                        el.classList.add(classNames[i].trim())
+                for (let i = 0; i < ClassNames.length; i++) {
+                    if (ClassNames[i] && ClassNames[i].length > 0) {
+                        el.classList.add(ClassNames[i].trim())
                     }
                 }
             } else if (!HUtil.hasClass(el, className)) {
-                for (let i = 0; i < classNames.length; i++) {
-                    el.className += ' ' + classNames[i].trim
+                for (let i = 0; i < ClassNames.length; i++) {
+                    el.className += ' ' + ClassNames[i].trim
                 }
             }
         },
@@ -315,7 +314,7 @@ const HUtil = () => {
             if (parent !== null) {
                 return parent.querySelector(query)
             } else {
-                return ull
+                return null
             }
         },
 
@@ -506,7 +505,7 @@ const HUtil = () => {
             }
         },
 
-        addEvent: el => {
+        addEvent: (el, type, handler) => {
             if (typeof el !== 'undefined' && el !== null) {
                 el.addEventListener(type, handler)
             }
@@ -526,7 +525,7 @@ const HUtil = () => {
 
             window.HUtilDelegatedEventHandlers[eventId] = (e) => {
                 const targets = element.querySelectorAll(selector)
-                const target = e.target
+                let target = e.target
 
                 while (target && target !== element) {
                     for (let i = 0, j = targets.length; i < j; i++) {
@@ -563,7 +562,7 @@ const HUtil = () => {
         },
 
         isArray: (obj) => {
-            return obj && Array.isArray(ob)
+            return obj && Array.isArray(obj)
         },
 
         isEmpty: (obj) => {
