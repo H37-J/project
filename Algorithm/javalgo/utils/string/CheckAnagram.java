@@ -10,10 +10,10 @@ public class CheckAnagram {
     }
 
     public static boolean isAnagrams(String s1,String s2){
-        int l1=s1.length();
-        int l2=s2.length();
-        s1=s1.toLowerCase();
-        s2=s2.toLowerCase();
+        int l1 = s1.length();
+        int l2 = s2.length();
+        s1 = s1.toLowerCase();
+        s2 = s2.toLowerCase();
         Map<Character,Integer> charApparances = new HashMap<>();
 
         for(int i = 0; i < l1; i++){

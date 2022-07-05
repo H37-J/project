@@ -19,8 +19,8 @@ public class DynamicArray<E> implements Iterable<E> {
 
     public DynamicArray(final int capacity){
         this.size=0;
-        this.capacity=capacity;
-        this.elements=new Object[this.capacity];
+        this.capacity = capacity;
+        this.elements = new Object[this.capacity];
     }
 
     public DynamicArray(){

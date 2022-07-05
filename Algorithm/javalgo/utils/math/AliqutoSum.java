@@ -8,7 +8,7 @@ public class AliqutoSum {
 
     public static int aliqutoSum(int number){
         int sum=0;
-        for(int i=1, limit= number/2; i<=limit; i++){
+        for(int i=1, limit = number / 2; i <= limit; i++){
             if(number % i==0){
                 sum+=i;
             }

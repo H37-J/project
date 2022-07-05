@@ -160,7 +160,6 @@ public class StreamUtils {
         List<String> elements = Arrays.asList("a", "a1", "b", "b1", "c", "c1");
         boolean result = elements.stream().anyMatch(e -> e.startsWith("a"));
         System.out.println(result);
-        ;
     }
 
     // compare

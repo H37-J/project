@@ -25,8 +25,8 @@ public class Anagram {
         if(s.length() != t.length()) return false;
         HashMap<Character,Integer> nm = new HashMap<>();
         HashMap<Character,Integer> kk = new HashMap<>();
-        for(char c : s.toCharArray()) nm.put(c, nm.getOrDefault(c,0) +1);
-        for(char c : t.toCharArray()) kk.put(c, kk.getOrDefault(c,0)+1);
+        for(char c : s.toCharArray()) nm.put(c, nm.getOrDefault(c,0) + 1);
+        for(char c : t.toCharArray()) kk.put(c, kk.getOrDefault(c,0) + 1);
         for(char c : nm.keySet()){
             if(!nm.get(c).equals(kk.get(c))) return false;
         }

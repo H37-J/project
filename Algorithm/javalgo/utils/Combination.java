@@ -3,24 +3,26 @@ import java.util.Arrays;
 public class Combination {
     
     public static void main(String... args){
-            int[] arr={1,3,7};
+            int[] arr={1, 3, 7};
             combination(arr, 0, 0);
     }
 
-    public static void combination(int[] arr,int count,int index){
+    public static void combination(int[] arr, int count, int index){
 
-        if(count==2){
-            for(int i=0; i<count; i++){
-                System.out.print(arr[i]+",");
+        if(count == 2){
+            for(int i = 0; i < count; i++){
+                System.out.print("solution:" + arr[i] + ",");
             }
             System.out.println("");
         }
 
 
-        for(int i=index; i<arr.length; i++){
-            swap(arr,index,i);
-            combination(arr,count+1,index+1);
-            swap(arr,index,i);
+        for(int i = index; i < arr.length; i++){
+            System.out.print(index + "," + i );
+            swap(arr, index,i );
+            System.out.println("");
+            combination(arr, count + 1, index + 1);
+            swap(arr, index, i);
             
         }
     }

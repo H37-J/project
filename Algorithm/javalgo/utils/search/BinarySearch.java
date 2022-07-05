@@ -6,7 +6,7 @@ import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.IntStream;
 
-public class BinarySearch implements SearchAlgorithm{
+public class BinarySearch implements SearchAlgorithm {
     
     @Override
     public <T extends Comparable<T>> int find(T[] array, T key){

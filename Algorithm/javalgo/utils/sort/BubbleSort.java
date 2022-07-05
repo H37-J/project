@@ -7,12 +7,12 @@ public class BubbleSort implements SortAlgorithm{
 
     @Override
     public <T extends Comparable<T>> T[] sort(T[] array){
-        for(int i=0, size=array.length; i<size-1; i++){
-            boolean swapped=false;
-            for(int j=0; j<size-1; j++){
+        for(int i = 0, size = array.length; i < size-1; i++){
+            boolean swapped = false;
+            for(int j=0; j < size - i; j++){
                 if(greater(array[j], array[j+1])){
-                    swap(array,j,j+1);
-                    swapped=true;
+                    swap(array , j,j+1);
+                    swapped = true;
                 }
             }
 
@@ -26,11 +26,11 @@ public class BubbleSort implements SortAlgorithm{
 
     //재귀방식
     public static <T extends Comparable<T>> void bubbleSort(T[] unsorted,int len){
-        boolean swapped=false;
-        for(int i=0; i<len-1; i++){
+        boolean swapped = false;
+        for(int i = 0; i < len-1; i++){
             if(SortUtils.greater(unsorted[i],unsorted[i+1])){
                 SortUtils.swap(unsorted,i,i+1);
-                swapped=true;
+                swapped = true;
             }
             if(swapped){
                 bubbleSort(unsorted, len-1);
