@@ -2,7 +2,7 @@ package datastructures.queue;
 
 public class Queue {
     
-    private static final int DEFAULT_CAPACITY=10;
+    private static final int DEFAULT_CAPACITY = 10;
 
     private int maxSize;
     private int[] queueArray;
@@ -10,19 +10,19 @@ public class Queue {
     private int rear;
     private int nItems;
 
-    public Queue(){
+    public Queue() {
         this(DEFAULT_CAPACITY);
     }
 
-    public Queue(int size){
-        maxSize=size;
-        queueArray=new int[size];
-        front=0;
-        rear=-1;
-        nItems=0;
+    public Queue(int size) {
+        maxSize = size;
+        queueArray = new int[size];
+        front = 0;
+        rear = -1;
+        nItems = 0;
     }
 
-    public boolean insert(int x){
+    public boolean insert(int x) {
         if(isFull()) return false;
         
         rear = (rear + 1) % maxSize;
@@ -31,29 +31,30 @@ public class Queue {
         return true;
     }
 
-    public int remove(){
-        if(isEmpty()){
+    public int remove() {
+        if(isEmpty()) {
             return -1;
         }
-        int temp=queueArray[front];
-        front=(front+1 ) % maxSize;
+
+        int temp = queueArray[front];
+        front = (front + 1) % maxSize;
         nItems--;
         return temp;
     }
 
-    public int peekRear(){
+    public int peekRear() {
         return queueArray[rear];
     }
 
-    public boolean isEmpty(){
-        return nItems==0;
+    public boolean isEmpty() {
+        return nItems == 0;
     }
 
-    public boolean isFull(){
+    public boolean isFull() {
         return nItems==maxSize;
     }
 
-    public int getSize(){
+    public int getSize() {
         return nItems;
     }
 

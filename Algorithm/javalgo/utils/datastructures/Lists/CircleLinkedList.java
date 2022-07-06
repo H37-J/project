@@ -1,12 +1,12 @@
 package datastructures.Lists;
 
 public class CircleLinkedList<E> {
-    
+
     private static class Node<E> {
         Node<E> next;
         E value;
 
-        private Node(E value, Node<E> next){
+        private Node(E value, Node<E> next) {
             this.value = value;
             this.next = next;
         }
@@ -16,36 +16,36 @@ public class CircleLinkedList<E> {
     private Node<E> head = null;
     private Node<E> tail = null;
 
-    public CircleLinkedList(){
+    public CircleLinkedList() {
         head = new Node<E>(null, head);
         tail = head;
-        size =0;
+        size = 0;
     }
 
-    public int getSize(){
+    public int getSize() {
         return this.size;
     }
 
-    public void append(E value){
-        if(value == null){
+    public void append(E value) {
+        if (value == null) {
             throw new NullPointerException("Cannot add null element to the list");
         }
-        if(tail == null){
+        if (tail == null) {
             tail = new Node<E>(value, head);
             head.next = tail;
-        }else{
+        } else {
             tail.next = new Node<E>(value, head);
             tail = tail.next;
         }
         size++;
     }
 
-    public String toString(){
+    public String toString() {
         Node p = head.next;
-        String s ="[";
-        while(p != head){
+        String s = "[";
+        while (p != head) {
             s += p.value;
-            s +=" , ";
+            s += " , ";
             p = p.next;
         }
         return s + "]";
@@ -56,7 +56,8 @@ public class CircleLinkedList<E> {
             // catching errors
             throw new IndexOutOfBoundsException("position cannot be greater than size or negative");
         }
-        // we need to keep track of the element before the element we want to remove we can see why
+        // we need to keep track of the element before the element we want to remove we
+        // can see why
         // bellow.
         Node<E> before = head;
         for (int i = 1; i <= pos; i++) {
@@ -64,7 +65,8 @@ public class CircleLinkedList<E> {
         }
         Node<E> destroy = before.next;
         E saved = destroy.value;
-        // assigning the next reference to the the element following the element we want to remove...
+        // assigning the next reference to the the element following the element we want
+        // to remove...
         // the last element will be assigned to the head.
         before.next = before.next.next;
         // scrubbing
@@ -75,7 +77,5 @@ public class CircleLinkedList<E> {
         size--;
         return saved;
     }
-
-
 
 }

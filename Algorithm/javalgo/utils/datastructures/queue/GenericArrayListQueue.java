@@ -22,7 +22,7 @@ public class GenericArrayListQueue<T> {
         return _queue.add(element);
     }
 
-    public T pull(){
+    public T pull() {
         T result = null;
         if(this.hasElement()){
             result = _queue.remove(0);

@@ -12,6 +12,7 @@ export default class LinkedList {
         const newNode = new LinkedListNode(value, this.head)
         this.head = newNode
 
+
         if (!this.tail) {
             this.tail = newNode
         }
@@ -192,7 +193,8 @@ export default class LinkedList {
 }
 
 const list = new LinkedList()
-list.prepend(3)
-list.prepend(4)
-list.prepend(5)
-console.log(list)
+list.prepend(0)
+list.prepend(2)
+list.insert(1, 0)
+
+console.log(list.head)

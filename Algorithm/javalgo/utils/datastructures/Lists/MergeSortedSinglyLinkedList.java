@@ -2,7 +2,7 @@ package datastructures.Lists;
 
 public class MergeSortedSinglyLinkedList extends SinglyLinkedList {
 
-    public static SinglyLinkedList merge(SinglyLinkedList listA,SinglyLinkedList listB){
+    public static SinglyLinkedList merge(SinglyLinkedList listA, SinglyLinkedList listB) {
         Node headA = listA.getHead();
         Node headB = listB.getHead();
 
@@ -10,36 +10,36 @@ public class MergeSortedSinglyLinkedList extends SinglyLinkedList {
 
         Node head = new Node();
         Node tail = head;
-        while(headA != null && headB != null){
-            if(headA.value <= headB.value){
+        while (headA != null && headB != null) {
+            if (headA.value <= headB.value) {
                 tail.next = headA;
                 headA = headA.next;
-            }else{
+            } else {
                 tail.next = headB;
                 headB = headB.next;
             }
             tail = tail.next;
         }
-        if(headA == null){
+        if (headA == null) {
             tail.next = headB;
         }
-        if(headB == null){
+        if (headB == null) {
             tail.next = headA;
         }
-        return new SinglyLinkedList(head.next,size);
+        return new SinglyLinkedList(head.next, size);
     }
 
     public static void main(String[] args) {
-    SinglyLinkedList listA = new SinglyLinkedList();
-    SinglyLinkedList listB = new SinglyLinkedList();
+        SinglyLinkedList listA = new SinglyLinkedList();
+        SinglyLinkedList listB = new SinglyLinkedList();
 
-    for (int i = 2; i <= 10; i += 2) {
-      listA.insert(i);
-      listB.insert(i - 1);
+        for (int i = 2; i <= 10; i += 2) {
+            listA.insert(i);
+            listB.insert(i - 1);
+        }
+        assert listA.toString().equals("2->4->6->8->10");
+        assert listB.toString().equals("1->3->5->7->9");
+        assert merge(listA, listB).toString().equals("1->2->3->4->5->6->7->8->9->10");
     }
-    assert listA.toString().equals("2->4->6->8->10");
-    assert listB.toString().equals("1->3->5->7->9");
-    assert merge(listA, listB).toString().equals("1->2->3->4->5->6->7->8->9->10");
-  }
 
 }

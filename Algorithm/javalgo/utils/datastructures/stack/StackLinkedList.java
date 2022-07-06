@@ -16,12 +16,12 @@ class Node{
     }
 }
 
-class LinkedListStack{
+class LinkedListStack {
 
     Node head;
     private int size;
 
-    public LinkedListStack(){
+    public LinkedListStack() {
         head = null;
         size = 0;
     }
@@ -34,8 +34,8 @@ class LinkedListStack{
         return true;
     }
 
-    public int pop(){
-        if(size == 0){
+    public int pop() {
+        if(size == 0 ){
             throw new NoSuchElementException("Empty stack. Nothing to pop");
         }
 
@@ -47,7 +47,7 @@ class LinkedListStack{
         return retValue;
     }
 
-    public int peek(){
+    public int peek() {
         if(size==0){
             throw new NoSuchElementException("Empty stack. Nothing to pop");
         }
@@ -55,18 +55,18 @@ class LinkedListStack{
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         Node cur = head;
         StringBuilder builder = new StringBuilder();
         while(cur != null){
             builder.append(cur.data).append("->");
             cur = cur.next;
         }
-        return builder.replace(builder.length()-2,builder.length(),"").toString();
+        return builder.replace(builder.length() -2 , builder.length(), "").toString();
     }
 
     public boolean isEmpty(){
-        return size==0;
+        return size == 0;
     }
 
     public int getSize(){

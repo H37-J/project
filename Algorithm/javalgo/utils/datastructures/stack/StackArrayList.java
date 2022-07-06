@@ -4,37 +4,38 @@ import java.util.ArrayList;
 import java.util.EmptyStackException;
 
 public class StackArrayList {
-    
+
     private ArrayList<Integer> stack;
 
-    public StackArrayList(){
-        stack=new ArrayList<>();
+    public StackArrayList() {
+        stack = new ArrayList<Integer>();
     }
 
-    public void push(int value){
+    public void push(int value) {
         stack.add(value);
     }
 
-    public int pop(){
-        if(isEmpty()){
+    public int pop() {
+        if (isEmpty()) {
             throw new EmptyStackException();
         }
 
-        return stack.remove(stack.size()-1);
+        return stack.remove(stack.size() - 1);
     }
 
-    public boolean isEmpty(){
-        return stack.isEmpty();
+    public boolean isEmpty() {
+        return this.stack.isEmpty();
     }
 
-    public int peek(){
-        if(isEmpty()){
+    public int peek() {
+        if (isEmpty()) {
             throw new EmptyStackException();
         }
-        return stack.get(stack.size()-1);
+
+        return stack.get(stack.size() - 1);
     }
 
-    public int size(){
-        return stack.size();
+    public int size() {
+        return this.stack.size();
     }
 }

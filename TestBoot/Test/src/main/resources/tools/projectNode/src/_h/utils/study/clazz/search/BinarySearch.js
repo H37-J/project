@@ -1,6 +1,4 @@
 export default class BinarySearch {
-
-
     search(arr, key, left, right) {
         if(right < left) return -1
 
@@ -25,3 +23,6 @@ export default class BinarySearch {
 // const right = arr.length - 1
 // const result = s.search(arr, key, left, right)
 // console.log(result)
+
+
+

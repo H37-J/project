@@ -3,44 +3,44 @@ package datastructures.Lists;
 import java.util.StringJoiner;
 
 public class SinglyLinkedList {
-    
+
     private Node head;
 
     private int size;
 
-    public SinglyLinkedList(){
+    public SinglyLinkedList() {
         head = null;
         size = 0;
     }
 
-    public SinglyLinkedList(Node head, int size){
+    public SinglyLinkedList(Node head, int size) {
         this.head = head;
         this.size = size;
     }
 
-    public void insertHead(int x){
+    public void insertHead(int x) {
         insertNth(x, 0);
     }
 
-    public void insert(int data){
+    public void insert(int data) {
         insertNth(data, size);
     }
 
-    public void insertNth(int data, int position){
-        checkBound(position, 0 , size);
+    public void insertNth(int data, int position) {
+        checkBound(position, 0, size);
         Node newNode = new Node(data);
-        if(head == null){
+        if (head == null) {
             head = newNode;
             size++;
             return;
-        } else if (position == 0){
+        } else if (position == 0) {
             newNode.next = head;
             head = newNode;
             size++;
             return;
         }
         Node cur = head;
-        for(int i = 0; i < position - 1; i++){
+        for (int i = 0; i < position - 1; i++) {
             cur = cur.next;
         }
         newNode.next = cur.next;
@@ -55,18 +55,17 @@ public class SinglyLinkedList {
         deleteNth(size - 1);
     }
 
-
-    public void deleteNth(int position){
-        checkBound(position, 0 , size - 1);
-        if(position == 0){
+    public void deleteNth(int position) {
+        checkBound(position, 0, size - 1);
+        if (position == 0) {
             Node destory = head;
             head = head.next;
             destory = null;
             size--;
-            return ;
+            return;
         }
         Node cur = head;
-        for(int i = 0; i < position - 1; i++){
+        for (int i = 0; i < position - 1; i++) {
             cur = cur.next;
         }
         Node destory = cur.next;
@@ -75,23 +74,23 @@ public class SinglyLinkedList {
         size--;
     }
 
-    public void swapNodes(int a, int b){
+    public void swapNodes(int a, int b) {
         Node currentNode = head;
         Node temp = null;
-        while(currentNode != null){
-            if(currentNode.next.value == a){
+        while (currentNode != null) {
+            if (currentNode.next.value == a) {
                 temp = currentNode.next;
             }
-            if(currentNode.next.value == b){
+            if (currentNode.next.value == b) {
                 currentNode.next = temp;
             }
             currentNode = currentNode.next;
         }
     }
 
-    Node reverseList(Node node){
+    Node reverseList(Node node) {
         Node prev = null, cur = node, next;
-        while(cur != null){
+        while (cur != null) {
             next = cur.next;
             cur.next = prev;
             prev = cur;
@@ -101,24 +100,24 @@ public class SinglyLinkedList {
         return node;
     }
 
-    public void checkBound(int position, int low, int high){
-        if(position > high || position < low){
+    public void checkBound(int position, int low, int high) {
+        if (position > high || position < low) {
             throw new IndexOutOfBoundsException(position + "");
         }
     }
 
     public void clear() {
         Node cur = head;
-        while(cur != null){
+        while (cur != null) {
             Node prev = cur;
             cur = cur.next;
-            prev = null; 
+            prev = null;
         }
         head = null;
         size = 0;
     }
 
-    public boolean isEmpty(){
+    public boolean isEmpty() {
         return size == 0;
     }
 
@@ -133,26 +132,27 @@ public class SinglyLinkedList {
     public int count() {
         int count = 0;
         Node cur = head;
-        while (cur != null){
+        while (cur != null) {
             cur = cur.next;
             count++;
         }
         return count;
     }
 
-    public boolean search(int key){
+    public boolean search(int key) {
         Node cur = head;
-        while(cur != null){
-            if(cur.value == key) return true;
+        while (cur != null) {
+            if (cur.value == key)
+                return true;
             cur = cur.next;
         }
         return false;
     }
 
-    public int getNth(int index){
+    public int getNth(int index) {
         checkBound(index, 0, size - 1);
         Node cur = head;
-        for(int i = 0; i < index; i++){
+        for (int i = 0; i < index; i++) {
             cur = cur.next;
         }
         return cur.value;
@@ -162,7 +162,7 @@ public class SinglyLinkedList {
     public String toString() {
         StringJoiner joiner = new StringJoiner("->");
         Node cur = head;
-        while(cur != null){
+        while (cur != null) {
             joiner.add(cur.value + "");
             cur = cur.next;
         }
@@ -171,18 +171,19 @@ public class SinglyLinkedList {
 
 }
 
-
 class Node {
     int value;
     Node next;
 
-    Node(){}
+    Node() {
 
-    Node(int value){
-        this(value,null);
     }
 
-    Node(int value, Node next){
+    Node(int value) {
+        this(value, null);
+    }
+
+    Node(int value, Node next) {
         this.value = value;
         this.next = next;
     }

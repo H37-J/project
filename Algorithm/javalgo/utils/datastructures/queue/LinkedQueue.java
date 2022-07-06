@@ -105,8 +105,7 @@ public class LinkedQueue {
 
         queue.enqueue(1); /* 1 */
         queue.enqueue(2); /* 1 2 */
-        queue.enqueue(3); /* 1 2 3 */
-        System.out.println(queue); /* [1, 2, 3] */
+        System.out.println(queue.front.next.data); /* [1, 2, 3] */
 
         assert queue.size() == 3;
         assert queue.dequeue() == 1;
