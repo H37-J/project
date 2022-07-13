@@ -19,6 +19,7 @@ const ReportListViewProvider = ({ children }) => {
     return (
         <ReportListViewContext.Provider
             value={{
+                data,
                 selected,
                 cid,
                 itemIdForUpdate,

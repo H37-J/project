@@ -5,7 +5,6 @@ const ReportcreateResponseContext = (ReportinitialState) => {
     return createContext(ReportinitialState)
 }
 
-
 const ReportisNotEmpty = (obj) => {
     return obj !== undefined && obj !== null && obj !== ''
 }

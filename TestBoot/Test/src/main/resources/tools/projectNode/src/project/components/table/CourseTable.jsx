@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, {useEffect, useState} from 'react'
-import SpinnerProject from '../spinner/SpinnerProject'
+
 import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
@@ -8,7 +8,7 @@ import Select from '@mui/material/Select'
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 import ExportCSV from '../csv/ExportCsv'
-import './table.scss'
+
 
 const CourseTable = () => {
   const [posts, setPosts] = useState([])
@@ -90,23 +90,7 @@ const CourseTable = () => {
     return data
   }
 
-  const update = (post) => {
-    let message = ''
-    if (post.data === '출석') {
-      message = '이 학생을 지각으로 바꾸겠습니까?'
-    } else if (post.data === '미수강') {
-      message = '이 학생을 출석으로 바꾸겠습니까?'
-    } else {
-      message = '이 학생을 출석으로 바꾸겠습니까?'
-    }
-    if (confirm(message)) {
-      const UPDATE_API = `https://cybercampus.kua.ac.kr/wp-content/plugins/project-course/api/api_update.php?user_id=${post.id}&key=${post.key}&data=${post.data}`
-      const result = axios.get(UPDATE_API)
-      setRe(!re)
-    } else {
-      return
-    }
-  }
+
 
   const over = (event) => {
     event.target.style.border = '5px solid #477cd'
@@ -151,7 +135,7 @@ const CourseTable = () => {
                       <td
                         onMouseLeave={(e) => leave(e)}
                         onMouseOver={(e) => over(e)}
-                        onClick={() => update(obj)}
+                       
                       >
                         {obj.data}
                       </td>
@@ -221,7 +205,7 @@ const CourseTable = () => {
           </div>
         </div>
       )}
-      {loading && <div>{<SpinnerProject />}</div>}
+
     </>
   )
 }

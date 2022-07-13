@@ -7,20 +7,21 @@ export default class GraphEdge {
     }
 
     getKey() {
-        const startVertexKey = this.startVertex.getKey()
+        const starVertexKey = this.startVertex.getKey()
         const endVertexKey = this.endVertex.getKey()
-
-        return `${startVertexKey}_${endVertexKey}`
+        
+        return `${starVertexKey}_${endVertexKey}`
     }
 
     reverse() {
         const temp = this.startVertex
         this.startVertex = this.endVertex
         this.endVertex = temp
+
         return this
     }
 
-    toString() {
+    toStrign() {
         return this.getKey()
     }
 }

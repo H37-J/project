@@ -4,15 +4,16 @@ import { createRoot } from 'react-dom/client';
 import './_h/assets/sass/style.scss';
 
 import {QueryClientProvider, QueryClient}  from 'react-query';
-import { AppRoutes } from './app/routes/AppRoutes';
+import AppReportTable from './app/pages/admin/report/AppReportTable';
 
-const container = document.getElementById('root') as HTMLElement
+
+const container = document.getElementById('root') 
 const root = createRoot(container); 
 const queryClient = new QueryClient()
 
 root.render(
     <QueryClientProvider client={queryClient}>
-       <AppRoutes />
+       <AppReportTable />
     </QueryClientProvider>,
 );
 

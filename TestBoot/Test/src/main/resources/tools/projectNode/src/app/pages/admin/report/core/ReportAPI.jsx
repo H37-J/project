@@ -9,9 +9,9 @@ const getReports = (query) => {
     .then((response) => response.data)
 }
 
-const getSelectList = (query) => {
+const getSelectList = () => {
     return axios
-    .get(`${SELECT_LIST_URL}?=${query}`)
+    .get(`${SELECT_LIST_URL}`)
     .then((response) => response.data)
 }
 

@@ -1,13 +1,14 @@
 import React, { useContext, useState, useEffect, useMemo, createContext } from 'react'
 import { useQuery } from 'react-query'
-import { ReportcreateResponseContext, ReportstringifyRequestQuery } from './helpers/Reporthelpers';
+import { ReportstringifyRequestQuery } from './helpers/Reporthelpers';
 import { ReportinitialQueryResponse, ReportinitialQueryState } from './helpers/Reportmodels';
 import { ReportSelectuseQueryRequest, ReportuseQueryRequest } from './ReportQueryRequestProviderReport';
 import { getReports, getSelectList } from './ReportAPI';
-import ReportSelectionHeader from '../components/table/ReportSelectionHeader';
-import ReportSelectionCell from '../components/table/ReportSelectionCell';
+
 import { ReportCustomHeader } from '../components/table/ReportCustomHeader';
 import ReportDataCell from '../components/table/ReportDataCell';
+import ReportSelectionHeader from '../components/table/ReportSelectionHeader';
+import ReportSelectionCell from '../components/table/ReportSelectionCell';
 
 
 const ReportQueryResponseContext = createContext(ReportinitialQueryResponse)
@@ -33,19 +34,22 @@ const ReportuseQueryResponseColData = () => {
     const keys = Object.keys(response.data[0])
     for (const key of keys) {
         let obj = {}
+       
         if (key === 'id') {
             obj = {
                 Header: (props) => <ReportSelectionHeader tableProps={props} />,
-                id: key,
-                Cell: ({ ...props }) => <ReportSelectionCell id={props.data[props.row.index][key]} />,
+                id: 'selection',
+                Cell: ({ ...props }) => <ReportSelectionCell id={props.data[props.row.index].id} />,
             }
-        } else {
+        }
+        else {
             obj = {
                 Header: (props) => <ReportCustomHeader tableProps={props} title={key} className='min-w-125px' />,
                 id: key,
                 Cell: ({ ...props }) => <ReportDataCell name={props.data[props.row.index][key]} />,
             }
         }
+
         ReportColumn.push(obj)
     }
 
@@ -129,7 +133,7 @@ const ReportSelectQueryResponseProvider = ({ children }) => {
     } = useQuery(
         `${query}`,
         () => {
-            return getSelectList(query)
+            return getSelectList()
         },
         { cacheTime: 0, keepPreviousData: true, refetchOnWindowFocus: false }
     )

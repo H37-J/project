@@ -1,31 +1,21 @@
 import React, { useEffect } from "react";
-import FileSaver from "file-saver";
 import XLSX from "xlsx";
+import FileSaver from 'file-saver';
 
 const ExportCSV = ({ csvData, fileName }) => {
   const fileType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
   const fileExtension = ".xlsx";
 
-  const obj = {}
-  const arr = Object.keys(csvData[0]);
 
-  for (let i = 0; i < arr.length; i++) {
-    obj[arr[i]] = arr[i];
-  }
-
-  const header = [obj]
+  const header = ['이름', '강의명', '레슨명', '퀴즈명', '질문', '제출내용', '포인트', '상태', '제출날짜']
 
   const exportToCSV = (csvData, fileName) => {
-    const ws = XLSX.utils.json_to_sheet(header, {
-      header: [],
-      skipHeader: true,
-      origin: 0
-    });
 
+
+    const ws = XLSX.utils.book_new();
+    XLSX.utils.sheet_add_aoa(ws, [header]);
     XLSX.utils.sheet_add_json(ws, csvData, {
-      header: arr,
-      skipHeader: true,
-      origin: -1
+      origin: 'A2', skipHeader: true
     });
     const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
     const excelBuffer = XLSX.write(wb, { bookType: "xlsx", type: "array" });

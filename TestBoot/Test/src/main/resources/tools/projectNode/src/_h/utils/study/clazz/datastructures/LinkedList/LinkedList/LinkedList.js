@@ -44,7 +44,7 @@ export default class LinkedList {
             let currentNode = this.head
             const newNode = new LinkedListNode(value)
             while (currentNode) {
-                if (count === index) break;
+                if (count + 1 === index) break;
                 currentNode = currentNode.next
                 count += 1
             }
@@ -60,6 +60,8 @@ export default class LinkedList {
                     this.tail = newNode
                 }
             }
+
+
         }
         return this
     }
@@ -195,6 +197,6 @@ export default class LinkedList {
 const list = new LinkedList()
 list.prepend(0)
 list.prepend(2)
-list.insert(1, 0)
+list.insert(1, 1)
 
 console.log(list.head)
