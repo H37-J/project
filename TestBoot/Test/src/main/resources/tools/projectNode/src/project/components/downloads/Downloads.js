@@ -83,70 +83,54 @@ const DownLoadButton = () => {
   )
 };
 
+
+
+
 const AllDownLoadButton = () => {
 
   const { selected, cid, onSelectAll, isAllSelected, data } = ReportListView()
 
-
-
   let donwloadAll = () => {
 
     let zip = new JSZip();
-    let count = 0
-    var arr = []
-    data.map((select => {
+    const link = `https://online.seoulwomen.or.kr/wp-content/plugins/project-report/api/api_file_get_all.php?cid=${cid}`
 
-      const link = `https://online.seoulwomen.or.kr/wp-content/plugins/project-report/api/api_file_get.php?user=${select.id}&cid=${cid}`
-      count += 1
+    const selected = document.querySelector('#selected')
+    const title = selected.options[selected.selectedIndex].textContent
+    console.log(cid)
+    axios.get(link).then((res) => {
+      const datas = res.data.data
+      const user = res.data.user
 
+      let count = 0
+      console.log(datas.length)
+      datas.map((data) => {
+        const name = getFielName(data.file)
+        let file_link = data.file
 
-      axios.get(link).then((res) => {
-
-        const datas = res.data.data
-        const user = res.data.user
-
-
-        datas.map((data) => {
-    
-      
-          let file_link = data.file
-
-          if (!file_link.includes('https')) {
-            file_link = file_link.replace('http', 'https')
-          }
-
-          arr.push(file_link)
-
-        })
-
-  
-      })
-
-      
-    }))
-
-    console.log('test' + arr)
-
-    arr.forEach((value, index) => {
-      console.log(value)
-      JSZipUtils.getBinaryContent(value, async function (err, data) {
-        if (err) {
-          throw err;
+        if (!file_link.includes('https')) {
+          file_link = file_link.replace('http', 'https')
         }
 
-        zip.file('test', data, { binary: true });
 
-      });
+        JSZipUtils.getBinaryContent(file_link, async function (err, data) {
+          if (err) {
+            throw err;
+          }
+          zip.file(name, data, { binary: true });
+          count += 1
+
+          if (count === datas.length) {
+            let zipFilename = `${title}.zip`
+            let zipFile = await zip.generateAsync({ type: "blob" });
+            console.log('succ')
+            saveAs(zipFile, zipFilename);
+          }
+        });
+      })
     })
 
-    console.log(zip)
 
-    if (count === data.length) {
-      let zipFilename = `test.zip`
-      let zipFile = zip.generateAsync({ type: "blob" });
-      console.log('succ')
-      saveAs(zipFile, zipFilename);
-    }
   }
   return (
     <button onClick={donwloadAll} type="button" className="btn btn-light-primary me-3" data-bs-toggle="modal" data-bs-target="#h_download">
