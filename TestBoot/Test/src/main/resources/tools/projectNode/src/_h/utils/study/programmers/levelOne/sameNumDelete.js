@@ -1,9 +1,22 @@
 const sameNumDelete = (arr) => {
     const res = []
-    arr.forEach((value, index) => {
-        const arr2 = arr.slice(index + 1)
-        arr2.forEach((value, index))
-    })
-}
+    let cur = arr[0]
+    let next = 1
+    res.push(cur)
+    while (next < arr.length) {
+        if (cur === arr[next]) {
+            next += 1
+        } else {
+            res.push(arr[next])
+            cur = arr[next]
+            next += 1
+        }
+    }
+    return res
+}   
 
-sameNumDelete([1, 1, 3, 3, 0, 1, 1])
+sameNumDelete([4, 4, 4, 3, 3])
+
+const solution = (arr) => {
+    return arr.filter((value, index) => value !== arr[index + 1])
+}

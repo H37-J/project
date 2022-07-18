@@ -137,5 +137,6 @@
   },
   "eslintIgnore": [
     "dist/*"
-  ]
+  ],
+  "type": "module"
 }

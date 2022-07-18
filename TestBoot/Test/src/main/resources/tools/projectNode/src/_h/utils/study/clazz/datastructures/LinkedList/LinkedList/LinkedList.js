@@ -150,7 +150,7 @@ export default class LinkedList {
 
         if(this.head.next) {
             this.head = this.head.next
-        } else{
+        } else {
             this.head = null
             this.tail = null
         }
@@ -173,7 +173,7 @@ export default class LinkedList {
         return nodes
     }
 
-    tosString(callback) {
+    toString(callback) {
         return this.toArray().map((node) => node.toString(callback)).toString()
     }
 
@@ -195,8 +195,10 @@ export default class LinkedList {
 }
 
 const list = new LinkedList()
-list.prepend(0)
-list.prepend(2)
-list.insert(1, 1)
+list.append(1)
+list.append(2)
+list.append(3)
+list.append(4)
+list.reverse()
 
-console.log(list.head)
+console.log(list.tail)

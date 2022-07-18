@@ -26,8 +26,8 @@ export default function combineWithoutRepetitions(comboOptions, comboLength) {
     return combos;
 }
 
-const arr = [1, 2, 3]
-const num = 2
+const arr = [1, 2, 3, 4]
+const num = 3
 
 console.log(combineWithoutRepetitions(arr, num))
 
