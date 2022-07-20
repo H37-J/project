@@ -52,7 +52,7 @@
     --bs-body-font-weight: 400;
     --bs-body-line-height: 1.5;
     --bs-body-color: #FFFFFF;
-    --bs-body-bg: #1E1E2D;
+    --bs-body-bg: #FFFFFF;
 }
 
 *,
@@ -54232,7 +54232,7 @@ canvas {
 }
 
 body {
-    background-color: #151521;
+    background-color: #FFFFFF;
 }
 
 .text-page-bg {

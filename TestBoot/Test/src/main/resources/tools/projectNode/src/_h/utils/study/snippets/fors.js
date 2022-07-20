@@ -1,4 +1,5 @@
 const forEachRight = (arr, callback) => {
+
     arr.slice().reverse().forEach(callback)
 }
 
